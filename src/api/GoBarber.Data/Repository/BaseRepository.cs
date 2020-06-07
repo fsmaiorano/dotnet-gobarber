@@ -19,7 +19,7 @@ namespace GoBarber.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Int32 id)
         {
             try
             {
@@ -42,11 +42,6 @@ namespace GoBarber.Data.Repository
         {
             try
             {
-                if (item.Id == Guid.Empty)
-                {
-                    item.Id = Guid.NewGuid();
-                }
-
                 item.CreatedAt = DateTime.UtcNow;
                 _dataset.Add(item);
 
@@ -60,12 +55,12 @@ namespace GoBarber.Data.Repository
             return item;
         }
 
-        public async Task<bool> ExistAsync(Guid id)
+        public async Task<bool> ExistAsync(Int32 id)
         {
             return await _dataset.AnyAsync(p => p.Id.Equals(id));
         }
 
-        public async Task<T> SelectAsync(Guid id)
+        public async Task<T> SelectAsync(Int32 id)
         {
             try
             {

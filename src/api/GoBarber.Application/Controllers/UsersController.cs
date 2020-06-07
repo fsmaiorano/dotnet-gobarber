@@ -41,7 +41,7 @@ namespace GoBarber.Application.Controllers
 
         [HttpGet]
         [Route("{id}", Name = "GetWithId")]
-        public async Task<ActionResult> Get(Guid id)
+        public async Task<ActionResult> Get(Int32 id)
         {
             if (!ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace GoBarber.Application.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(Int32 id)
         {
             if (!ModelState.IsValid)
             {

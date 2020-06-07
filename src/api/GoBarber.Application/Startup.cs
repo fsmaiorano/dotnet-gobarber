@@ -1,45 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GoBarber.CrossCutting.DependencyInjection;
+﻿using GoBarber.Application.Config;
 using GoBarber.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.Swagger;
 
 namespace GoBarber.Application
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;          
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureService.ConfigureDependenciesService(services);
-            ConfigureRepository.ConfigureDependenciesRepository(services);
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQL")));
 
-            if (Configuration.GetConnectionString("DbAtivo") == "SQL")
-            {
-                services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQL")));
-            }
-            else {
-                services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQL")));
-            }
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddSwaggerGen();
 
@@ -53,6 +38,13 @@ namespace GoBarber.Application
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var builder = new ConfigurationBuilder()
+             .SetBasePath(env.ContentRootPath)
+             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+             .AddEnvironmentVariables();
+            Configuration = builder.Build();
 
             // Ativando middlewares para uso do Swagger
             app.UseSwagger();

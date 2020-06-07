@@ -15,12 +15,12 @@ namespace GoBarber.Service.Services
         {
             _repository = repository;
         }
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Int32 id)
         {
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<UserEntity> Get(Guid id)
+        public async Task<UserEntity> Get(Int32 id)
         {
             return await _repository.SelectAsync(id);
         }

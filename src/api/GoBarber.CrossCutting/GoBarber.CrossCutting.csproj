@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GoBarber.Data\GoBarber.Data.csproj" />
+    <ProjectReference Include="..\GoBarber.Domain\GoBarber.Domain.csproj" />
+    <ProjectReference Include="..\GoBarber.Service\GoBarber.Service.csproj" />
+  </ItemGroup>
+
+</Project>

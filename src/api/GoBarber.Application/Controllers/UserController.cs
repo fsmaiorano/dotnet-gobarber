@@ -11,10 +11,10 @@ namespace GoBarber.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private IUserService _service;
-        public UsersController(IUserService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }

@@ -15,29 +15,30 @@ namespace GoBarber.Service.Services
         {
             _repository = repository;
         }
-        public async Task<bool> Delete(Int32 id)
+
+        public Task<bool> Delete(int id)
         {
-            return await _repository.DeleteAsync(id);
+            throw new NotImplementedException();
         }
 
-        public async Task<UserEntity> Get(Int32 id)
+        public Task<UserEntity> Get(int id)
         {
-            return await _repository.SelectAsync(id);
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<UserEntity>> GetAll()
+        public Task<IEnumerable<UserEntity>> GetAll()
         {
-            return await _repository.SelectAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<UserEntity> Post(UserEntity user)
+        public Task<UserEntity> Post(UserEntity user)
         {
-            return await _repository.InsertAsync(user);
+            throw new NotImplementedException();
         }
 
-        public async Task<UserEntity> Put(UserEntity user)
+        public Task<UserEntity> Put(UserEntity user)
         {
-            return await _repository.UpdateAsync(user);
+            throw new NotImplementedException();
         }
 
         public Task<bool> Teste()

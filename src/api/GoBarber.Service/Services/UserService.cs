@@ -39,5 +39,10 @@ namespace GoBarber.Service.Services
         {
             return await _repository.UpdateAsync(user);
         }
+
+        public Task<bool> Teste()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

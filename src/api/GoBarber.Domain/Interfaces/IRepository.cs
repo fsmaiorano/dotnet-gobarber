@@ -11,7 +11,7 @@ namespace GoBarber.Domain.Interfaces
         Task<T> InsertAsync(T item);
         Task<T> UpdateAsync(T item);
         Task<bool> DeleteAsync(Int32 id);
-        Task<T> SelectAsync(Int32 id);
+        Task<T> SelectAsync(Int32 id);  
         Task<IEnumerable<T>> SelectAsync();
         Task<bool> ExistAsync(Int32 id);
     }

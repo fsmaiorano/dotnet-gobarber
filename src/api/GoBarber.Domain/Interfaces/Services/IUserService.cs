@@ -13,5 +13,6 @@ namespace GoBarber.Domain.Interfaces.Services
         Task<UserEntity> Post(UserEntity user);
         Task<UserEntity> Put(UserEntity user);
         Task<bool> Delete(Int32 id);
+        Task<bool> Teste();
     }
 }

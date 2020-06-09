@@ -1,4 +1,5 @@
-﻿using GoBarber.Data.Context;
+﻿using Bogus;
+using GoBarber.Data.Context;
 using GoBarber.Data.Repository;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
@@ -22,6 +23,7 @@ namespace GoBarber.UnitTest.Services
             var services = new ServiceCollection();
             services.AddTransient<IUserService, UserService>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IUserRepository<>), typeof(UserRepository<>));
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
@@ -31,27 +33,72 @@ namespace GoBarber.UnitTest.Services
             _userService = _serviceProvider.GetService<IUserService>();
         }
 
+        //var builder = WebHost
+        //    .CreateDefaultBuilder()
+        //    .UseStartup<Startup>();
+
+        //var server = new TestServer(builder);
+        //var client = server.CreateClient();
 
         [TestMethod]
         public void CreateUser()
         {
-            //var builder = WebHost
-            //    .CreateDefaultBuilder()
-            //    .UseStartup<Startup>();
+            var mockUser = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 
-            //var server = new TestServer(builder);
-            //var client = server.CreateClient();
-
-            var user = new UserEntity
-            {
-                Name = "Fábio",
-                Email = "fsmaiorano@gmail.com",
-                Password = "123456"
-            };
+            var user = mockUser.Generate();
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);
+        }
+
+        [TestMethod]
+        public void UpdateUser()
+        {
+            var mockUser = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+
+            var createdUser = _userService.Insert(user);
+            Assert.IsNotNull(createdUser);
+            Assert.AreEqual(user, createdUser);
+
+            createdUser.Name = $"{createdUser.Name}_edited";
+
+            var updatedUser = _userService.Update(createdUser);
+            Assert.AreEqual(updatedUser.Name, createdUser.Name);
+        }
+
+        [TestMethod]
+        public void DeleteUserByEmail()
+        {
+            var mockUser = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+
+            var createdUser = _userService.Insert(user);
+            Assert.IsNotNull(createdUser);
+            Assert.AreEqual(user, createdUser);
+
+            var isDeleted = _userService.Delete(createdUser.Email);
+            Assert.IsTrue(isDeleted);
+        }
+
+
+        [TestMethod]
+        public void ListAllUsers()
+        {
+            var users = _userService.SelectAll();
+            Assert.IsNotNull(users);
         }
     }
 }

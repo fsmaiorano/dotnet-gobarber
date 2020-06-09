@@ -9,9 +9,11 @@ namespace GoBarber.Service.Services
     public class UserService : IUserService
     {
         private IRepository<UserEntity> _repository;
-        public UserService(IRepository<UserEntity> repository)
+        private IUserRepository<UserEntity> _userRepository;
+        public UserService(IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository)
         {
             _repository = repository;
+            _userRepository = userRepository;
         }
 
         public bool Delete(int id)
@@ -39,9 +41,14 @@ namespace GoBarber.Service.Services
             return _repository.Update(user);
         }
 
-        public bool Teste()
+        public UserEntity Select(string email)
         {
-            throw new NotImplementedException();
+            return _userRepository.Select(email);
+        }
+
+        public bool Delete(string email)
+        {
+            return _userRepository.Delete(email);
         }
     }
 }

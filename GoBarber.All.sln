@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.Domain", "src\api\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.Service", "src\api\GoBarber.Service\GoBarber.Service.csproj", "{7767FABC-9722-4ABC-8F53-31C6B133390C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBarber.UnitTest", "GoBarber.UnitTest\GoBarber.UnitTest.csproj", "{3136069D-05A8-4E8C-B3F8-84FFAE76388A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.UnitTest", "src\tests\GoBarber.UnitTest\GoBarber.UnitTest.csproj", "{4CA4242F-733A-419B-9C71-6880CE4AE912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{7767FABC-9722-4ABC-8F53-31C6B133390C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7767FABC-9722-4ABC-8F53-31C6B133390C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7767FABC-9722-4ABC-8F53-31C6B133390C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3136069D-05A8-4E8C-B3F8-84FFAE76388A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3136069D-05A8-4E8C-B3F8-84FFAE76388A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3136069D-05A8-4E8C-B3F8-84FFAE76388A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3136069D-05A8-4E8C-B3F8-84FFAE76388A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA4242F-733A-419B-9C71-6880CE4AE912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA4242F-733A-419B-9C71-6880CE4AE912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA4242F-733A-419B-9C71-6880CE4AE912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA4242F-733A-419B-9C71-6880CE4AE912}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

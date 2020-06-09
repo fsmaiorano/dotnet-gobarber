@@ -49,7 +49,9 @@ namespace GoBarber.UnitTest.Services
                 Password = "123456"
             };
 
-            var result = _userService.Insert(user);
+            var createdUser = _userService.Insert(user);
+            Assert.IsNotNull(createdUser);
+            Assert.AreEqual(user, createdUser);
         }
     }
 }

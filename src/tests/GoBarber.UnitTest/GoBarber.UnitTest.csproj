@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\api\GoBarber.Domain\GoBarber.Domain.csproj" />
+    <ProjectReference Include="..\..\api\GoBarber.Service\GoBarber.Service.csproj" />
     <ProjectReference Include="..\src\api\GoBarber.Application\GoBarber.Application.csproj" />
     <ProjectReference Include="..\src\api\GoBarber.Service\GoBarber.Service.csproj" />
   </ItemGroup>

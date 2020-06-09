@@ -42,8 +42,14 @@ namespace GoBarber.UnitTest.Services
             //var server = new TestServer(builder);
             //var client = server.CreateClient();
 
-            var user = new UserEntity();
-            _userService.Post(user);
+            var user = new UserEntity
+            {
+                Name = "Fábio",
+                Email = "fsmaiorano@gmail.com",
+                Password = "123456"
+            };
+
+            var result = _userService.Insert(user);
         }
     }
 }

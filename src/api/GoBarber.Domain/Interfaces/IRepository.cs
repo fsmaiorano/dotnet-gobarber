@@ -8,11 +8,16 @@ namespace GoBarber.Domain.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<T> InsertAsync(T item);
-        Task<T> UpdateAsync(T item);
-        Task<bool> DeleteAsync(Int32 id);
-        Task<T> SelectAsync(Int32 id);  
-        Task<IEnumerable<T>> SelectAsync();
-        Task<bool> ExistAsync(Int32 id);
+        T Insert(T item);
+
+        T Update(T item);
+
+        bool Delete(Int32 id);
+
+        T Select(Int32 id);
+
+        IEnumerable<T> Select();
+
+        bool Exist(Int32 id);
     }
 }

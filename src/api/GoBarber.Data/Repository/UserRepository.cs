@@ -9,7 +9,7 @@ namespace GoBarber.Data.Repository
 {
     public class UserRepository : IUserRepository<UserEntity>
     {
-        public Task<bool> teste()
+        public bool teste()
         {
             throw new NotImplementedException();
         }

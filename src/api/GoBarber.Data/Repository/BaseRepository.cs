@@ -4,6 +4,7 @@ using GoBarber.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,16 +20,17 @@ namespace GoBarber.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> DeleteAsync(Int32 id)
+
+        public bool Delete(Int32 id)
         {
             try
             {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                var result = _dataset.SingleOrDefault(p => p.Id.Equals(id));
                 if (result == null)
                     return false;
 
                 _dataset.Remove(result);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return true;
 
             }
@@ -38,14 +40,14 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public async Task<T> InsertAsync(T item)
+        public T Insert(T item)
         {
             try
             {
                 item.CreatedAt = DateTime.UtcNow;
                 _dataset.Add(item);
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -55,16 +57,16 @@ namespace GoBarber.Data.Repository
             return item;
         }
 
-        public async Task<bool> ExistAsync(Int32 id)
+        public bool Exist(Int32 id)
         {
-            return await _dataset.AnyAsync(p => p.Id.Equals(id));
+            return _dataset.Any(p => p.Id.Equals(id));
         }
 
-        public async Task<T> SelectAsync(Int32 id)
+        public T Select(Int32 id)
         {
             try
             {
-                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                return _dataset.SingleOrDefault(p => p.Id.Equals(id));
             }
             catch (Exception ex)
             {
@@ -73,11 +75,11 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> SelectAsync()
+        public IEnumerable<T> Select()
         {
             try
             {
-                return await _dataset.ToListAsync();
+                return _dataset.ToList();
             }
             catch (Exception ex)
             {
@@ -85,11 +87,11 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public async Task<T> UpdateAsync(T item)
+        public T Update(T item)
         {
             try
             {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+                var result = _dataset.SingleOrDefault(p => p.Id.Equals(item.Id));
                 if (result == null)
                     return null;
 
@@ -97,7 +99,7 @@ namespace GoBarber.Data.Repository
                 item.CreatedAt = result.CreatedAt;
 
                 _context.Entry(result).CurrentValues.SetValues(item);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

@@ -3,8 +3,6 @@ using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoBarber.Service.Services
 {
@@ -16,32 +14,32 @@ namespace GoBarber.Service.Services
             _repository = repository;
         }
 
-        public Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return _repository.Delete(id);
         }
 
-        public Task<UserEntity> Get(int id)
+        public UserEntity Insert(UserEntity user)
         {
-            throw new NotImplementedException();
+            return _repository.Insert(user);
         }
 
-        public Task<IEnumerable<UserEntity>> GetAll()
+        public UserEntity Select(int id)
         {
-            throw new NotImplementedException();
+            return _repository.Select(id);
         }
 
-        public Task<UserEntity> Post(UserEntity user)
+        public IEnumerable<UserEntity> SelectAll()
         {
-            throw new NotImplementedException();
+            return _repository.Select();
         }
 
-        public Task<UserEntity> Put(UserEntity user)
+        public UserEntity Update(UserEntity user)
         {
-            throw new NotImplementedException();
+            return _repository.Update(user);
         }
 
-        public Task<bool> Teste()
+        public bool Teste()
         {
             throw new NotImplementedException();
         }

@@ -8,11 +8,17 @@ namespace GoBarber.Domain.Interfaces.Services
 {
     public interface IUserService
     {
-        Task<UserEntity> Get(Int32 id);
-        Task<IEnumerable<UserEntity>> GetAll();
-        Task<UserEntity> Post(UserEntity user);
-        Task<UserEntity> Put(UserEntity user);
-        Task<bool> Delete(Int32 id);
-        Task<bool> Teste();
+        UserEntity Select(Int32 id);
+
+        IEnumerable<UserEntity> SelectAll();
+
+        UserEntity Insert(UserEntity user);
+
+        UserEntity Update(UserEntity user);
+
+        bool Delete(Int32 id);
+
+        bool Teste();
     }
 }
+

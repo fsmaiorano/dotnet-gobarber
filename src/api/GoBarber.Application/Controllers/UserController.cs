@@ -20,7 +20,7 @@ namespace GoBarber.Application.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public ActionResult GetAll()
         {
             if (!ModelState.IsValid)
             {
@@ -29,7 +29,7 @@ namespace GoBarber.Application.Controllers
 
             try
             {
-                return Ok(await _service.GetAll());
+                return Ok(_service.SelectAll());
 
             }
             catch (ArgumentException e)
@@ -41,7 +41,7 @@ namespace GoBarber.Application.Controllers
 
         [HttpGet]
         [Route("{id}", Name = "GetWithId")]
-        public async Task<ActionResult> Get(Int32 id)
+        public ActionResult Get(Int32 id)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +50,7 @@ namespace GoBarber.Application.Controllers
 
             try
             {
-                return Ok(await _service.Get(id));
+                return Ok(_service.Select(id));
             }
             catch (ArgumentException e)
             {
@@ -60,7 +60,7 @@ namespace GoBarber.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserEntity user)
+        public ActionResult Post([FromBody] UserEntity user)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace GoBarber.Application.Controllers
             try
             {
 
-                var result = await _service.Post(user);
+                var result = _service.Insert(user);
                 if (result != null)
                 {
                     return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
@@ -88,7 +88,7 @@ namespace GoBarber.Application.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        public ActionResult Put([FromBody] UserEntity user)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace GoBarber.Application.Controllers
 
             try
             {
-                var result = await _service.Put(user);
+                var result = _service.Update(user);
                 if (result != null)
                 {
                     return Ok(result);
@@ -115,7 +115,7 @@ namespace GoBarber.Application.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Int32 id)
+        public ActionResult Delete(Int32 id)
         {
             if (!ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace GoBarber.Application.Controllers
 
             try
             {
-                return Ok(await _service.Delete(id));
+                return Ok(_service.Delete(id));
             }
             catch (ArgumentException e)
             {

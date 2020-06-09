@@ -8,6 +8,6 @@ namespace GoBarber.Domain.Interfaces
 {
     public interface IUserRepository<T> where T : BaseEntity
     {
-        Task<bool> teste();
+        bool teste();
     }
 }

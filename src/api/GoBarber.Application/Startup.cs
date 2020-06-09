@@ -1,4 +1,5 @@
 ﻿using GoBarber.Application.Config;
+using GoBarber.CrossCutting.DependencyInjection;
 using GoBarber.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text;
 
 namespace GoBarber.Application
 {
@@ -16,12 +18,15 @@ namespace GoBarber.Application
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;          
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureService.ConfigureDependenciesService(services);
+            ConfigureRepository.ConfigureDependenciesRepository(services);
+
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQL")));
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -60,6 +65,11 @@ namespace GoBarber.Application
             app.UseRewriter(option);
 
             //app.UseHttpsRedirection();
+
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseRouting();
 

@@ -4,7 +4,7 @@ using GoBarber.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 
-namespace GoBarber.Service.Services
+namespace GoBarber.Service.Services.User
 {
     public class UserService : IUserService
     {

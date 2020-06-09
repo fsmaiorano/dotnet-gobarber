@@ -7,7 +7,10 @@ namespace GoBarber.Application.Config
 {
     public class AppSettings
     {
-        public string MySetting { get; set; }
+        public string DbConnection { get; set; }
+        public string Email { get; set; }
+        public string SMTPPort { get; set; }
+
 
     }
 }

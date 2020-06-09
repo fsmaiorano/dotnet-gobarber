@@ -1,9 +1,6 @@
 ﻿using GoBarber.Domain.Interfaces.Services;
-using GoBarber.Service.Services;
+using GoBarber.Service.Services.User;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GoBarber.CrossCutting.DependencyInjection
 {

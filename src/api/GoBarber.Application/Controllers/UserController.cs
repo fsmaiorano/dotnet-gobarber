@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using GoBarber.Application.Config;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace GoBarber.Application.Controllers
 {
@@ -14,14 +16,17 @@ namespace GoBarber.Application.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _service;
-        public UserController(IUserService service)
+        private readonly IOptions<AppSettings> appSettings;
+        public UserController(IUserService service, IOptions<AppSettings> app)
         {
             _service = service;
+            appSettings = app; 
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
+        
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //400 bad request - solicitação inválida

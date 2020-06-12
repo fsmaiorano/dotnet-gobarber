@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GoBarber.Data\GoBarber.Data.csproj" />
     <ProjectReference Include="..\GoBarber.Domain\GoBarber.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Authentication\" />
   </ItemGroup>
 
 </Project>

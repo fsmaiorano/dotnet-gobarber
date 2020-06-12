@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBarber.Web", "GoBarber.Web.csproj", "{345F3511-1489-403D-BB14-647DF2A560D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{345F3511-1489-403D-BB14-647DF2A560D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345F3511-1489-403D-BB14-647DF2A560D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345F3511-1489-403D-BB14-647DF2A560D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345F3511-1489-403D-BB14-647DF2A560D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4ADA7EEA-4DE1-4173-83E2-B1DE151B8BA5}
+	EndGlobalSection
+EndGlobal

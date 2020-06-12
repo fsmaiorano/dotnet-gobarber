@@ -1,6 +1,6 @@
 using System;
 
-namespace GoBarber.Application
+namespace GoBarber.Web.Data
 {
     public class WeatherForecast
     {

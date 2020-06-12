@@ -1,7 +1,9 @@
 ﻿using GoBarber.Application.Config;
+using GoBarber.CrossCutting.Configuration;
 using GoBarber.CrossCutting.DependencyInjection;
 using GoBarber.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
@@ -33,22 +35,48 @@ namespace GoBarber.Application
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            services.AddAuthentication
-               (JwtBearerDefaults.AuthenticationScheme)
-               .AddJwtBearer(options =>
-               {
-                   options.TokenValidationParameters = new TokenValidationParameters
-                   {
-                       ValidateIssuer = true,
-                       ValidateAudience = true,
-                       ValidateLifetime = true,
-                       ValidateIssuerSigningKey = true,
-                       ValidIssuer = Configuration["Jwt:Issuer"],
-                       ValidAudience = Configuration["Jwt:Audience"],
-                       IssuerSigningKey = new SymmetricSecurityKey
-                     (Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                   };
-               });
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+          .AddJwtBearer(x =>
+          {
+              x.RequireHttpsMetadata = false;
+              x.SaveToken = true;
+              x.TokenValidationParameters = new TokenValidationParameters
+              {
+                  ValidateIssuerSigningKey = true,
+                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(CrossSettings.JwtSecret)),
+                  ValidateIssuer = false,
+                  ValidateAudience = false
+              };
+          });
+
+
+            //services.AddAuthentication(authOptions =>
+            //{
+            //    authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //}).AddJwtBearer(bearerOptions =>
+            //{
+            //    bearerOptions.RequireHttpsMetadata = false;
+            //    bearerOptions.SaveToken = true;
+            //    bearerOptions.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(CrossSettings.JwtSecret)),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false
+            //    };
+            //});
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
 
             services.AddSwaggerGen();
 
@@ -90,8 +118,9 @@ namespace GoBarber.Application
             .AllowAnyMethod()
             .AllowAnyHeader());
 
-            app.UseRouting();
 
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -21,7 +21,7 @@ namespace GoBarber.Data.Repository
             _dataset = _context.Set<UserEntity>();
         }
 
-        public bool Delete(string email)
+        public bool DeleteByEmail(string email)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public T Select(string email)
+        public T GetByEmail(string email)
         {
             try
             {

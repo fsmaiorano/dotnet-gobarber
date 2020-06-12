@@ -4,8 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using GoBarber.Application.Config;
+using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -20,13 +23,15 @@ namespace GoBarber.Application.Controllers
         public UserController(IUserService service, IOptions<AppSettings> app)
         {
             _service = service;
-            appSettings = app; 
+            appSettings = app;
         }
 
         [HttpGet]
+        [Route("")]
+        [Authorize(Roles = RoleConstant.Role.Client)]
         public ActionResult GetAll()
         {
-        
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //400 bad request - solicitação inválida
@@ -55,7 +60,7 @@ namespace GoBarber.Application.Controllers
 
             try
             {
-                return Ok(_service.Select(id));
+                return Ok(_service.GetById(id));
             }
             catch (ArgumentException e)
             {

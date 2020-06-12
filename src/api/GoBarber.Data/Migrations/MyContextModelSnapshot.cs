@@ -54,6 +54,12 @@ namespace GoBarber.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnName("role")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnName("updated_at")
                         .HasColumnType("datetime2");
@@ -103,7 +109,7 @@ namespace GoBarber.Data.Migrations
             modelBuilder.Entity("GoBarber.Domain.Entities.UserTokenEntity", b =>
                 {
                     b.HasOne("GoBarber.Domain.Entities.UserEntity", "User")
-                        .WithOne("Token")
+                        .WithOne("TokenEntity")
                         .HasForeignKey("GoBarber.Domain.Entities.UserTokenEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

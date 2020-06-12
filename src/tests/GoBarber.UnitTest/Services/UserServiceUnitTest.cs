@@ -51,6 +51,8 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
 
+            user.Role = "Client";
+
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);
@@ -65,6 +67,8 @@ namespace GoBarber.UnitTest.Services
             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 
             var user = mockUser.Generate();
+
+            user.Role = "Client";
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
@@ -86,11 +90,13 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
 
+            user.Role = "Client";
+
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);
 
-            var isDeleted = _userService.Delete(createdUser.Email);
+            var isDeleted = _userService.Delete(createdUser.Id);
             Assert.IsTrue(isDeleted);
         }
 

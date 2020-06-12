@@ -6,7 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using GoBarber.Application.Config;
+using GoBarber.Application.Models;
 using GoBarber.Domain.Entities;
+using GoBarber.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -19,40 +22,30 @@ namespace GoBarber.Application.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IOptions<AppSettings> _appSettings;
-        public AuthenticationController(IOptions<AppSettings> appSettings)
+        private readonly IAuthenticationService _authenticationService;
+        public AuthenticationController(IOptions<AppSettings> appSettings, IAuthenticationService authenticationService)
         {
             _appSettings = appSettings;
+            _authenticationService = authenticationService;
         }
-        [HttpGet]
-        public IActionResult Login()
-        {
-           //validar se o usu'ario existe,
-           //se exister passar para o gerartokenjwt
-           //o token levar'a os dados que eu quiser apra fora
-            var tokenString = GerarTokenJWT();
-            return null;
-           
-        }
-        private string GerarTokenJWT()
-        {
-            var issuer = _appSettings.Value.JWTIssuer;
-            var audience = _appSettings.Value.JWTAudience;
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Value.JWTKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[] {
-                new Claim("UserId", "1"),
-            };
-
-            var token = new JwtSecurityToken(issuer: issuer, audience: audience, claims,
-                expires: DateTime.Now.AddMinutes(120), signingCredentials: credentials);
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var stringToken = tokenHandler.WriteToken(token);
-            return stringToken;
-        }
-        private bool ValidarUsuario(UserEntity loginDetalhes)
+        [HttpPost]
+        [Route("")]
+        [AllowAnonymous]
+        public AuthenticationModel Login([FromBody]AuthenticationModel input)
         {
-            return true;
+            //validar se o usu'ario existe,
+            //se exister passar para o gerartokenjwt
+            //o token levar'a os dados que eu quiser apra fora
+            
+            var user = _authenticationService.SignIn(input.Email, input.Password);
+
+            if (user != null) {
+                return new AuthenticationModel { UserId = user.Id, Token = user.Token};
+            }
+            else {
+                return null;
+            }
         }
     }
 }

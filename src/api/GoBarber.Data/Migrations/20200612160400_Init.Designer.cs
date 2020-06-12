@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoBarber.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200607164052_Init")]
+    [Migration("20200612160400_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,12 @@ namespace GoBarber.Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnName("password")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnName("role")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
@@ -105,7 +111,7 @@ namespace GoBarber.Data.Migrations
             modelBuilder.Entity("GoBarber.Domain.Entities.UserTokenEntity", b =>
                 {
                     b.HasOne("GoBarber.Domain.Entities.UserEntity", "User")
-                        .WithOne("Token")
+                        .WithOne("TokenEntity")
                         .HasForeignKey("GoBarber.Domain.Entities.UserTokenEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

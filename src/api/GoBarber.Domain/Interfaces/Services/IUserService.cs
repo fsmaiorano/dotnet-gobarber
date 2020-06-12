@@ -8,8 +8,8 @@ namespace GoBarber.Domain.Interfaces.Services
 {
     public interface IUserService
     {
-        UserEntity Select(Int32 id);
-        UserEntity Select(string email);
+        UserEntity GetById(Int32 id);
+        UserEntity GetByEmail(string email);
 
         IEnumerable<UserEntity> SelectAll();
 
@@ -18,7 +18,6 @@ namespace GoBarber.Domain.Interfaces.Services
         UserEntity Update(UserEntity user);
 
         bool Delete(Int32 id);
-        bool Delete(string email);
     }
 }
 

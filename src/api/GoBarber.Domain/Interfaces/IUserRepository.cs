@@ -8,8 +8,6 @@ namespace GoBarber.Domain.Interfaces
 {
     public interface IUserRepository<T> where T : BaseEntity
     {
-        T Select(string email);
-
-        bool Delete(string email);
+        T GetByEmail(string email);
     }
 }

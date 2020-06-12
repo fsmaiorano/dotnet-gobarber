@@ -17,8 +17,9 @@ namespace GoBarber.Data.Migrations
                     email = table.Column<string>(maxLength: 100, nullable: false),
                     password = table.Column<string>(maxLength: 100, nullable: false),
                     avatar = table.Column<string>(maxLength: 500, nullable: true),
+                    role = table.Column<string>(maxLength: 100, nullable: false),
                     created_at = table.Column<DateTime>(nullable: true),
-                    updated_at = table.Column<DateTime>(nullable: true),
+                    updated_at = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,7 +35,7 @@ namespace GoBarber.Data.Migrations
                     token = table.Column<string>(maxLength: 500, nullable: false),
                     user_id = table.Column<int>(nullable: false),
                     created_at = table.Column<DateTime>(nullable: true),
-                    updated_at = table.Column<DateTime>(nullable: true),
+                    updated_at = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

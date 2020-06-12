@@ -26,7 +26,7 @@ namespace GoBarber.Service.Services.User
             return _repository.Insert(user);
         }
 
-        public UserEntity Select(int id)
+        public UserEntity GetById(int id)
         {
             return _repository.Select(id);
         }
@@ -41,14 +41,9 @@ namespace GoBarber.Service.Services.User
             return _repository.Update(user);
         }
 
-        public UserEntity Select(string email)
+        public UserEntity GetByEmail(string email)
         {
-            return _userRepository.Select(email);
-        }
-
-        public bool Delete(string email)
-        {
-            return _userRepository.Delete(email);
+            return _userRepository.GetByEmail(email);
         }
     }
 }

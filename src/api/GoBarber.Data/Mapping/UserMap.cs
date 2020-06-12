@@ -17,9 +17,10 @@ namespace GoBarber.Data.Mapping
             builder.Property(p => p.Name).IsRequired().HasMaxLength(60).HasColumnName("name");
             builder.Property(p => p.Email).IsRequired().HasMaxLength(100).HasColumnName("email");
             builder.Property(p => p.Password).IsRequired().HasMaxLength(100).HasColumnName("password");
+            builder.Property(p => p.Role).IsRequired().HasMaxLength(100).HasColumnName("role");
             builder.Property(p => p.Avatar).HasMaxLength(500).HasColumnName("avatar");
 
-            builder.HasOne(u => u.Token).WithOne(t => t.User);
+            builder.HasOne(u => u.TokenEntity).WithOne(t => t.User);
         }
     }
 }

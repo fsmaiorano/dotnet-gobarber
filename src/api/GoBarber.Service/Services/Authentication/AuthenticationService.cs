@@ -15,11 +15,16 @@ namespace GoBarber.Service.Services.Authentication
     {
         private IRepository<UserTokenEntity> _userTokenRepository;
         private IUserRepository<UserEntity> _userRepository;
-        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository)
+        private IAuthenticationRepository<UserTokenEntity> _authenticationRepository;
+        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository, IAuthenticationRepository<UserTokenEntity> authenticationRepository)
         {
             _userRepository = userRepository;
             _userTokenRepository = userTokenRepository;
+            _authenticationRepository = authenticationRepository;
         }
+
+
+
         public UserEntity SignIn(string email, string password)
         {
             var user = _userRepository.GetByEmail(email);
@@ -35,7 +40,16 @@ namespace GoBarber.Service.Services.Authentication
                     Token = user.Token,
                 };
 
-                _userTokenRepository.Insert(userToken);
+                var storedToken = GetByUserId(user.Id);
+
+                if(storedToken != null) {
+                    storedToken.Token = token;
+                    _userTokenRepository.Update(storedToken);
+                }
+                else {
+                    _userTokenRepository.Insert(userToken);
+                }
+         
             }
             else
             {
@@ -43,6 +57,10 @@ namespace GoBarber.Service.Services.Authentication
             }
 
             return user;
+        }
+        public UserTokenEntity GetByUserId(int userId)
+        {
+            return _authenticationRepository.GetByUserId(userId);
         }
 
         private string GenerateToken(UserEntity user)

@@ -32,7 +32,7 @@ namespace GoBarber.Application.Controllers
         [HttpPost]
         [Route("")]
         [AllowAnonymous]
-        public AuthenticationModel Login([FromBody]AuthenticationModel input)
+        public AuthenticationModelResult Login([FromBody] AuthenticationModelInput input)
         {
             //validar se o usu'ario existe,
             //se exister passar para o gerartokenjwt
@@ -41,7 +41,7 @@ namespace GoBarber.Application.Controllers
             var user = _authenticationService.SignIn(input.Email, input.Password);
 
             if (user != null) {
-                return new AuthenticationModel { UserId = user.Id, Token = user.Token};
+                return new AuthenticationModelResult { UserId = user.Id, Token = user.Token, Email = user.Email };
             }
             else {
                 return null;

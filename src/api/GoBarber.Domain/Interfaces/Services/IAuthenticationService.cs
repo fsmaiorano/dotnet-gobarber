@@ -8,5 +8,6 @@ namespace GoBarber.Domain.Interfaces.Services
     public interface IAuthenticationService
     {
         UserEntity SignIn(string email, string password);
+        UserTokenEntity GetByUserId(int userId);
     }
 }

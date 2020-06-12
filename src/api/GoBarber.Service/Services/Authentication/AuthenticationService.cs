@@ -13,12 +13,12 @@ namespace GoBarber.Service.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private IRepository<UserEntity> _repository;
+        private IRepository<UserTokenEntity> _userTokenRepository;
         private IUserRepository<UserEntity> _userRepository;
-        public AuthenticationService(IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository)
+        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository)
         {
-            _repository = repository;
             _userRepository = userRepository;
+            _userTokenRepository = userTokenRepository;
         }
         public UserEntity SignIn(string email, string password)
         {
@@ -28,6 +28,14 @@ namespace GoBarber.Service.Services.Authentication
             {
                 var token = GenerateToken(user);
                 user.Token = token;
+
+                var userToken = new UserTokenEntity
+                {
+                    UserId = user.Id,
+                    Token = user.Token,
+                };
+
+                _userTokenRepository.Insert(userToken);
             }
             else
             {

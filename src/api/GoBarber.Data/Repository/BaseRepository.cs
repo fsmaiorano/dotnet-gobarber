@@ -30,7 +30,7 @@ namespace GoBarber.Data.Repository
                     return false;
 
                 _dataset.Remove(result);
-                _context.SaveChanges();
+                //_context.SaveChanges();
                 return true;
 
             }
@@ -47,7 +47,7 @@ namespace GoBarber.Data.Repository
                 item.CreatedAt = DateTime.UtcNow;
                 _dataset.Add(item);
 
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace GoBarber.Data.Repository
                 item.CreatedAt = result.CreatedAt;
 
                 _context.Entry(result).CurrentValues.SetValues(item);
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
             catch (Exception ex)
             {

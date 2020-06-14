@@ -34,10 +34,6 @@ namespace GoBarber.Application.Controllers
         [AllowAnonymous]
         public AuthenticationModelResult Login([FromBody] AuthenticationModelInput input)
         {
-            //validar se o usu'ario existe,
-            //se exister passar para o gerartokenjwt
-            //o token levar'a os dados que eu quiser apra fora
-            
             var user = _authenticationService.SignIn(input.Email, input.Password);
 
             if (user != null) {

@@ -30,7 +30,7 @@ namespace GoBarber.Data.Repository
                     return false;
 
                 _dataset.Remove(result);
-                _context.SaveChanges();
+                //_context.SaveChanges();
                 return true;
 
             }

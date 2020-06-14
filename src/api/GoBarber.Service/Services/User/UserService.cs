@@ -1,4 +1,5 @@
-﻿using GoBarber.Domain.Entities;
+﻿using GoBarber.Data.UnitOfWork;
+using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
 using System;
@@ -10,10 +11,12 @@ namespace GoBarber.Service.Services.User
     {
         private IRepository<UserEntity> _repository;
         private IUserRepository<UserEntity> _userRepository;
-        public UserService(IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository)
+        private IUnitOfWork _unitOfWork;
+        public UserService(IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public bool Delete(int id)
@@ -23,7 +26,17 @@ namespace GoBarber.Service.Services.User
 
         public UserEntity Insert(UserEntity user)
         {
-            return _repository.Insert(user);
+            try
+            {
+                var createdUser = _repository.Insert(user);
+                _unitOfWork.Commit();
+                return createdUser;
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                return null;
+            }
         }
 
         public UserEntity GetById(int id)

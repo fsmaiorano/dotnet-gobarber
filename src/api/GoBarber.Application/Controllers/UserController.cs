@@ -28,10 +28,9 @@ namespace GoBarber.Application.Controllers
 
         [HttpGet]
         [Route("")]
-        [Authorize(Roles = RoleConstant.Role.Client)]
+        [Authorize(Roles = RoleConstant.Client)]
         public ActionResult GetAll()
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //400 bad request - solicitação inválida

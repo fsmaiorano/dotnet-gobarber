@@ -8,22 +8,23 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using GoBarber.CrossCutting.Configuration;
+using GoBarber.Data.UnitOfWork;
 
 namespace GoBarber.Service.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private IAuthenticationRepository<UserTokenEntity> _authenticationRepository;
         private IRepository<UserTokenEntity> _userTokenRepository;
         private IUserRepository<UserEntity> _userRepository;
-        private IAuthenticationRepository<UserTokenEntity> _authenticationRepository;
-        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository, IAuthenticationRepository<UserTokenEntity> authenticationRepository)
+        private IUnitOfWork _unitOfWork;
+        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository, IAuthenticationRepository<UserTokenEntity> authenticationRepository, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
             _userTokenRepository = userTokenRepository;
             _authenticationRepository = authenticationRepository;
+            _unitOfWork = unitOfWork;
         }
-
-
 
         public UserEntity SignIn(string email, string password)
         {
@@ -42,14 +43,16 @@ namespace GoBarber.Service.Services.Authentication
 
                 var storedToken = GetByUserId(user.Id);
 
-                if(storedToken != null) {
+                if (storedToken != null)
+                {
                     storedToken.Token = token;
                     _userTokenRepository.Update(storedToken);
                 }
-                else {
+                else
+                {
                     _userTokenRepository.Insert(userToken);
                 }
-         
+                _unitOfWork.Commit();
             }
             else
             {

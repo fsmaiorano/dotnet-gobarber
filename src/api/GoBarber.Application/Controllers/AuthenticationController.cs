@@ -34,12 +34,21 @@ namespace GoBarber.Application.Controllers
         [AllowAnonymous]
         public AuthenticationModelResult Login([FromBody] AuthenticationModelInput input)
         {
-            var user = _authenticationService.SignIn(input.Email, input.Password);
+            try
+            {
+                var user = _authenticationService.SignIn(input.Email, input.Password);
 
-            if (user != null) {
-                return new AuthenticationModelResult { UserId = user.Id, Token = user.Token, Email = user.Email };
+                if (user != null)
+                {
+                    return new AuthenticationModelResult { UserId = user.Id, Token = user.Token, Email = user.Email };
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else {
+            catch (Exception ex)
+            {
                 return null;
             }
         }

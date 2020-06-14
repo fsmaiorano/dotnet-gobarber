@@ -1,6 +1,8 @@
 ﻿using Bogus;
 using GoBarber.Data.Context;
 using GoBarber.Data.Repository;
+using GoBarber.Data.UnitOfWork;
+using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
@@ -22,6 +24,7 @@ namespace GoBarber.UnitTest.Services
         public UserServiceUnitTest()
         {
             var services = new ServiceCollection();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IUserRepository<>), typeof(UserRepository<>));
@@ -51,7 +54,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
 
-            user.Role = "Client";
+            user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
@@ -68,7 +71,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
 
-            user.Role = "Client";
+            user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
@@ -90,7 +93,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
 
-            user.Role = "Client";
+            user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);

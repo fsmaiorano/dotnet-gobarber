@@ -6,6 +6,7 @@ using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
@@ -27,11 +28,13 @@ namespace GoBarber.UnitTest.Services
         {
             var services = new ServiceCollection();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IAuthenticationRepository), typeof(AuthenticationRepository));
+            services.AddScoped(typeof(IAppointmentRepository), typeof(AppointmentRepository));
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
@@ -51,8 +54,8 @@ namespace GoBarber.UnitTest.Services
              .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
              .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
              .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-            
-             var user = mockUser.Generate();
+
+            var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
             var createdUser = _userService.Insert(user);
 
@@ -60,7 +63,7 @@ namespace GoBarber.UnitTest.Services
             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-            
+
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
             var createdProvider = _userService.Insert(provider);
@@ -72,10 +75,77 @@ namespace GoBarber.UnitTest.Services
             appointment.ProviderId = createdProvider.Id;
             appointment.UserId = createdUser.Id;
 
-            //var createdAppoitment = _appointmentService.Insert(user);
-            //Assert.IsNotNull(createdUser);
-            //Assert.AreEqual(user, createdUser);
+            var createdAppoitment = _appointmentService.Insert(appointment);
+            Assert.IsNotNull(appointment);
+            Assert.AreEqual(appointment, createdAppoitment);
         }
 
+        [TestMethod]
+        public void GetByUserId()
+        {
+            var mockUser = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+            user.Role = RoleConstant.Client;
+            var createdUser = _userService.Insert(user);
+
+            var mockProvider = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var provider = mockProvider.Generate();
+            provider.Role = RoleConstant.Provider;
+            var createdProvider = _userService.Insert(provider);
+
+            var mockAppointment = new Faker<AppointmentEntity>()
+            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+
+            var appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.Id;
+            var createdAppoitment = _appointmentService.Insert(appointment);
+
+            var storedAppointment = _appointmentService.GetByUserId(createdUser.Id);
+            Assert.IsNotNull(storedAppointment);
+            Assert.AreEqual(createdUser.Id, storedAppointment.UserId);
+        }
+
+        [TestMethod]
+        public void GetByProviderId()
+        {
+            var mockUser = new Faker<UserEntity>()
+          .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+          .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+          .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+            user.Role = RoleConstant.Client;
+            var createdUser = _userService.Insert(user);
+
+            var mockProvider = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var provider = mockProvider.Generate();
+            provider.Role = RoleConstant.Provider;
+            var createdProvider = _userService.Insert(provider);
+
+            var mockAppointment = new Faker<AppointmentEntity>()
+            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+
+            var appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.Id;
+            var createdAppoitment = _appointmentService.Insert(appointment);
+
+            var storedAppointment = _appointmentService.GetByProviderId(createdProvider.Id);
+            Assert.IsNotNull(storedAppointment);
+            Assert.AreEqual(createdProvider.Id, storedAppointment.ProviderId);
+        }
     }
 }

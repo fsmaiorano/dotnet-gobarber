@@ -7,6 +7,7 @@ using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services;
+using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
@@ -22,16 +23,19 @@ namespace GoBarber.UnitTest.Services
         private readonly ServiceProvider _serviceProvider;
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IAppointmentService _appointmentService;
 
         public UserServiceUnitTest()
         {
             var services = new ServiceCollection();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IAuthenticationRepository), typeof(AuthenticationRepository));
+            services.AddScoped(typeof(IAppointmentRepository), typeof(AppointmentRepository));
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
@@ -41,6 +45,7 @@ namespace GoBarber.UnitTest.Services
 
             _userService = _serviceProvider.GetService<IUserService>();
             _authenticationService = _serviceProvider.GetService<IAuthenticationService>();
+            _appointmentService = _serviceProvider.GetService<IAppointmentService>();
         }
 
         //var builder = WebHost

@@ -8,11 +8,51 @@ using System.Text;
 
 namespace GoBarber.Service.Services.Appointment
 {
-    public class AppointmentService: IAppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IUnitOfWork _unitOfWork;
-        public AppointmentService(IUnitOfWork unitOfWork)        {
+        public AppointmentService(IUnitOfWork unitOfWork)
+        {
             _unitOfWork = unitOfWork;
+        }
+
+        public bool Delete(int id)
+        {
+            return _unitOfWork.AppointmentRepository.Delete(id);
+        }
+
+        public AppointmentEntity GetById(int id)
+        {
+            return _unitOfWork.AppointmentRepository.Select(id);
+        }
+
+        public AppointmentEntity GetByProviderId(int providerId)
+        {
+            return _unitOfWork.AppointmentRepository.GetByProviderId(providerId);
+        }
+
+        public AppointmentEntity GetByUserId(int userId)
+        {
+            return _unitOfWork.AppointmentRepository.GetByUserId(userId);
+        }
+
+        public AppointmentEntity Insert(AppointmentEntity appointment)
+        {
+            var createdAppointment = _unitOfWork.AppointmentRepository.Insert(appointment);
+            _unitOfWork.Commit();
+            return createdAppointment;
+        }
+
+        public IEnumerable<AppointmentEntity> SelectAll()
+        {
+            return _unitOfWork.AppointmentRepository.Select();
+        }
+
+        public AppointmentEntity Update(AppointmentEntity appointment)
+        {
+            var updatedAppointment = _unitOfWork.AppointmentRepository.Insert(appointment);
+            _unitOfWork.Commit();
+            return updatedAppointment;
         }
     }
 }

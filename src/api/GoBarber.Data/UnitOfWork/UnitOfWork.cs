@@ -14,6 +14,7 @@ namespace GoBarber.Data.UnitOfWork
         void Rollback();
         IUserRepository UserRepository { get; set; }
         IAuthenticationRepository AuthenticationRepository { get; set; }
+        IAppointmentRepository AppointmentRepository { get; set; }
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -21,11 +22,16 @@ namespace GoBarber.Data.UnitOfWork
         private readonly MyContext _context;
         private IUserRepository _userRepository;
         private IAuthenticationRepository _authenticationRepository;
+        private IAppointmentRepository _appointmentRepository;
 
-        public UnitOfWork(MyContext context, IUserRepository userRepository, IAuthenticationRepository authenticationRepository)
+        public UnitOfWork(MyContext context,
+                            IUserRepository userRepository,
+                            IAuthenticationRepository authenticationRepository,
+                            IAppointmentRepository appointmentRepository)
         {
             _context = context;
             _userRepository = userRepository;
+            _appointmentRepository = appointmentRepository;
             _authenticationRepository = authenticationRepository;
         }
 
@@ -62,6 +68,21 @@ namespace GoBarber.Data.UnitOfWork
                     _authenticationRepository = new AuthenticationRepository(_context);
                 }
                 return _authenticationRepository;
+            }
+
+            set { }
+        }
+
+        IAppointmentRepository IUnitOfWork.AppointmentRepository
+        {
+            get
+            {
+
+                if (_appointmentRepository == null)
+                {
+                    _appointmentRepository = new AppointmentRepository(_context);
+                }
+                return _appointmentRepository;
             }
 
             set { }

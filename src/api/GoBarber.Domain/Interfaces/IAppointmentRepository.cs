@@ -5,7 +5,9 @@ using System.Text;
 
 namespace GoBarber.Domain.Interfaces
 {
-    public interface IAppointmentRepository: IRepository<AppointmentEntity>
+    public interface IAppointmentRepository : IRepository<AppointmentEntity>
     {
+        AppointmentEntity GetByUserId(int userId);
+        AppointmentEntity GetByProviderId(int providerId);
     }
 }

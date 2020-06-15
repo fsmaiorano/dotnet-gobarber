@@ -55,7 +55,7 @@ namespace GoBarber.UnitTest.Services
             var user = mockUser.Generate();
 
             user.Role = RoleConstant.Client;
-
+            
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);

@@ -7,7 +7,6 @@ namespace GoBarber.Domain.Constants
     public static class RoleConstant
     {
         public const string Client = "Client";
-        public const string Barber = "Barber";
+        public const string Provider = "Provider";
     }
-
 }

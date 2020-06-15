@@ -24,7 +24,6 @@ namespace GoBarber.Service.Services.User
         {
             try
             {
-                var x = _unitOfWork.UserRepository.GetByEmail("Kelvin0@yahoo.com");
                 var createdUser = _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.Commit();
                 return createdUser;

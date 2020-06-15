@@ -18,5 +18,9 @@
     <ProjectReference Include="..\GoBarber.Domain\GoBarber.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Appointment\" />
+  </ItemGroup>
+
 
 </Project>

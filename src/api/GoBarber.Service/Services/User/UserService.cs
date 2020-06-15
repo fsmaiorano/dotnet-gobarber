@@ -51,7 +51,17 @@ namespace GoBarber.Service.Services.User
 
         public UserEntity Update(UserEntity user)
         {
-            return _repository.Update(user);
+            try
+            {
+                var updatedUser = _repository.Update(user);
+                _unitOfWork.Commit();
+                return updatedUser;
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                return null;
+            }
         }
 
         public UserEntity GetByEmail(string email)

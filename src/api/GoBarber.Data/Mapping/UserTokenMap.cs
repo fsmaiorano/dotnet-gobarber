@@ -16,7 +16,7 @@ namespace GoBarber.Data.Mapping
             builder.Property(p => p.Token).IsRequired().HasMaxLength(500).HasColumnName("token");
             builder.Property(p => p.UserId).IsRequired().HasColumnName("user_id");
 
-            builder.HasOne(u => u.User).WithOne(t => t.TokenEntity);
+            builder.HasOne(u => u.User).WithMany().HasForeignKey(x=>x.UserId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

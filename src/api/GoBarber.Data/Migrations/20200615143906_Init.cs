@@ -19,11 +19,38 @@ namespace GoBarber.Data.Migrations
                     avatar = table.Column<string>(maxLength: 500, nullable: true),
                     role = table.Column<string>(maxLength: 100, nullable: false),
                     created_at = table.Column<DateTime>(nullable: true),
-                    updated_at = table.Column<DateTime>(nullable: true)
+                    updated_at = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_users", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "appointments",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProviderId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    created_at = table.Column<DateTime>(nullable: true),
+                    updated_at = table.Column<DateTime>(nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_appointments", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_appointments_users_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "users",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_appointments_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -35,7 +62,7 @@ namespace GoBarber.Data.Migrations
                     token = table.Column<string>(maxLength: 500, nullable: false),
                     user_id = table.Column<int>(nullable: false),
                     created_at = table.Column<DateTime>(nullable: true),
-                    updated_at = table.Column<DateTime>(nullable: true)
+                    updated_at = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -49,10 +76,19 @@ namespace GoBarber.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_appointments_ProviderId",
+                table: "appointments",
+                column: "ProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_appointments_UserId",
+                table: "appointments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_user_tokens_user_id",
                 table: "user_tokens",
-                column: "user_id",
-                unique: true);
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_users_email",
@@ -63,6 +99,9 @@ namespace GoBarber.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "appointments");
+
             migrationBuilder.DropTable(
                 name: "user_tokens");
 

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace GoBarber.Application.Controllers
+namespace GoBarber.Application.Controllers.User
 {
     [Route("api/[controller]")]
     [ApiController]

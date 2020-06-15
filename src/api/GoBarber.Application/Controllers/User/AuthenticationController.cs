@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GoBarber.Application.Controllers
+namespace GoBarber.Application.Controllers.User
 {
     [Route("api/[controller]")]
     [ApiController]

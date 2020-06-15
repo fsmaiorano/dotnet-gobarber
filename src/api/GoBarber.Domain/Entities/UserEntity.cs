@@ -14,6 +14,5 @@ namespace GoBarber.Domain.Entities
         public string Role { get; set; }
         [NotMapped]
         public string Token { get; set; }
-        public virtual UserTokenEntity TokenEntity { get; set; }
     }
 }

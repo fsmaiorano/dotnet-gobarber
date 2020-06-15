@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GoBarber.Domain.Interfaces
 {
-    public class IAppointmentRepository<T> where T : BaseEntity
+    public interface IAppointmentRepository: IRepository<AppointmentEntity>
     {
     }
 }

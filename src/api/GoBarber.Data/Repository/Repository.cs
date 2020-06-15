@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace GoBarber.Data.Repository
 {
-    public class BaseRepository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
 
         protected readonly MyContext _context;
         private DbSet<T> _dataset;
-        public BaseRepository(MyContext context)
+        public Repository(MyContext context)
         {
             _context = context;
             _dataset = _context.Set<T>();

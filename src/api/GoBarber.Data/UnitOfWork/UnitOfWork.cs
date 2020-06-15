@@ -12,21 +12,19 @@ namespace GoBarber.Data.UnitOfWork
     {
         void Commit();
         void Rollback();
-        IUserRepository<UserEntity> UserRepository { get; set; }
-        IAuthenticationRepository<UserTokenEntity> AuthenticationRepository { get; set; }
+        IUserRepository UserRepository { get; set; }
+        IAuthenticationRepository AuthenticationRepository { get; set; }
     }
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly MyContext _context;
-        private IRepository<UserEntity> _repository;
-        private IUserRepository<UserEntity> _userRepository;
-        private IAuthenticationRepository<UserTokenEntity> _authenticationRepository;
+        private IUserRepository _userRepository;
+        private IAuthenticationRepository _authenticationRepository;
 
-        public UnitOfWork(MyContext context, IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository, IAuthenticationRepository<UserTokenEntity> authenticationRepository)
+        public UnitOfWork(MyContext context, IUserRepository userRepository, IAuthenticationRepository authenticationRepository)
         {
             _context = context;
-            _repository = repository;
             _userRepository = userRepository;
             _authenticationRepository = authenticationRepository;
         }
@@ -40,14 +38,13 @@ namespace GoBarber.Data.UnitOfWork
         {
         }
 
-        IUserRepository<UserEntity> IUnitOfWork.UserRepository
+        IUserRepository IUnitOfWork.UserRepository
         {
             get
             {
-
                 if (_userRepository == null)
                 {
-                    _userRepository = new UserRepository<UserEntity>(_context);
+                    _userRepository = new UserRepository(_context);
                 }
                 return _userRepository;
             }
@@ -55,14 +52,14 @@ namespace GoBarber.Data.UnitOfWork
             set { }
         }
 
-        IAuthenticationRepository<UserTokenEntity> IUnitOfWork.AuthenticationRepository
+        IAuthenticationRepository IUnitOfWork.AuthenticationRepository
         {
             get
             {
 
                 if (_authenticationRepository == null)
                 {
-                    _authenticationRepository = new AuthenticationRepository<UserTokenEntity>(_context);
+                    _authenticationRepository = new AuthenticationRepository(_context);
                 }
                 return _authenticationRepository;
             }

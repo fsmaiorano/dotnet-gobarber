@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GoBarber.Domain.Interfaces
 {
-    public interface IUserRepository<T> where T : BaseEntity
+    public interface IUserRepository : IRepository<UserEntity>
     {
-        T GetByEmail(string email);
+        UserEntity GetByEmail(string email);
         bool DeleteByEmail(string email);
     }
 }

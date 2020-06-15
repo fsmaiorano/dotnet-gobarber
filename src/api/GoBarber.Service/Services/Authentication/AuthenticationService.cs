@@ -14,21 +14,15 @@ namespace GoBarber.Service.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private IAuthenticationRepository<UserTokenEntity> _authenticationRepository;
-        private IRepository<UserTokenEntity> _userTokenRepository;
-        private IUserRepository<UserEntity> _userRepository;
         private IUnitOfWork _unitOfWork;
-        public AuthenticationService(IRepository<UserTokenEntity> userTokenRepository, IUserRepository<UserEntity> userRepository, IAuthenticationRepository<UserTokenEntity> authenticationRepository, IUnitOfWork unitOfWork)
+        public AuthenticationService(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
-            _userTokenRepository = userTokenRepository;
-            _authenticationRepository = authenticationRepository;
             _unitOfWork = unitOfWork;
         }
 
         public UserEntity SignIn(string email, string password)
         {
-            var user = _userRepository.GetByEmail(email);
+            var user = _unitOfWork.UserRepository.GetByEmail(email);
 
             if (user != null)
             {
@@ -41,16 +35,16 @@ namespace GoBarber.Service.Services.Authentication
                     Token = user.Token,
                 };
 
-                var storedToken = GetByUserId(user.Id);
+                var storedToken = _unitOfWork.AuthenticationRepository.GetByUserId(user.Id);
 
                 if (storedToken != null)
                 {
                     storedToken.Token = token;
-                    _userTokenRepository.Update(storedToken);
+                    _unitOfWork.AuthenticationRepository.Update(storedToken);
                 }
                 else
                 {
-                    _userTokenRepository.Insert(userToken);
+                    _unitOfWork.AuthenticationRepository.Insert(userToken);
                 }
                 _unitOfWork.Commit();
             }
@@ -63,7 +57,7 @@ namespace GoBarber.Service.Services.Authentication
         }
         public UserTokenEntity GetByUserId(int userId)
         {
-            return _authenticationRepository.GetByUserId(userId);
+            return _unitOfWork.AuthenticationRepository.GetByUserId(userId);
         }
 
         private string GenerateToken(UserEntity user)

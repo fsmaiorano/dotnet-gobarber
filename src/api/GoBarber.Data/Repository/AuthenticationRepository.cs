@@ -9,20 +9,18 @@ using System.Text;
 
 namespace GoBarber.Data.Repository
 {
-    public class AuthenticationRepository<T> : IAuthenticationRepository<T> where T : UserTokenEntity
+    public class AuthenticationRepository : Repository<UserTokenEntity>, IAuthenticationRepository
     {
-
-        protected readonly MyContext _context;
         private DbSet<UserTokenEntity> _dataset;
 
-        public AuthenticationRepository(MyContext context)
+        public AuthenticationRepository(MyContext context) : base(context)
         {
-            _context = context;
             _dataset = _context.Set<UserTokenEntity>();
         }
-        public T GetByUserId(int userId)
+
+        UserTokenEntity IAuthenticationRepository.GetByUserId(int userId)
         {
-            return (T)_dataset.SingleOrDefault(x => x.UserId.Equals(userId));
+            return _dataset.SingleOrDefault(x => x.UserId.Equals(userId));
         }
     }
 }

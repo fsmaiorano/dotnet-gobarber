@@ -28,9 +28,9 @@ namespace GoBarber.UnitTest.Services
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddScoped(typeof(IUserRepository<>), typeof(UserRepository<>));
-            services.AddScoped(typeof(IAuthenticationRepository<>), typeof(AuthenticationRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IAuthenticationRepository), typeof(AuthenticationRepository));
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );

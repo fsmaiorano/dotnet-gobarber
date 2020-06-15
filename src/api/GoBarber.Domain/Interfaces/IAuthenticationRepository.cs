@@ -5,8 +5,8 @@ using System.Text;
 
 namespace GoBarber.Domain.Interfaces
 {
-    public interface IAuthenticationRepository<T> where T : BaseEntity
+    public interface IAuthenticationRepository: IRepository<UserTokenEntity>
     {
-        T GetByUserId(int userId);
+        UserTokenEntity GetByUserId(int userId);
     }
 }

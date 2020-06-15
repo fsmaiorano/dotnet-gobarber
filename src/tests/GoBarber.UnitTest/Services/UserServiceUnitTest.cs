@@ -7,6 +7,7 @@ using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services;
+using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,21 +21,26 @@ namespace GoBarber.UnitTest.Services
         private readonly ServiceCollection _services;
         private readonly ServiceProvider _serviceProvider;
         private readonly IUserService _userService;
+        private readonly IAuthenticationService _authenticationService;
 
         public UserServiceUnitTest()
         {
             var services = new ServiceCollection();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddScoped(typeof(IUserRepository<>), typeof(UserRepository<>));
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IAuthenticationRepository), typeof(AuthenticationRepository));
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
 
             _services = services;
             _serviceProvider = services.BuildServiceProvider();
+
             _userService = _serviceProvider.GetService<IUserService>();
+            _authenticationService = _serviceProvider.GetService<IAuthenticationService>();
         }
 
         //var builder = WebHost

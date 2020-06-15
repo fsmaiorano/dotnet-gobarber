@@ -9,19 +9,15 @@ namespace GoBarber.Service.Services.User
 {
     public class UserService : IUserService
     {
-        private IRepository<UserEntity> _repository;
-        private IUserRepository<UserEntity> _userRepository;
         private IUnitOfWork _unitOfWork;
-        public UserService(IRepository<UserEntity> repository, IUserRepository<UserEntity> userRepository, IUnitOfWork unitOfWork)
+        public UserService( IUnitOfWork unitOfWork)
         {
-            _repository = repository;
-            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
 
         public bool Delete(int id)
         {
-            return _repository.Delete(id);
+            return _unitOfWork.UserRepository.Delete(id);
         }
 
         public UserEntity Insert(UserEntity user)
@@ -29,7 +25,7 @@ namespace GoBarber.Service.Services.User
             try
             {
                 var x = _unitOfWork.UserRepository.GetByEmail("Kelvin0@yahoo.com");
-                var createdUser = _repository.Insert(user);
+                var createdUser = _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.Commit();
                 return createdUser;
             }
@@ -42,19 +38,19 @@ namespace GoBarber.Service.Services.User
 
         public UserEntity GetById(int id)
         {
-            return _repository.Select(id);
+            return _unitOfWork.UserRepository.Select(id);
         }
 
         public IEnumerable<UserEntity> SelectAll()
         {
-            return _repository.Select();
+            return _unitOfWork.UserRepository.Select();
         }
 
         public UserEntity Update(UserEntity user)
         {
             try
             {
-                var updatedUser = _repository.Update(user);
+                var updatedUser = _unitOfWork.UserRepository.Update(user);
                 _unitOfWork.Commit();
                 return updatedUser;
             }
@@ -67,7 +63,7 @@ namespace GoBarber.Service.Services.User
 
         public UserEntity GetByEmail(string email)
         {
-            return _userRepository.GetByEmail(email);
+            return _unitOfWork.UserRepository.GetByEmail(email);
         }
     }
 }

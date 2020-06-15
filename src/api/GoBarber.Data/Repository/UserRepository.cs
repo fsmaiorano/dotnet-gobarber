@@ -3,21 +3,16 @@ using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoBarber.Data.Repository
 {
-    public class UserRepository<T> : IUserRepository<T> where T : UserEntity
+    public class UserRepository : Repository<UserEntity>, IUserRepository
     {
-        protected readonly MyContext _context;
         private DbSet<UserEntity> _dataset;
 
-        public UserRepository(MyContext context)
+        public UserRepository(MyContext context) : base(context)
         {
-            _context = context;
             _dataset = _context.Set<UserEntity>();
         }
 
@@ -40,11 +35,11 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public T GetByEmail(string email)
+        UserEntity IUserRepository.GetByEmail(string email)
         {
             try
             {
-                return (T)_dataset.SingleOrDefault(p => p.Email.Equals(email));
+                return _dataset.SingleOrDefault(p => p.Email.Equals(email));
             }
             catch (Exception ex)
             {

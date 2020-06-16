@@ -8,7 +8,7 @@ namespace GoBarber.Data.Repository
 {
     public class AppointmentRepository : Repository<AppointmentEntity>, IAppointmentRepository
     {
-        private DbSet<AppointmentEntity> _dataset;
+        private readonly DbSet<AppointmentEntity> _dataset;
 
         public AppointmentRepository(MyContext context) : base(context)
         {

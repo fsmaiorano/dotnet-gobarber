@@ -16,6 +16,7 @@ namespace GoBarber.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             serviceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             serviceCollection.AddScoped(typeof(IAuthenticationRepository), typeof(AuthenticationRepository));
+            serviceCollection.AddScoped(typeof(IAppointmentRepository), typeof(AppointmentRepository));
 
             serviceCollection.AddDbContext<MyContext>(
                 options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")

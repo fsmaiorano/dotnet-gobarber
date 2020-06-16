@@ -13,8 +13,8 @@ namespace GoBarber.Data.UnitOfWork
         void Commit();
         void Rollback();
         IUserRepository UserRepository { get; set; }
-        IAuthenticationRepository AuthenticationRepository { get; set; }
         IAppointmentRepository AppointmentRepository { get; set; }
+        IAuthenticationRepository AuthenticationRepository { get; set; }
     }
 
     public class UnitOfWork : IUnitOfWork

@@ -9,7 +9,7 @@ namespace GoBarber.Data.Repository
 {
     public class UserRepository : Repository<UserEntity>, IUserRepository
     {
-        private DbSet<UserEntity> _dataset;
+        private readonly DbSet<UserEntity> _dataset;
 
         public UserRepository(MyContext context) : base(context)
         {
@@ -25,13 +25,12 @@ namespace GoBarber.Data.Repository
                     return false;
 
                 _dataset.Remove(result);
-                //_context.SaveChanges();
                 return true;
 
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -44,7 +43,7 @@ namespace GoBarber.Data.Repository
             catch (Exception ex)
             {
 
-                throw ex;
+                return null;
             }
         }
     }

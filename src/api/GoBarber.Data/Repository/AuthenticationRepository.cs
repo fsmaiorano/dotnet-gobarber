@@ -11,7 +11,7 @@ namespace GoBarber.Data.Repository
 {
     public class AuthenticationRepository : Repository<UserTokenEntity>, IAuthenticationRepository
     {
-        private DbSet<UserTokenEntity> _dataset;
+        private readonly DbSet<UserTokenEntity> _dataset;
 
         public AuthenticationRepository(MyContext context) : base(context)
         {

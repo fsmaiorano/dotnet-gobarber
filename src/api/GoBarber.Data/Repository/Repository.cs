@@ -14,7 +14,7 @@ namespace GoBarber.Data.Repository
     {
 
         protected readonly MyContext _context;
-        private DbSet<T> _dataset;
+        private readonly DbSet<T> _dataset;
         public Repository(MyContext context)
         {
             _context = context;
@@ -36,7 +36,7 @@ namespace GoBarber.Data.Repository
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -46,12 +46,10 @@ namespace GoBarber.Data.Repository
             {
                 item.CreatedAt = DateTime.UtcNow;
                 _dataset.Add(item);
-
-                //_context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return null;
             }
 
             return item;
@@ -71,7 +69,7 @@ namespace GoBarber.Data.Repository
             catch (Exception ex)
             {
 
-                throw ex;
+                return null;
             }
         }
 
@@ -83,7 +81,7 @@ namespace GoBarber.Data.Repository
             }
             catch (Exception ex)
             {
-                throw ex;
+                return null;
             }
         }
 
@@ -99,11 +97,10 @@ namespace GoBarber.Data.Repository
                 item.CreatedAt = result.CreatedAt;
 
                 _context.Entry(result).CurrentValues.SetValues(item);
-                //_context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return null;
             }
 
             return item;

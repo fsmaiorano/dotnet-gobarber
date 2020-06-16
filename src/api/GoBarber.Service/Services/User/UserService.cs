@@ -37,12 +37,12 @@ namespace GoBarber.Service.Services.User
 
         public UserEntity GetById(int id)
         {
-            return _unitOfWork.UserRepository.Select(id);
+            return _unitOfWork.UserRepository.GetById(id);
         }
 
         public IEnumerable<UserEntity> SelectAll()
         {
-            return _unitOfWork.UserRepository.Select();
+            return _unitOfWork.UserRepository.GetAll();
         }
 
         public UserEntity Update(UserEntity user)

@@ -60,7 +60,7 @@ namespace GoBarber.Data.Repository
             return _dataset.Any(p => p.Id.Equals(id));
         }
 
-        public T Select(Int32 id)
+        public T GetById(Int32 id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public IEnumerable<T> Select()
+        public IEnumerable<T> GetAll()
         {
             try
             {

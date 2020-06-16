@@ -23,7 +23,7 @@ namespace GoBarber.Service.Services.Appointment
 
         public AppointmentEntity GetById(int id)
         {
-            return _unitOfWork.AppointmentRepository.Select(id);
+            return _unitOfWork.AppointmentRepository.GetById(id);
         }
 
         public AppointmentEntity GetByProviderId(int providerId)
@@ -45,7 +45,7 @@ namespace GoBarber.Service.Services.Appointment
 
         public IEnumerable<AppointmentEntity> SelectAll()
         {
-            return _unitOfWork.AppointmentRepository.Select();
+            return _unitOfWork.AppointmentRepository.GetAll();
         }
 
         public AppointmentEntity Update(AppointmentEntity appointment)

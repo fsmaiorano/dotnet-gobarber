@@ -14,9 +14,9 @@ namespace GoBarber.Domain.Interfaces
 
         bool Delete(Int32 id);
 
-        T Select(Int32 id);
+        T GetById(Int32 id);
 
-        IEnumerable<T> Select();
+        IEnumerable<T> GetAll();
 
         bool Exist(Int32 id);
     }

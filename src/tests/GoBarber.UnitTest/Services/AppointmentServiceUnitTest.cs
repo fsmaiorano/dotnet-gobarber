@@ -12,6 +12,7 @@ using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GoBarber.UnitTest.Services
 {
@@ -41,13 +42,12 @@ namespace GoBarber.UnitTest.Services
 
             _services = services;
             _serviceProvider = services.BuildServiceProvider();
-
             _userService = _serviceProvider.GetService<IUserService>();
             _authenticationService = _serviceProvider.GetService<IAuthenticationService>();
             _appointmentService = _serviceProvider.GetService<IAppointmentService>();
         }
 
-        [TestMethod]
+        [TestMethod] 
         public void CreateAppointment()
         {
             var mockUser = new Faker<UserEntity>()
@@ -146,6 +146,81 @@ namespace GoBarber.UnitTest.Services
             var storedAppointment = _appointmentService.GetByProviderId(createdProvider.Id);
             Assert.IsNotNull(storedAppointment);
             Assert.AreEqual(createdProvider.Id, storedAppointment.ProviderId);
+        }
+
+        [TestMethod]
+        public void DeleteAppointment()
+        {
+            var mockUser = new Faker<UserEntity>()
+             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+            user.Role = RoleConstant.Client;
+            var createdUser = _userService.Insert(user);
+
+            var mockProvider = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var provider = mockProvider.Generate();
+            provider.Role = RoleConstant.Provider;
+            var createdProvider = _userService.Insert(provider);
+
+            var mockAppointment = new Faker<AppointmentEntity>()
+            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+
+            var appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.Id;
+
+            var createdAppoitment = _appointmentService.Insert(appointment);
+            Assert.IsNotNull(appointment);
+            Assert.AreEqual(appointment, createdAppoitment);
+
+            var deletedAppointment = _appointmentService.Delete(createdAppoitment.Id);
+            Assert.IsTrue(deletedAppointment);
+        }
+
+        [TestMethod]
+        public void UpdateAppointment()
+        {
+            var mockUser = new Faker<UserEntity>()
+             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var user = mockUser.Generate();
+            user.Role = RoleConstant.Client;
+            var createdUser = _userService.Insert(user);
+
+            var mockProvider = new Faker<UserEntity>()
+            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
+            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+
+            var provider = mockProvider.Generate();
+            provider.Role = RoleConstant.Provider;
+            var createdProvider = _userService.Insert(provider);
+
+            var mockAppointment = new Faker<AppointmentEntity>()
+            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+
+            var appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.Id;
+
+            var createdAppointment = _appointmentService.Insert(appointment);
+            Assert.IsNotNull(appointment);
+            Assert.AreEqual(appointment, createdAppointment);
+
+            var newDate = DateTime.Now;
+
+            createdAppointment.Date = newDate;
+            var updatedAppointment = _appointmentService.Update(createdAppointment);
+            Assert.AreEqual(updatedAppointment.Date, newDate);
         }
     }
 }

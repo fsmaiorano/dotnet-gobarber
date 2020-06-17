@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run watch:typescript\" \"npm run watch:css\"",
+    "dev1": "npm run watch:typescript & npm run watch:css & dotnet run --watch",
+    "build": "npm run build:typescript & npm run build:css",
+    "watch:typescript": "tsc --watch",
+    "build:typescript": "tsc --p ./tsconfig.production.json",
+    "watch:css": "node-sass --watch source/styles/scss -o wwwroot/assets/styles",
+    "build:css": "node-sass source/styles/scss -o wwwroot/assets/styles --output-style compressed && npm run prefix:css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 2 versions' wwwroot/assets/styles --replace"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.0",
+    "concurrently": "^5.2.0",
+    "node-sass": "^4.14.1",
+    "postcss": "^7.0.32",
+    "postcss-cli": "^7.1.1",
+    "typescript": "^3.9.5"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "target": "es6",
+    "outDir": "./wwwroot/assets/scripts",
+    "rootDir": "source/scripts",
+    "typeRoots": [ "./node_modules/@types" ]
+  },
+  "compileOnSave": true
+}

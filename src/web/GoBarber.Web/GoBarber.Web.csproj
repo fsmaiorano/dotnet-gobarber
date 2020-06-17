@@ -2,25 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>9fc413c7-5557-4e92-ad8c-96e44353d2fe</UserSecretsId>
+    <UserSecretsId>53638a52-9326-4224-9e5e-cca2fabf09ee</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="source\scripts\Home.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="BuildWebCompiler" Version="1.12.394" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="source\scripts\pages\home.ts" />
+    <Folder Include="Views\Authentication\" />
+    <Folder Include="source\styles\scss\layout\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\" />
-  </ItemGroup>
-
 </Project>

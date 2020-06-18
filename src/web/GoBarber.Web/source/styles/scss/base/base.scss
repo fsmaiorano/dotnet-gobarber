@@ -1,0 +1,22 @@
+﻿*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+html {
+}
+
+body {
+    box-sizing: border-box;
+    padding: 3rem;
+    max-width: 1200px;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    cursor: pointer;
+}

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="source\styles\scss\layout\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 

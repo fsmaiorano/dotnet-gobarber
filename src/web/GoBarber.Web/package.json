@@ -3,8 +3,8 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run watch:typescript\" \"npm run watch:css\"",
-    "dev1": "npm run watch:typescript & npm run watch:css & dotnet run --watch",
+    "dev": "concurrently \"npm run watch:typescript\" \"npm run watch:css\" \"dotnet watch run\" ",
+    "dev:front": "concurrently \"npm run watch:typescript\" \"npm run watch:css\" ",
     "build": "npm run build:typescript & npm run build:css",
     "watch:typescript": "tsc --watch",
     "build:typescript": "tsc --p ./tsconfig.production.json",

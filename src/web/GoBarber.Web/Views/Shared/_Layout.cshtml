@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GoBarber.Web</title>
+    <link rel="stylesheet" href="assets/styles/main.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -15,13 +16,13 @@
         </main>
     </div>
 
-    <footer>
-        <div>
-            &copy; 2020 - GoBarber.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<footer>
+            <div>
+                &copy; 2020 - GoBarber.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+    <script async src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script async src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

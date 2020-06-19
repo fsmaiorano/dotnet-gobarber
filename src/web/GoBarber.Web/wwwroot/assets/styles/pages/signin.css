@@ -16,7 +16,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 340px;
+      width: 350px;
       margin: 80px 80px;
       text-align: center; }
       .container .content form h1 {
@@ -29,6 +29,10 @@
         margin-top: 24px;
         text-decoration: none;
         transition: color 0.2s; }
+        .container .content form a:hover {
+          opacity: 0.8; }
+      .container .content form button {
+        width: 383px; }
   .container .background {
     flex: 1;
     background: url(../../images/sign-in-background.png) no-repeat center;

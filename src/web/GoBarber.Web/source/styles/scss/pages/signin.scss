@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
 
-      width: 340px;
+      width: 350px;
       margin: 80px 80px;
       text-align: center;
   
@@ -40,7 +40,13 @@
         transition: color 0.2s;
   
         &:hover {
+          opacity: 0.8;
         }
+      }
+
+
+      button {
+        width: 383px;
       }
     }
   }

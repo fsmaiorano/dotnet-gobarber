@@ -1,4 +1,4 @@
-﻿.btn {
+.btn {
   background: #ff9000;
   height: 56px;
   border-radius: 10px;
@@ -8,9 +8,6 @@
   width: 100%;
   font-weight: 500;
   margin-top: 16px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
+  transition: background-color 0.2s; }
+  .btn:hover {
+    opacity: 0.8; }

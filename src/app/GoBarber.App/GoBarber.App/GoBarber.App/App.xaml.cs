@@ -2,7 +2,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using GoBarber.App.Services;
-using GoBarber.App.Views;
 
 namespace GoBarber.App
 {

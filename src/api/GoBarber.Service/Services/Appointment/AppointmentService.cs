@@ -50,7 +50,7 @@ namespace GoBarber.Service.Services.Appointment
 
         public AppointmentEntity Update(AppointmentEntity appointment)
         {
-            var updatedAppointment = _unitOfWork.AppointmentRepository.Insert(appointment);
+            var updatedAppointment = _unitOfWork.AppointmentRepository.Update(appointment);
             _unitOfWork.Commit();
             return updatedAppointment;
         }

@@ -20,7 +20,7 @@ namespace GoBarber.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/signin");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

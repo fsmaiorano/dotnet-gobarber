@@ -1,6 +1,4 @@
-﻿
-
-.container {
+﻿.container {
   height: 100vh;
   display: flex;
   align-items: stretch;
@@ -44,8 +42,7 @@
         }
       }
 
-
-      button {
+      .btn-login {
         width: 383px;
       }
     }

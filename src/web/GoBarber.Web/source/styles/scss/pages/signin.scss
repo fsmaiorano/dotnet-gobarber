@@ -1,0 +1,57 @@
+﻿
+
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+
+  background-color: #312e38;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    place-content: center;
+    width: 100%;
+    max-width: 700px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      width: 340px;
+      margin: 80px 80px;
+      text-align: center;
+  
+      h1 {
+        margin-bottom: 24px;
+        width: 375px;
+        color: #f4ede8;
+      }
+  
+      a {
+        color: #f4ede8;
+        display: block;
+        margin-top: 24px;
+        text-decoration: none;
+        transition: color 0.2s;
+  
+        &:hover {
+        }
+      }
+    }
+  }
+
+  .background {
+    flex: 1;
+    background: url(../../images/sign-in-background.png) no-repeat center;
+    background-size: cover;
+  }
+}
+
+@keyframes slide {
+  100% { left: 0; }
+}

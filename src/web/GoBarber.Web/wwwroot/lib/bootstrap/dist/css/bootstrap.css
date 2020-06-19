@@ -6433,7 +6433,7 @@ a.close.disabled {
   width: 2rem;
   height: 2rem;
   vertical-align: text-bottom;
-  border: 0.25em solid currentColor;
+  border: 0.25em solid #666360;
   border-right-color: transparent;
   border-radius: 50%;
   -webkit-animation: spinner-border .75s linear infinite;
@@ -6471,7 +6471,7 @@ a.close.disabled {
   width: 2rem;
   height: 2rem;
   vertical-align: text-bottom;
-  background-color: currentColor;
+  background-color: #666360;
   border-radius: 50%;
   opacity: 0;
   -webkit-animation: spinner-grow .75s linear infinite;

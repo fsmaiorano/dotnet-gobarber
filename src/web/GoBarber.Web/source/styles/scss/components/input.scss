@@ -1,0 +1,40 @@
+.input-container {
+  background: #232129;
+  border-radius: 10px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  color: #666360;
+  border: 2px solid #232129;
+
+  position: relative;
+
+  & + div {
+    margin-top: 8px;
+  }
+
+  &:hover {
+    border-color: #ff9000;
+  }
+
+  &:focus-within {
+    border-color: #ff9000;
+  }
+  
+  input {
+    flex: 1;
+    border: 0;
+    color: #f4ede8;
+    background: transparent;
+    &::placeholder {
+      color: #666360;
+    }
+  }
+
+  img {
+    background-color: transparent;
+    margin-right: 16px;
+  }
+}

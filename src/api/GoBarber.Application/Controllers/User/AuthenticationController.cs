@@ -12,6 +12,7 @@ using GoBarber.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,10 +24,13 @@ namespace GoBarber.Application.Controllers.User
     {
         private readonly IOptions<AppSettings> _appSettings;
         private readonly IAuthenticationService _authenticationService;
-        public AuthenticationController(IOptions<AppSettings> appSettings, IAuthenticationService authenticationService)
+        private readonly ILogger<AuthenticationController> _logger;
+
+        public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService)
         {
             _appSettings = appSettings;
             _authenticationService = authenticationService;
+            _logger = logger;
         }
 
         [HttpPost]

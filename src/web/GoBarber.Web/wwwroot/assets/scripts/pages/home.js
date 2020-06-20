@@ -7,4 +7,3 @@ class Home {
     }
 }
 new Home();
-//# sourceMappingURL=home.js.map

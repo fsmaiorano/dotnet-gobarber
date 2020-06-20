@@ -39,6 +39,9 @@
     background-color: transparent;
     margin-right: 16px; }
 
+.input-focused {
+  border-color: #ff9000; }
+
 body, input, button {
   font-family: 'Roboto Slab', serif;
   font-size: 16px;

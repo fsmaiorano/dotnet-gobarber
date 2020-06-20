@@ -36,7 +36,7 @@ namespace GoBarber.Application.Controllers.User
         [HttpPost]
         [Route("")]
         [AllowAnonymous]
-        public AuthenticationModelResult Login([FromBody] AuthenticationModelInput input)
+        public AuthenticationModelResult Login(AuthenticationModelInput input)
         {
             try
             {

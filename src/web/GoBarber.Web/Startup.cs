@@ -25,11 +25,13 @@ namespace GoBarber.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<AuthenticationFilter>();
+            services.AddMemoryCache();
 
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(typeof(AuthenticationFilter));
             });
+
 
             //services.AddSession(options =>
             //{

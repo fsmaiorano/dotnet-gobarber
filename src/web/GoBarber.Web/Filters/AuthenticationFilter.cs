@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using GoBarber.Web.Helpers;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,29 +10,21 @@ using System.Threading.Tasks;
 
 namespace GoBarber.Web.Filters
 {
-    public class AuthenticationFilter : IActionFilter
+    public class AuthenticationFilter : ActionFilterAttribute
     {
-        public void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!context.HttpContext.Request.Path.Equals("/signin"))
+            var cache = context.HttpContext.RequestServices.GetService<IMemoryCache>();
+
+            var storedUser =  cache.Get(CacheConstants.User);
+
+            if (!context.HttpContext.Request.Path.Equals("/signin") && storedUser == null)
             {
-                    
+                context.RouteData.Values["controller"] = "Authentication";
+                context.RouteData.Values["action"] = "Index";
             }
-            
 
-            //Debug.Write(MethodBase.GetCurrentMethod(), context.HttpContext.Request.Path);
-            //if (context.HttpContext.Request.Headers.ContainsKey("token"))
-            //{
-            //    var token = context.HttpContext.Request.Headers["token"][0];
-            //}
-            //else
-            //{
-            //    var x = 1;
-            //}
-        }
-
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
+            base.OnActionExecuting(context);
         }
     }
 }

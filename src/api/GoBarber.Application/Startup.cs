@@ -113,10 +113,13 @@ namespace GoBarber.Application
 
             //app.UseHttpsRedirection();
 
-            app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+           app.UseCors(builder =>
+                        {
+                            builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                        });
 
 
             app.UseRouting();

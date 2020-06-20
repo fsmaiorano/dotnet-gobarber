@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 class SignIn {
     constructor() {
         this.btnDoLogin = document.querySelector(".btn-login");
-        this.frmLogin = document.querySelector(".form");
         this.inputEmail = document.querySelector(".input-email");
         this.inputPassword = document.querySelector(".input-password");
         this.init();
@@ -35,29 +34,27 @@ class SignIn {
             }
         });
         this.btnDoLogin.onclick = () => __awaiter(this, void 0, void 0, function* () {
-            debugger;
-            var opts = {
+            yield this.doLogin();
+        });
+    }
+    doLogin() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let data = {
+                email: this.inputEmail.value,
+                password: this.inputPassword.value,
+            };
+            const rawResponse = yield fetch("https://localhost:5001/api/Authentication", {
                 method: "POST",
-                headers: new Headers({
+                headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                }),
-                mode: "no-cors",
-                body: JSON.stringify({
-                    email: this.inputEmail,
-                    password: this.inputEmail,
-                    token: "",
-                }),
-            };
-            yield fetch("https://localhost:5001/api/Authentication", opts)
-                .then(function (response) {
-                debugger;
-                return response.json();
-            })
-                .then(function (body) {
-                debugger;
-                //doSomething with body;
+                },
+                body: JSON.stringify(data),
             });
+            let response = yield rawResponse.json();
+            if (response.success) {
+                window.localStorage.setItem("GoBarber.Web:Token", response.token);
+            }
         });
     }
 }

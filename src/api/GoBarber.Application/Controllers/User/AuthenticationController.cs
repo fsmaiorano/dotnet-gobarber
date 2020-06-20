@@ -44,16 +44,17 @@ namespace GoBarber.Application.Controllers.User
 
                 if (user != null)
                 {
-                    return new AuthenticationModelResult { UserId = user.Id, Token = user.Token, Email = user.Email };
+                    return new AuthenticationModelResult { Token = user.Token, Success = true };
                 }
                 else
                 {
-                    return null;
+                    return new AuthenticationModelResult { Success = false };
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                _logger.LogCritical($"AuthenticationController/Login - {ex.Message}");
+                return new AuthenticationModelResult { Success = false };
             }
         }
     }

@@ -1,6 +1,14 @@
-﻿class SignIn {
+﻿interface ILogin {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse extends GenericResult {
+  token: string;
+}
+
+class SignIn {
   private btnDoLogin: HTMLButtonElement = document.querySelector(".btn-login");
-  private frmLogin: HTMLFormElement = document.querySelector(".form");
   private inputEmail: HTMLInputElement = document.querySelector(".input-email");
   private inputPassword: HTMLInputElement = document.querySelector(
     ".input-password"
@@ -32,31 +40,32 @@
     });
 
     this.btnDoLogin.onclick = async () => {
-      debugger;
-      var opts: RequestInit = {
-        method: "POST",
-        headers: new Headers({
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        }),
-        mode: "no-cors",
-        body: JSON.stringify({
-          email: this.inputEmail,
-          password: this.inputEmail,
-          token: "",
-        }),
-      };
-      await fetch("https://localhost:5001/api/Authentication", opts)
-        .then(function (response) {
-          debugger;
-          return response.json();
-        })
-        .then(function (body) {
-          debugger;
-          //doSomething with body;
-        });
+      await this.doLogin();
     };
   }
-}
 
+  async doLogin() {
+    let data: ILogin = {
+      email: this.inputEmail.value,
+      password: this.inputPassword.value,
+    };
+
+    const rawResponse = await fetch(
+      "https://localhost:5001/api/Authentication",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    let response: LoginResponse = await rawResponse.json();
+
+    if (response.success) {
+      window.localStorage.setItem("GoBarber.Web:Token", response.token);
+    }
+  }
+}
 new SignIn();

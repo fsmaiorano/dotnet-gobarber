@@ -44,7 +44,7 @@ namespace GoBarber.Application.Controllers.User
 
                 if (user != null)
                 {
-                    return new AuthenticationModelResult { Token = user.Token, Success = true };
+                    return new AuthenticationModelResult { Token = user.Token, User = user , Success = true };
                 }
                 else
                 {

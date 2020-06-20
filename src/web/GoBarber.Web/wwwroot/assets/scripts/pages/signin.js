@@ -43,11 +43,12 @@ class SignIn {
                 email: this.inputEmail.value,
                 password: this.inputPassword.value,
             };
-            const rawResponse = yield fetch("https://localhost:5001/api/Authentication", {
+            const rawResponse = yield fetch("https://localhost:3333/signin", {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
+                    token: "teste",
                 },
                 body: JSON.stringify(data),
             });

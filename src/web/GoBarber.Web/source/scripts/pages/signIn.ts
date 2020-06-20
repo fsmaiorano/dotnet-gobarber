@@ -51,12 +51,13 @@ class SignIn {
     };
 
     const rawResponse = await fetch(
-      "https://localhost:5001/api/Authentication",
+      "https://localhost:3333/signin",
       {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          token: "teste",
         },
         body: JSON.stringify(data),
       }

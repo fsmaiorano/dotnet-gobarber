@@ -1,4 +1,5 @@
-﻿interface ILogin {
+﻿interface ICreateUser {
+  user: string;
   email: string;
   password: string;
 }
@@ -7,8 +8,9 @@ interface LoginResponse extends GenericResult {
   token: string;
 }
 
-class SignIn {
+class SignUp {
   private btnDoLogin: HTMLButtonElement = document.querySelector(".btn-login");
+  private inputUser: HTMLInputElement = document.querySelector(".input-user");
   private inputEmail: HTMLInputElement = document.querySelector(".input-email");
   private inputPassword: HTMLInputElement = document.querySelector(
     ".input-password"
@@ -19,6 +21,16 @@ class SignIn {
   }
 
   init() {
+    this.inputUser.addEventListener("change", (event: Event) => {
+      let input = event.target as HTMLInputElement;
+
+      if (input.value !== "") {
+        input.parentElement.classList.add("input-focused");
+      } else {
+        input.parentElement.classList.remove("input-focused");
+      }
+    });
+
     this.inputEmail.addEventListener("change", (event: Event) => {
       let input = event.target as HTMLInputElement;
 
@@ -48,12 +60,13 @@ class SignIn {
 
   async doLogin() {
     try {
-      let data: ILogin = {
+      let data: ICreateUser = {
+        user: this.inputUser.value,
         email: this.inputEmail.value,
         password: this.inputPassword.value,
       };
 
-      const rawResponse = await fetch("https://localhost:3333/signin", {
+      const rawResponse = await fetch("https://localhost:3333/signup", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -74,4 +87,4 @@ class SignIn {
     }
   }
 }
-new SignIn();
+new SignUp();

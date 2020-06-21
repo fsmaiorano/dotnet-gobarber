@@ -1,16 +1,16 @@
-.signin {
+.signup {
   height: 100vh;
   display: flex;
   align-items: stretch;
   background-color: #312e38; }
-  .signin .content {
+  .signup .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 700px; }
-    .signin .content form {
+    .signup .content form {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -18,21 +18,21 @@
       width: 350px;
       margin: 80px 80px;
       text-align: center; }
-      .signin .content form h1 {
+      .signup .content form h1 {
         margin-bottom: 24px;
         width: 375px;
         color: #f4ede8; }
-      .signin .content form a {
+      .signup .content form a {
         color: #f4ede8;
         display: block;
         margin-top: 24px;
         text-decoration: none;
         transition: color 0.2s; }
-        .signin .content form a:hover {
+        .signup .content form a:hover {
           opacity: 0.8; }
-      .signin .content form .btn-login {
+      .signup .content form .btn-login {
         width: 383px; }
-  .signin .background {
+  .signup .background {
     flex: 1;
-    background: url(../../images/sign-in-background.png) no-repeat center;
+    background: url(../../images/sign-up-background.png) no-repeat center;
     background-size: cover; }

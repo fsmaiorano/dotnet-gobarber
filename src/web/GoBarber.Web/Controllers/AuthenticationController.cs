@@ -13,41 +13,41 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace GoBarber.Web.Controllers.Authentication
 {
-    [Route("signin")]
-    public class AuthenticationController : Controller
+  [Route("signin")]
+  public class AuthenticationController : Controller
+  {
+    private IMemoryCache _cache;
+
+    public AuthenticationController(IMemoryCache memoryCache)
     {
-        private IMemoryCache _cache;
-
-        public AuthenticationController(IMemoryCache memoryCache)
-        {
-            _cache = memoryCache;
-        }
-
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] AuthenticationModelInput input)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var signInResponse = await SignInService.DoLogin(input);
-
-            if (signInResponse.Success)
-            {
-                _cache.Set(CacheConstants.User, signInResponse.User);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
+      _cache = memoryCache;
     }
+
+    [HttpGet]
+    public IActionResult Index()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostAsync([FromBody] AuthenticationModelInput input)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      var signInResponse = await SignInService.DoLogin(input);
+
+      if (signInResponse.Success)
+      {
+        _cache.Set(CacheConstants.User, signInResponse.User);
+        return Ok();
+      }
+      else
+      {
+        return BadRequest();
+      }
+    }
+  }
 }

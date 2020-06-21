@@ -1,14 +1,18 @@
-﻿@page
+@page
 
 @{
 }
 
-<link rel="stylesheet" href="assets/styles/pages/signin.css" asp-append-version="true" />
-<div class="signin">
+<link rel="stylesheet" href="assets/styles/pages/signup.css" asp-append-version="true" />
+<div class="signup">
     <div class="content">
         <img src="assets/images/logo.svg" />
         <form class="form">
-            <h1>Login</h1>
+            <h1>Create your account</h1>
+            <div class="input-container">
+                <img src="assets/icons/feather/user.svg" />
+                <input class="input input-user" type="text" placeholder="Name" />
+            </div>
             <div class="input-container">
                 <img src="assets/icons/feather/mail.svg" />
                 <input class="input input-email" type="text" placeholder="E-mail" />
@@ -17,12 +21,11 @@
                 <img src="assets/icons/feather/lock.svg" />
                 <input class="input input-password" type="password" placeholder="Senha" />
             </div>
-            <button id="userPassword" type="button" class="btn btn-login">Signin</button>
-            <a href="">Forget my password</a>
-            <a href="/signup">Create new account</a>
+            <button id="userPassword" type="button" class="btn btn-login">Create Account</button>
+            <a href="/">Back to login</a>
         </form>
     </div>
     <div class="background" />
 </div>
 
-<script src="assets/scripts/pages/signin.js"></script>
+<script src="assets/scripts/pages/signup.js"></script>

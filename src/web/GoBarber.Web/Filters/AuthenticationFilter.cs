@@ -18,10 +18,10 @@ namespace GoBarber.Web.Filters
 
             var storedUser =  cache.Get(CacheConstants.User);
 
-            if (!context.HttpContext.Request.Path.Equals("/signin") && storedUser == null)
+            if (!context.HttpContext.Request.Path.Equals("/signin") && !context.HttpContext.Request.Path.Equals("/signup") && storedUser == null)
             {
                 context.RouteData.Values["controller"] = "Authentication";
-                context.RouteData.Values["action"] = "Index";
+                context.RouteData.Values["action"] = "Index"; 
             }
 
             base.OnActionExecuting(context);

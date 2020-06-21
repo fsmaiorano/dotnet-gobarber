@@ -1,10 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\dto\GoBarber.DTO\GoBarber.DTO.csproj" />
     <ProjectReference Include="..\GoBarber.Data\GoBarber.Data.csproj" />
     <ProjectReference Include="..\GoBarber.Domain\GoBarber.Domain.csproj" />
     <ProjectReference Include="..\GoBarber.Service\GoBarber.Service.csproj" />

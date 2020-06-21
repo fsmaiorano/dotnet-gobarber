@@ -1,5 +1,9 @@
-﻿using GoBarber.Data.UnitOfWork;
+﻿using AutoMapper;
+using GoBarber.Data.UnitOfWork;
+using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Authentication;
+using GoBarber.DTO.User;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
@@ -15,6 +19,16 @@ namespace GoBarber.CrossCutting.DependencyInjection
             serviceCollection.AddTransient<IUserService, UserService>();
             serviceCollection.AddTransient<IAuthenticationService, AuthenticationService>();
             serviceCollection.AddTransient<IAppointmentService, AppointmentService>();
+
+            //Automapper
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UserEntity, UserDTO>();
+                cfg.CreateMap<UserEntity, AuthenticationDTO>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            serviceCollection.AddSingleton(mapper);
         }
     }
 }

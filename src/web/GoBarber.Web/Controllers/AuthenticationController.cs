@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using GoBarber.DTO.Authentication;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.Models;
 using GoBarber.Web.Models.SignIn;
@@ -31,7 +32,7 @@ namespace GoBarber.Web.Controllers.Authentication
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] AuthenticationModel input)
+        public async Task<IActionResult> PostAsync([FromBody] AuthenticationInput input)
         {
             if (!ModelState.IsValid)
             {
@@ -42,15 +43,7 @@ namespace GoBarber.Web.Controllers.Authentication
 
             if (signInResponse.Success)
             {
-                var userViewModel = new UserViewModel
-                {
-                    Name = signInResponse.Name,
-                    Email = signInResponse.Email,
-                    Avatar = signInResponse.Avatar,
-                    Role = signInResponse.Role
-                };
-
-                _cache.Set(CacheConstants.User, userViewModel);
+                _cache.Set(CacheConstants.User, signInResponse.User);
                 return Ok();
             }
             else

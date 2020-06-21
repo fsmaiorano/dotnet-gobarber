@@ -1,5 +1,9 @@
-﻿using GoBarber.Application.Config;
+﻿using AutoMapper;
+using GoBarber.Application.Config;
+using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Authentication;
+using GoBarber.DTO.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,15 +17,17 @@ namespace GoBarber.Application.Controllers.User
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService, IMapper mapper)
         {
             _appSettings = appSettings;
             _authenticationService = authenticationService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -32,9 +38,11 @@ namespace GoBarber.Application.Controllers.User
             {
                 var user = _authenticationService.SignIn(input.Email, input.Password);
 
+                var userDTO = _mapper.Map<UserEntity, AuthenticationDTO>(user);
+
                 if (user != null)
                 {
-                    return new AuthenticationResult { Token = user.Token, Name = user.Name, Email = user.Email, Avatar = user.Avatar, Success = true };
+                    return new AuthenticationResult { User = userDTO, Success = true };
                 }
                 else
                 {

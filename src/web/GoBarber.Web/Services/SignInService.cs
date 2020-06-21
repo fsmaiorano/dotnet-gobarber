@@ -1,16 +1,15 @@
 using GoBarber.Web.Helpers;
-using GoBarber.Web.Models;
 using GoBarber.Web.Models.SignIn;
-using GoBarber.Web.Models.User;
 using System.Threading.Tasks;
+using static GoBarber.DTO.Authentication.AuthenticationDTO;
 
 namespace GoBarber.Web.services
 {
     public class SignInService
     {
-        public static async Task<AuthenticationModelResult> DoLogin(AuthenticationModelInput input)
+        public static async Task<AuthenticationResult> DoLogin(AuthenticationModel input)
         {
-            return (AuthenticationModelResult)await HttpHelper.HttpPostAsync<AuthenticationModelResult>(ApiConstants.SignInUrl, input);
+            return (AuthenticationResult)await HttpHelper.HttpPostAsync<AuthenticationResult>(ApiConstants.SignInUrl, input);
         }
     }
 }

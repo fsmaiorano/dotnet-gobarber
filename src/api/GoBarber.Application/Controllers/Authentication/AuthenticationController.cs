@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using GoBarber.Application.Config;
-using GoBarber.Application.Models;
-using GoBarber.Domain.Entities;
+﻿using GoBarber.Application.Config;
 using GoBarber.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using static GoBarber.DTO.Authentication.AuthenticationDTO;
 
 namespace GoBarber.Application.Controllers.User
 {
@@ -34,9 +25,8 @@ namespace GoBarber.Application.Controllers.User
         }
 
         [HttpPost]
-        [Route("")]
         [AllowAnonymous]
-        public AuthenticationModelResult Login(AuthenticationModelInput input)
+        public AuthenticationResult Login(AuthenticationInput input)
         {
             try
             {
@@ -44,17 +34,17 @@ namespace GoBarber.Application.Controllers.User
 
                 if (user != null)
                 {
-                    return new AuthenticationModelResult { Token = user.Token, User = user , Success = true };
+                    return new AuthenticationResult { Token = user.Token, Name = user.Name, Email = user.Email, Avatar = user.Avatar, Success = true };
                 }
                 else
                 {
-                    return new AuthenticationModelResult { Success = false };
+                    return new AuthenticationResult { Success = false };
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogCritical($"AuthenticationController/Login - {ex.Message}");
-                return new AuthenticationModelResult { Success = false };
+                return new AuthenticationResult { Success = false };
             }
         }
     }

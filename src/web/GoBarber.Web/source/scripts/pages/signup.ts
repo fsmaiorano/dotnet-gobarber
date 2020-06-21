@@ -9,7 +9,9 @@ interface LoginResponse extends GenericResult {
 }
 
 class SignUp {
-  private btnDoLogin: HTMLButtonElement = document.querySelector(".btn-login");
+  private btnDoCreateUser: HTMLButtonElement = document.querySelector(
+    ".btn-login"
+  );
   private inputUser: HTMLInputElement = document.querySelector(".input-user");
   private inputEmail: HTMLInputElement = document.querySelector(".input-email");
   private inputPassword: HTMLInputElement = document.querySelector(
@@ -51,14 +53,14 @@ class SignUp {
       }
     });
 
-    this.btnDoLogin.onclick = async () => {
-      this.btnDoLogin.disabled = true;
-      this.btnDoLogin.textContent = "Loading...";
-      await this.doLogin();
+    this.btnDoCreateUser.onclick = async () => {
+      this.btnDoCreateUser.disabled = true;
+      this.btnDoCreateUser.textContent = "Loading...";
+      await this.doCreateUser();
     };
   }
 
-  async doLogin() {
+  async doCreateUser() {
     try {
       let data: ICreateUser = {
         user: this.inputUser.value,
@@ -66,7 +68,7 @@ class SignUp {
         password: this.inputPassword.value,
       };
 
-      const rawResponse = await fetch("https://localhost:3333/signup", {
+      const rawResponse = await fetch(`https://localhost:3333/api/user`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -82,8 +84,8 @@ class SignUp {
       }
     } catch (e) {
     } finally {
-      this.btnDoLogin.disabled = false;
-      this.btnDoLogin.textContent = "Login";
+      this.btnDoCreateUser.disabled = false;
+      this.btnDoCreateUser.textContent = "Login";
     }
   }
 }

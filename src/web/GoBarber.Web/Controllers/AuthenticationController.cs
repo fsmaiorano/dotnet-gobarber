@@ -7,47 +7,56 @@ using GoBarber.Web.Helpers;
 using GoBarber.Web.Models;
 using GoBarber.Web.Models.SignIn;
 using GoBarber.Web.services;
+using GoBarber.Web.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace GoBarber.Web.Controllers.Authentication
 {
-  [Route("signin")]
-  public class AuthenticationController : Controller
-  {
-    private IMemoryCache _cache;
-
-    public AuthenticationController(IMemoryCache memoryCache)
+    [Route("signin")]
+    public class AuthenticationController : Controller
     {
-      _cache = memoryCache;
+        private IMemoryCache _cache;
+
+        public AuthenticationController(IMemoryCache memoryCache)
+        {
+            _cache = memoryCache;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] AuthenticationModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var signInResponse = await SignInService.DoLogin(input);
+
+            if (signInResponse.Success)
+            {
+                var userViewModel = new UserViewModel
+                {
+                    Name = signInResponse.Name,
+                    Email = signInResponse.Email,
+                    Avatar = signInResponse.Avatar,
+                    Role = signInResponse.Role
+                };
+
+                _cache.Set(CacheConstants.User, userViewModel);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
-
-    [HttpGet]
-    public IActionResult Index()
-    {
-      return View();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] AuthenticationModelInput input)
-    {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest();
-      }
-
-      var signInResponse = await SignInService.DoLogin(input);
-
-      if (signInResponse.Success)
-      {
-        _cache.Set(CacheConstants.User, signInResponse.User);
-        return Ok();
-      }
-      else
-      {
-        return BadRequest();
-      }
-    }
-  }
 }

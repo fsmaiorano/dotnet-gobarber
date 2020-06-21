@@ -7,17 +7,11 @@ using GoBarber.Web.Models.User;
 
 namespace GoBarber.Web.Models.SignIn
 {
-    public class AuthenticationModelInput
+    public class AuthenticationModel
     {
         [Required]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-    }
-
-    public class AuthenticationModelResult : GenericResult
-    {
-        public string Token { get; set; }
-        public User.User User { get; set; }
     }
 }

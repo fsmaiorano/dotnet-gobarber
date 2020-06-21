@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\dto\GoBarber.DTO\GoBarber.DTO.csproj" />
     <ProjectReference Include="..\GoBarber.CrossCutting\GoBarber.CrossCutting.csproj" />
     <ProjectReference Include="..\GoBarber.Domain\GoBarber.Domain.csproj" />
   </ItemGroup>

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 class SignUp {
     constructor() {
-        this.btnDoLogin = document.querySelector(".btn-login");
+        this.btnDoCreateUser = document.querySelector(".btn-login");
         this.inputUser = document.querySelector(".input-user");
         this.inputEmail = document.querySelector(".input-email");
         this.inputPassword = document.querySelector(".input-password");
@@ -43,13 +43,13 @@ class SignUp {
                 input.parentElement.classList.remove("input-focused");
             }
         });
-        this.btnDoLogin.onclick = () => __awaiter(this, void 0, void 0, function* () {
-            this.btnDoLogin.disabled = true;
-            this.btnDoLogin.textContent = "Loading...";
-            yield this.doLogin();
+        this.btnDoCreateUser.onclick = () => __awaiter(this, void 0, void 0, function* () {
+            this.btnDoCreateUser.disabled = true;
+            this.btnDoCreateUser.textContent = "Loading...";
+            yield this.doCreateUser();
         });
     }
-    doLogin() {
+    doCreateUser() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let data = {
@@ -57,7 +57,7 @@ class SignUp {
                     email: this.inputEmail.value,
                     password: this.inputPassword.value,
                 };
-                const rawResponse = yield fetch("https://localhost:3333/signup", {
+                const rawResponse = yield fetch(`https://localhost:3333/api/user`, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -74,8 +74,8 @@ class SignUp {
             catch (e) {
             }
             finally {
-                this.btnDoLogin.disabled = false;
-                this.btnDoLogin.textContent = "Login";
+                this.btnDoCreateUser.disabled = false;
+                this.btnDoCreateUser.textContent = "Login";
             }
         });
     }

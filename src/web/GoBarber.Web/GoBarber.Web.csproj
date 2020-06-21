@@ -25,4 +25,8 @@
     <Folder Include="source\styles\scss\layout\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\dto\GoBarber.DTO\GoBarber.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

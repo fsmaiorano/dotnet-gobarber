@@ -7,6 +7,7 @@ using GoBarber.Application.Config;
 using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -69,7 +70,7 @@ namespace GoBarber.Application.Controllers.User
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] UserEntity user)
+        public ActionResult Post([FromBody] UserInput user)
         {
             if (!ModelState.IsValid)
             {
@@ -78,8 +79,13 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
+                var userEntity = new UserEntity
+                {
+                    Name = user.Name,
 
-                var result = _service.Insert(user);
+                };
+
+                var result = _service.Insert(userEntity);
                 if (result != null)
                 {
                     return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);

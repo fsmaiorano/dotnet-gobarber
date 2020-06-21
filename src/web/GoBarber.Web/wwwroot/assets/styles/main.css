@@ -11,6 +11,8 @@
   transition: background-color 0.2s; }
   .btn:hover {
     opacity: 0.8; }
+  .btn:disabled {
+    opacity: 0.8; }
 
 .input-container {
   background: #232129;

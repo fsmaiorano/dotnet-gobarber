@@ -11,7 +11,7 @@ namespace GoBarber.Web.Helpers
 {
   public static class HttpHelper
   {
-    public static async Task<object> HttpGet<T>(string url)
+    public static async Task<object> HttpGetAsync<T>(string url)
     {
       try
       {

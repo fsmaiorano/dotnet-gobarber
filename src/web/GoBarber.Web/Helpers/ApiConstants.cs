@@ -9,6 +9,6 @@ namespace GoBarber.Web.Helpers
     {
         public static string ApiHost = "https://localhost:5001";
         public static string SignInUrl = $"{ApiHost}/api/Authentication";
-        public static string SignUpUrl = $"{ApiHost}/api/Authentication";
+        public static string SignUpUrl = $"{ApiHost}/api/User";
     }
 }

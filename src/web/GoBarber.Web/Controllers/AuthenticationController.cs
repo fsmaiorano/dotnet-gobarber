@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using GoBarber.DTO.Authentication;
+﻿using GoBarber.DTO.Authentication;
 using GoBarber.Web.Helpers;
-using GoBarber.Web.Models;
-using GoBarber.Web.Models.SignIn;
 using GoBarber.Web.services;
-using GoBarber.Web.ViewModels.User;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Threading.Tasks;
 
 namespace GoBarber.Web.Controllers.Authentication
 {
@@ -39,7 +31,7 @@ namespace GoBarber.Web.Controllers.Authentication
                 return BadRequest();
             }
 
-            var signInResponse = await SignInService.DoLogin(input);
+            var signInResponse = await UserService.Authentication(input);
 
             if (signInResponse.Success)
             {

@@ -53,11 +53,13 @@ class SignUp {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let data = {
-                    user: this.inputUser.value,
+                    name: this.inputUser.value,
                     email: this.inputEmail.value,
                     password: this.inputPassword.value,
+                    avatar: "",
+                    role: ""
                 };
-                const rawResponse = yield fetch(`https://localhost:3333/api/user`, {
+                const rawResponse = yield fetch(`https://localhost:3333/signup`, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",

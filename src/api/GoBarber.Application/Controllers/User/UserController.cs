@@ -1,30 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using GoBarber.Application.Config;
 using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.DTO.User;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
+using System.Net;
 
 namespace GoBarber.Application.Controllers.User
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserService _service;
+        private readonly IMapper _mapper;
+        private IUserService _userService;
         private readonly IOptions<AppSettings> appSettings;
-        public UserController(IUserService service, IOptions<AppSettings> app)
+        public UserController(IUserService userService, IOptions<AppSettings> app, IMapper mapper)
         {
-            _service = service;
+            _userService = userService;
             appSettings = app;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -39,7 +38,7 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                return Ok(_service.SelectAll());
+                return Ok(_userService.SelectAll());
 
             }
             catch (ArgumentException e)
@@ -60,7 +59,7 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                return Ok(_service.GetById(id));
+                return Ok(_userService.GetById(id));
             }
             catch (ArgumentException e)
             {
@@ -77,22 +76,27 @@ namespace GoBarber.Application.Controllers.User
                 return BadRequest(ModelState);
             }
 
+            var userResult = new UserResult();
+
             try
             {
-                var userEntity = new UserEntity
-                {
-                    Name = user.Name,
+                user.Role = RoleConstant.Client;
 
-                };
+                var userEntity = _mapper.Map<UserInput, UserEntity>(user);
 
-                var result = _service.Insert(userEntity);
-                if (result != null)
+                var createdUser = _userService.Insert(userEntity);
+
+                if (createdUser != null)
                 {
-                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
+                    userResult.User = _mapper.Map<UserEntity, UserDTO>(createdUser);
+                    userResult.Success = true;
+
+                    return Ok(userResult);
                 }
                 else
                 {
-                    return BadRequest();
+                    userResult.Success = false;
+                    return BadRequest(userResult);
                 }
 
             }
@@ -112,7 +116,7 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                var result = _service.Update(user);
+                var result = _userService.Update(user);
                 if (result != null)
                 {
                     return Ok(result);
@@ -139,7 +143,7 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                return Ok(_service.Delete(id));
+                return Ok(_userService.Delete(id));
             }
             catch (ArgumentException e)
             {

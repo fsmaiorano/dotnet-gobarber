@@ -3,13 +3,11 @@ using GoBarber.Application.Config;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.DTO.Authentication;
-using GoBarber.DTO.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using static GoBarber.DTO.Authentication.AuthenticationDTO;
 
 namespace GoBarber.Application.Controllers.User
 {
@@ -24,10 +22,10 @@ namespace GoBarber.Application.Controllers.User
 
         public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService, IMapper mapper)
         {
+            _mapper = mapper;
+            _logger = logger;
             _appSettings = appSettings;
             _authenticationService = authenticationService;
-            _logger = logger;
-            _mapper = mapper;
         }
 
         [HttpPost]

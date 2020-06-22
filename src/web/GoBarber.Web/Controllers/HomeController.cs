@@ -26,13 +26,6 @@ namespace GoBarber.Web.Controllers
         [AuthenticationFilter]
         public IActionResult Index()
         {
-            //var storedUser = _cache.Get(CacheConstants.User);
-
-            //if (storedUser == null)
-            //    return Redirect("/signin");
-            //else
-            //    return Redirect("/dashboard");
-
             return View();
         }
 

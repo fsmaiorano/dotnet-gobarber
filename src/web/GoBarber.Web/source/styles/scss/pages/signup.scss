@@ -1,53 +1,67 @@
 .signup {
-  height: 100vh;
-  display: flex;
-  align-items: stretch;
-  background-color: #312e38;
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    background-color: #312e38;
 
-  .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 700px;
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 700px;
 
-      form {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 350px;
-          margin: 80px 80px;
-          text-align: center;
+        animation: slide 0.5s forwards;
 
-          h1 {
-              margin-bottom: 24px;
-              width: 375px;
-              color: #f4ede8;
-          }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 350px;
+            margin: 80px 80px;
+            text-align: center;
 
-          a {
-              color: #f4ede8;
-              display: block;
-              margin-top: 24px;
-              text-decoration: none;
-              transition: color 0.2s;
+            h1 {
+                margin-bottom: 24px;
+                width: 375px;
+                color: #f4ede8;
+            }
 
-              &:hover {
-                  opacity: 0.8;
-              }
-          }
+            a {
+                color: #f4ede8;
+                display: block;
+                margin-top: 24px;
+                text-decoration: none;
+                transition: color 0.2s;
 
-          .btn-login {
-              width: 383px;
-          }
-      }
-  }
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
 
-  .background {
-      flex: 1;
-      background: url(../../images/sign-up-background.png) no-repeat center;
-      background-size: cover;
-  }
+            .btn-login {
+                width: 383px;
+            }
+        }
+    }
+
+    .background {
+        flex: 1;
+        background: url(../../images/sign-up-background.png) no-repeat center;
+        background-size: cover;
+    }
+
+    @-webkit-keyframes slide {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 }

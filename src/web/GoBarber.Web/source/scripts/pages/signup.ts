@@ -85,6 +85,7 @@ class SignUp {
 
             if (response.success) {
                 window.localStorage.setItem("GoBarber.Web:Token", response.token);
+                document.location.href = "/";
             }
         } catch (e) {
         } finally {

@@ -36,7 +36,7 @@ namespace GoBarber.Web.Controllers.Authentication
             if (signInResponse.Success)
             {
                 _cache.Set(CacheConstants.User, signInResponse.User);
-                return Ok();
+                return Ok(signInResponse);
             }
             else
             {

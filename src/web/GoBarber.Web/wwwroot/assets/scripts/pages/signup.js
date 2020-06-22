@@ -71,6 +71,7 @@ class SignUp {
                 let response = yield rawResponse.json();
                 if (response.success) {
                     window.localStorage.setItem("GoBarber.Web:Token", response.token);
+                    document.location.href = "/";
                 }
             }
             catch (e) {

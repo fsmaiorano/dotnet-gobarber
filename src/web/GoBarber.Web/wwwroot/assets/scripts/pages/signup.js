@@ -77,7 +77,7 @@ class SignUp {
             }
             finally {
                 this.btnDoCreateUser.disabled = false;
-                this.btnDoCreateUser.textContent = "Login";
+                this.btnDoCreateUser.textContent = "Register";
             }
         });
     }

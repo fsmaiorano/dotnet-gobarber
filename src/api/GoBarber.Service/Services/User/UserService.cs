@@ -2,6 +2,7 @@
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.Service.Services.Authentication;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +26,11 @@ namespace GoBarber.Service.Services.User
             try
             {
                 var createdUser = _unitOfWork.UserRepository.Insert(user);
+                
                 _unitOfWork.Commit();
+
+                createdUser.Token = TokenService.GenerateToken(createdUser);
+                
                 return createdUser;
             }
             catch (Exception)

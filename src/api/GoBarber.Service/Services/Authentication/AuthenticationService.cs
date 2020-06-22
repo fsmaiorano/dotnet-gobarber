@@ -26,7 +26,7 @@ namespace GoBarber.Service.Services.Authentication
 
             if (user != null)
             {
-                var token = GenerateToken(user);
+                var token = TokenService.GenerateToken(user);
                 user.Token = token;
 
                 var userToken = new UserTokenEntity
@@ -58,25 +58,6 @@ namespace GoBarber.Service.Services.Authentication
         public UserTokenEntity GetByUserId(int userId)
         {
             return _unitOfWork.AuthenticationRepository.GetByUserId(userId);
-        }
-
-        private string GenerateToken(UserEntity user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(CrossSettings.JwtSecret));
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] {
-                    new Claim("UserId", user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
-                }),
-                Expires = DateTime.Now.AddHours(500),
-                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
         }
     }
 }

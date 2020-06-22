@@ -89,6 +89,7 @@ namespace GoBarber.Application.Controllers.User
                 if (createdUser != null)
                 {
                     userResult.User = _mapper.Map<UserEntity, UserDTO>(createdUser);
+                    userResult.User.Token = createdUser.Token;
                     userResult.Success = true;
 
                     return Ok(userResult);

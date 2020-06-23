@@ -90,6 +90,7 @@ namespace GoBarber.Application.Controllers.User
                 {
                     userResult.User = _mapper.Map<UserEntity, UserDTO>(createdUser);
                     userResult.User.Token = createdUser.Token;
+                    userResult.User.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
                     userResult.Success = true;
 
                     return Ok(userResult);

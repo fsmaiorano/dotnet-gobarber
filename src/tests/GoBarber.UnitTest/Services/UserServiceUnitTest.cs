@@ -13,6 +13,7 @@ using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GoBarber.UnitTest.Services
 {
@@ -81,7 +82,7 @@ namespace GoBarber.UnitTest.Services
             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 
             var user = mockUser.Generate();
-
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);
@@ -103,7 +104,7 @@ namespace GoBarber.UnitTest.Services
             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 
             var user = mockUser.Generate();
-
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);

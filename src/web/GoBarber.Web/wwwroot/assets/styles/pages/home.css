@@ -1,2 +1,38 @@
-body {
-  background-color: red; }
+.home {
+  color: #fff; }
+  .home .header {
+    padding: 32px 0;
+    background: #28262e; }
+    .home .header .header-content {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center; }
+      .home .header .header-content > img {
+        height: 80px; }
+      .home .header .header-content a {
+        margin-left: auto;
+        background: transparent;
+        border: 0; }
+      .home .header .header-content .profile {
+        display: flex;
+        align-items: center;
+        margin-left: 80px; }
+        .home .header .header-content .profile a {
+          text-decoration: none;
+          color: #ff9000; }
+          .home .header .header-content .profile a:hover {
+            opacity: 0.8; }
+        .home .header .header-content .profile img {
+          width: 56px;
+          height: 56px;
+          border-radius: 50px; }
+        .home .header .header-content .profile div {
+          display: flex;
+          flex-direction: column;
+          margin-left: 16px;
+          line-height: 24px; }
+        .home .header .header-content .profile span {
+          color: #f4ede8; }
+        .home .header .header-content .profile strong {
+          color: #ff9000; }

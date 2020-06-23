@@ -3,6 +3,7 @@ using GoBarber.Application.Config;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.DTO.Authentication;
+using GoBarber.DTO.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -36,7 +37,7 @@ namespace GoBarber.Application.Controllers.Authentication
             {
                 var user = _authenticationService.SignIn(input.Email, input.Password);
 
-                var userDTO = _mapper.Map<UserEntity, AuthenticationDTO>(user);
+                var userDTO = _mapper.Map<UserEntity, UserDTO>(user);
 
                 if (user != null)
                 {

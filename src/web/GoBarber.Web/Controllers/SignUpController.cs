@@ -1,6 +1,7 @@
 using GoBarber.DTO.User;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace GoBarber.Web.Controllers
 {
     [Route("signup")]
+    [AllowAnonymous]
     public class SignUpController : Controller
     {
         private IMemoryCache _cache;

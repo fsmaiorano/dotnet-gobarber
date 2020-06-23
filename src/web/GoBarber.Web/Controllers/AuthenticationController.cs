@@ -1,6 +1,8 @@
 ﻿using GoBarber.DTO.Authentication;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.services;
+using GoBarber.Web.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 namespace GoBarber.Web.Controllers.Authentication
 {
     [Route("signin")]
+    [AllowAnonymous]
     public class AuthenticationController : Controller
     {
         private IMemoryCache _cache;
@@ -35,6 +38,13 @@ namespace GoBarber.Web.Controllers.Authentication
 
             if (signInResponse.Success)
             {
+                var vm = new UserViewModel(signInResponse.User.Name,
+                                signInResponse.User.Email,
+                                signInResponse.User.Avatar,
+                                signInResponse.User.Role,
+                                signInResponse.User.Token);
+
+                _cache.Set(CacheConstants.UserViewModel, vm);
                 _cache.Set(CacheConstants.User, signInResponse.User);
                 return Ok(signInResponse);
             }
@@ -42,6 +52,13 @@ namespace GoBarber.Web.Controllers.Authentication
             {
                 return BadRequest();
             }
+        }
+       
+        public IActionResult LogOut()
+        {
+            _cache.Remove(CacheConstants.UserViewModel);
+            _cache.Remove(CacheConstants.User);
+            return RedirectToAction("index", "authentication");
         }
     }
 }

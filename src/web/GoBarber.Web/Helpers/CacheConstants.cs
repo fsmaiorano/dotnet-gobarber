@@ -8,5 +8,6 @@ namespace GoBarber.Web.Helpers
     public static class CacheConstants
     {
         public static string User = "User";
+        public static string UserViewModel = "UserViewModel";
     }
 }

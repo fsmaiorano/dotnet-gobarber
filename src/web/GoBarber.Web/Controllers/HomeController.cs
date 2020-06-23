@@ -9,6 +9,10 @@ using GoBarber.Web.Models;
 using Microsoft.Extensions.Caching.Memory;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.Filters;
+using GoBarber.Web.ViewModels.User;
+using GoBarber.DTO.User;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoBarber.Web.Controllers
 {
@@ -26,7 +30,15 @@ namespace GoBarber.Web.Controllers
         [AuthenticationFilter]
         public IActionResult Index()
         {
-            return View();
+            var user = (UserDTO) _cache.Get(CacheConstants.User);
+
+            if(user == null) {
+                return RedirectToAction("index", "authentication");
+            }
+            
+            var vm = _cache.Get(CacheConstants.UserViewModel);
+
+            return View(vm);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,12 +1,26 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    @model GoBarber.Web.ViewModels.User.UserViewModel;
 }
 
 <link rel="stylesheet" href="assets/styles/pages/home.css" asp-append-version="true" />
 
-<div>
-    <h1>teste</h1>
-   <button class="btn">botao</button>
-</div>
+<section class="home">
+    <div class="header">
+        <div class="header-content">
+            <img src="assets/images/logo.svg" />
+            <div class="profile">
+                <img src="@Model.Avatar" />
+                <div>
+                    <span>Olá,</span>
+                    @Model.Name
+                </div>
+            </div>
+            <a href="@Url.Action("LogOut","Authentication")">
+                <img src="assets/icons/feather/log-out.svg" />
+            </a>
+        </div>
+    </div>
+</section>
 
 <script src="assets/scripts/pages/home.js" asp-append-version="true"></script>

@@ -28,7 +28,8 @@ namespace GoBarber.Application.Controllers.User
 
         [HttpGet]
         [Route("")]
-        [Authorize(Roles = RoleConstant.Client)]
+        [Authorize]
+        //[Authorize(Roles = RoleConstant.Client)]
         public ActionResult GetAll()
         {
             if (!ModelState.IsValid)
@@ -69,6 +70,7 @@ namespace GoBarber.Application.Controllers.User
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Post([FromBody] UserInput user)
         {
             if (!ModelState.IsValid)
@@ -109,6 +111,7 @@ namespace GoBarber.Application.Controllers.User
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult Put([FromBody] UserEntity user)
         {
             if (!ModelState.IsValid)
@@ -136,6 +139,7 @@ namespace GoBarber.Application.Controllers.User
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public ActionResult Delete(Int32 id)
         {
             if (!ModelState.IsValid)

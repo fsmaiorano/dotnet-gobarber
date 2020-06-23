@@ -57,6 +57,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
             var mockProvider = new Faker<UserEntity>()
@@ -66,6 +67,7 @@ namespace GoBarber.UnitTest.Services
 
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
+            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
             var mockAppointment = new Faker<AppointmentEntity>()
@@ -90,6 +92,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
             var mockProvider = new Faker<UserEntity>()
@@ -99,6 +102,7 @@ namespace GoBarber.UnitTest.Services
 
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
+            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
             var mockAppointment = new Faker<AppointmentEntity>()
@@ -124,6 +128,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
             var mockProvider = new Faker<UserEntity>()
@@ -133,6 +138,7 @@ namespace GoBarber.UnitTest.Services
 
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
+            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
             var mockAppointment = new Faker<AppointmentEntity>()
@@ -158,6 +164,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
             var mockProvider = new Faker<UserEntity>()
@@ -167,6 +174,7 @@ namespace GoBarber.UnitTest.Services
 
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
+            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
             var mockAppointment = new Faker<AppointmentEntity>()
@@ -194,6 +202,7 @@ namespace GoBarber.UnitTest.Services
 
             var user = mockUser.Generate();
             user.Role = RoleConstant.Client;
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
             var mockProvider = new Faker<UserEntity>()
@@ -203,6 +212,7 @@ namespace GoBarber.UnitTest.Services
 
             var provider = mockProvider.Generate();
             provider.Role = RoleConstant.Provider;
+            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
             var mockAppointment = new Faker<AppointmentEntity>()

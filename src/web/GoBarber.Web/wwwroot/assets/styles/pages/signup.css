@@ -1,8 +1,12 @@
 .signup {
   height: 100vh;
   display: flex;
-  align-items: stretch;
-  background-color: #312e38; }
+  background-color: #312e38;
+  overflow: hidden; }
+  .signup .background {
+    flex: 1;
+    background: url(../../images/sign-up-background.png) no-repeat center;
+    background-size: cover; }
   .signup .content {
     display: flex;
     flex-direction: column;
@@ -17,7 +21,6 @@
       justify-content: center;
       align-items: center;
       width: 350px;
-      margin: 80px 80px;
       text-align: center; }
       .signup .content form h1 {
         margin-bottom: 24px;
@@ -33,10 +36,6 @@
           opacity: 0.8; }
       .signup .content form .btn-login {
         width: 383px; }
-  .signup .background {
-    flex: 1;
-    background: url(../../images/sign-up-background.png) no-repeat center;
-    background-size: cover; }
 
 @-webkit-keyframes slide {
   from {

@@ -13,6 +13,7 @@ using GoBarber.Service.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GoBarber.UnitTest.Services
 {
@@ -66,7 +67,9 @@ namespace GoBarber.UnitTest.Services
             var user = mockUser.Generate();
 
             user.Role = RoleConstant.Client;
-            
+
+            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);

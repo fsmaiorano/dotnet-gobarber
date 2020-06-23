@@ -10,4 +10,14 @@ namespace GoBarber.DTO.Appointment
         public Int32 UserId { get; set; }
         public DateTime Date { get; set; }
     }
+
+    public class AppointmentInput
+    {
+
+    }
+
+    public class AppointmentResult : GenericResult
+    {
+
+    }
 }

@@ -23,6 +23,8 @@ namespace GoBarber.Web.Controllers.Authentication
         [HttpGet]
         public IActionResult Index()
         {
+            _cache.Remove(CacheConstants.UserViewModel);
+            _cache.Remove(CacheConstants.User);
             return View();
         }
 

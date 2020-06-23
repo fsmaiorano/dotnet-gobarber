@@ -13,6 +13,7 @@ using GoBarber.Web.ViewModels.User;
 using GoBarber.DTO.User;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Authorization;
+using GoBarber.Web.Services;
 
 namespace GoBarber.Web.Controllers
 {
@@ -28,15 +29,18 @@ namespace GoBarber.Web.Controllers
         }
 
         [AuthenticationFilter]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var user = (UserDTO) _cache.Get(CacheConstants.User);
+            var user = (UserDTO)_cache.Get(CacheConstants.User);
 
-            if(user == null) {
+            if (user == null)
+            {
                 return RedirectToAction("index", "authentication");
             }
-            
+
             var vm = _cache.Get(CacheConstants.UserViewModel);
+
+            var appointments = await AppointmentService.GetAppointments();
 
             return View(vm);
         }

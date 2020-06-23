@@ -9,12 +9,12 @@ namespace GoBarber.Web.services
     {
         public static async Task<AuthenticationResult> Authentication(AuthenticationInput input)
         {
-            return (AuthenticationResult)await HttpHelper.HttpPostAsync<AuthenticationResult>(ApiConstants.SignInUrl, input);
+            return (AuthenticationResult)await HttpHelper.HttpPostAsync<AuthenticationResult>(input, ApiConstants.SignInUrl);
         }
 
         public static async Task<UserResult> Register(UserInput input)
         {
-            return (UserResult)await HttpHelper.HttpPostAsync<UserResult>(ApiConstants.SignUpUrl, input);
+            return (UserResult)await HttpHelper.HttpPostAsync<UserResult>(input, ApiConstants.SignUpUrl);
         }
     }
 }

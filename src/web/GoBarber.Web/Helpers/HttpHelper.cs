@@ -9,55 +9,59 @@ using Newtonsoft.Json;
 
 namespace GoBarber.Web.Helpers
 {
-  public static class HttpHelper
-  {
-    public static async Task<object> HttpGetAsync<T>(string url)
+    public static class HttpHelper
     {
-      try
-      {
-        var client = new HttpClient();
+        public static async Task<object> HttpGetAsync<T>(string url, string token = "")
+        {
+            try
+            {
+                var client = new HttpClient();
 
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        var response = await client.GetAsync(url);
-        var contents = response.Content.ReadAsStringAsync().Result;
+                if (!string.IsNullOrEmpty(token))
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
 
-        var result = JsonConvert.DeserializeObject<T>(contents);
+                var response = await client.GetAsync(url);
+                var contents = response.Content.ReadAsStringAsync().Result;
 
-        return result;
-      }
-      catch (Exception)
-      {
+                var result = JsonConvert.DeserializeObject<T>(contents);
 
-        throw;
-      }
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static async Task<object> HttpPostAsync<T>(object input, string url, string token = "")
+        {
+            try
+            {
+                string postData = System.Text.Json.JsonSerializer.Serialize(input);
+
+                var client = new HttpClient();
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                if (!string.IsNullOrEmpty(token))
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
+
+                var response = await client.PostAsync(url, new StringContent(postData, Encoding.UTF8, "application/json"));
+                var contents = response.Content.ReadAsStringAsync().Result;
+
+                var result = JsonConvert.DeserializeObject<T>(contents);
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
-
-    public static async Task<object> HttpPostAsync<T>(string url, object input)
-    {
-      try
-      {
-        string postData = System.Text.Json.JsonSerializer.Serialize(input);
-
-        var client = new HttpClient();
-
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
-
-        var response = await client.PostAsync(url, new StringContent(postData, Encoding.UTF8, "application/json"));
-        var contents = response.Content.ReadAsStringAsync().Result;
-
-        var result = JsonConvert.DeserializeObject<T>(contents);
-
-        return result;
-      }
-      catch (Exception)
-      {
-        throw;
-      }
-    }
-  }
 }

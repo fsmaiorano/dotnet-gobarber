@@ -8,8 +8,8 @@ namespace GoBarber.Domain.Interfaces.Services
     public interface IAppointmentService
     {
         AppointmentEntity GetById(Int32 id);
-        AppointmentEntity GetByUserId(Int32 userId);
-        AppointmentEntity GetByProviderId(Int32 providerId);
+        IEnumerable<AppointmentEntity> GetByUserId(Int32 userId);
+        IEnumerable<AppointmentEntity> GetByProviderId(Int32 providerId);
 
         IEnumerable<AppointmentEntity> SelectAll();
 

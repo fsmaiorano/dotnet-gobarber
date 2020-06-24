@@ -1,4 +1,4 @@
-﻿class Home {
+﻿class Appointment {
 
     constructor() {
         this.init();
@@ -8,4 +8,4 @@
     }
 }
 
-new Home();
+new Appointment();

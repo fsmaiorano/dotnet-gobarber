@@ -7,7 +7,8 @@ namespace GoBarber.Domain.Interfaces
 {
     public interface IAppointmentRepository : IRepository<AppointmentEntity>
     {
-        AppointmentEntity GetByUserId(int userId);
-        AppointmentEntity GetByProviderId(int providerId);
+        IEnumerable<AppointmentEntity> GetByUserId(int userId);
+        IEnumerable<AppointmentEntity> GetByProviderId(int providerId);
     }
 }
+

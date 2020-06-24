@@ -2,6 +2,7 @@
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GoBarber.Data.Repository
@@ -15,14 +16,14 @@ namespace GoBarber.Data.Repository
             _dataset = _context.Set<AppointmentEntity>();
         }
 
-        public AppointmentEntity GetByProviderId(int providerId)
+        public IEnumerable<AppointmentEntity> GetByProviderId(int providerId)
         {
-            return _dataset.SingleOrDefault(x => x.ProviderId.Equals(providerId));
+            return _dataset.Where(x => x.ProviderId.Equals(providerId)).ToList();
         }
 
-        public AppointmentEntity GetByUserId(int userId)
+        public IEnumerable<AppointmentEntity> GetByUserId(int userId)
         {
-            return _dataset.SingleOrDefault(x => x.UserId.Equals(userId));
+            return _dataset.Where(x => x.UserId.Equals(userId)).ToList();
         }
     }
 }

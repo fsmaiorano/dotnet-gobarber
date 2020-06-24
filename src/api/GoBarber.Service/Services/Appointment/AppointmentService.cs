@@ -26,12 +26,12 @@ namespace GoBarber.Service.Services.Appointment
             return _unitOfWork.AppointmentRepository.GetById(id);
         }
 
-        public AppointmentEntity GetByProviderId(int providerId)
+        public IEnumerable<AppointmentEntity> GetByProviderId(int providerId)
         {
             return _unitOfWork.AppointmentRepository.GetByProviderId(providerId);
         }
 
-        public AppointmentEntity GetByUserId(int userId)
+        public IEnumerable<AppointmentEntity> GetByUserId(int userId)
         {
             return _unitOfWork.AppointmentRepository.GetByUserId(userId);
         }

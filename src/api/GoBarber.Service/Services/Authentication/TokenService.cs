@@ -2,8 +2,8 @@
 using GoBarber.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -28,6 +28,18 @@ namespace GoBarber.Service.Services.Authentication
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public static string ReadToken(string token)
+        {
+            var stream = token;
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(stream);
+            var tokenContent = handler.ReadToken(stream) as JwtSecurityToken;
+
+            var userId = tokenContent.Claims.First(claim => claim.Type == "UserId").Value;
+
+            return userId;
         }
     }
 }

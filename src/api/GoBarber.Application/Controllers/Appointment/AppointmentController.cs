@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GoBarber.Application.Config;
+using GoBarber.Application.Helpers;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services.Appointment;
+using GoBarber.Service.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -36,8 +38,17 @@ namespace GoBarber.Application.Controllers.Appointment
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var token = HttpContext.Request.Headers["Authorization"].ToString();
+            var userId = TokenHelper.GetUserIdByToken(token);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return null;
+            }
+
+            var appointments = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
+
             return null;
-            //return _appointmentService.GetByProviderId();
         }
 
         [HttpGet("{id}")]

@@ -6,6 +6,7 @@ using AutoMapper;
 using GoBarber.Application.Config;
 using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services.Appointment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -16,6 +17,7 @@ namespace GoBarber.Application.Controllers.Appointment
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AppointmentController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -34,7 +36,6 @@ namespace GoBarber.Application.Controllers.Appointment
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var x = HttpContext.Request.Headers["Authorization"];
             return null;
             //return _appointmentService.GetByProviderId();
         }
@@ -46,6 +47,7 @@ namespace GoBarber.Application.Controllers.Appointment
         }
 
         [HttpPost]
+
         public void Post([FromBody] string value)
         {
         }

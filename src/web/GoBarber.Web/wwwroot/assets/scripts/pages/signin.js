@@ -15,6 +15,7 @@ class SignIn {
         this.init();
     }
     init() {
+        window.localStorage.removeItem("GoBarber.Web:Token");
         this.inputEmail.addEventListener("change", (event) => {
             let input = event.target;
             if (input.value !== "") {
@@ -51,14 +52,13 @@ class SignIn {
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
-                        token: "teste",
                     },
                     body: JSON.stringify(data),
                 });
                 let response = yield rawResponse.json();
                 debugger;
                 if (response.success) {
-                    window.localStorage.setItem("GoBarber.Web:Token", response.user.token);
+                    window.localStorage.setItem("GoBarber.Web:Token", `Bearer ${response.user.token}`);
                     document.location.href = "/home";
                 }
             }

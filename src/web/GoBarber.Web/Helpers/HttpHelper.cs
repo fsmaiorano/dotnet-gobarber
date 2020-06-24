@@ -21,7 +21,7 @@ namespace GoBarber.Web.Helpers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrEmpty(token))
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var response = await client.GetAsync(url);
                 var contents = response.Content.ReadAsStringAsync().Result;
@@ -49,7 +49,7 @@ namespace GoBarber.Web.Helpers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrEmpty(token))
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var response = await client.PostAsync(url, new StringContent(postData, Encoding.UTF8, "application/json"));
                 var contents = response.Content.ReadAsStringAsync().Result;

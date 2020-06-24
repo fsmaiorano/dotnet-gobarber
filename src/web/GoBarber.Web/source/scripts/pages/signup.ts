@@ -28,6 +28,8 @@ class SignUp {
     }
 
     init() {
+        window.localStorage.removeItem("GoBarber.Web:Token");
+
         this.inputUser.addEventListener("change", (event: Event) => {
             let input = event.target as HTMLInputElement;
 
@@ -80,14 +82,13 @@ class SignUp {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    token: "teste",
                 },
                 body: JSON.stringify(data),
             });
             let response: LoginResponse = await rawResponse.json();
 
             if (response.success) {
-                window.localStorage.setItem("GoBarber.Web:Token", response.user.token);
+                window.localStorage.setItem("GoBarber.Web:Token", `Bearer ${response.user.token}`);
                 document.location.href = "/";
             }
         } catch (e) {

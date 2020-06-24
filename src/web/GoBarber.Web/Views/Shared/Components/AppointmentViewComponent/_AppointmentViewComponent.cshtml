@@ -1,4 +1,11 @@
-﻿@model GoBarber.DTO.Appointment.AppointmentResult
+﻿@model List<GoBarber.Web.ViewModels.Appointment.AppointmentViewModel>
 
 
-    <h1>AppointmentViewComponent</h1>
+<h1>AppointmentViewComponent</h1>
+
+@foreach (var appointment in @Model)
+{
+    <p>
+        @appointment.User.Name
+    </p>
+}

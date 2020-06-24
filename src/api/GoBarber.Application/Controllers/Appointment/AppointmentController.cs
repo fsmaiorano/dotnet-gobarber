@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using GoBarber.Application.Config;
 using GoBarber.Application.Helpers;
+using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Appointment;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -36,19 +38,34 @@ namespace GoBarber.Application.Controllers.Appointment
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public AppointmentResult Get()
         {
-            var token = HttpContext.Request.Headers["Authorization"].ToString();
-            var userId = TokenHelper.GetUserIdByToken(token);
+            var result = new AppointmentResult();
 
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                return null;
+                var token = HttpContext.Request.Headers["Authorization"].ToString();
+                var userId = TokenHelper.GetUserIdByToken(token);
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return null;
+                }
+
+                var appointments = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
+                var appointmentsDTO = _mapper.Map<IEnumerable<AppointmentEntity>, IEnumerable<AppointmentDTO>>(appointments);
+
+
+                result.Success = true;
+                result.Appointments = (IEnumerable<AppointmentDTO>)appointmentsDTO;
+            }
+            catch (Exception)
+            {
+
+                result.Success = false;
             }
 
-            var appointments = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
-
-            return null;
+            return result;
         }
 
         [HttpGet("{id}")]

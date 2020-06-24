@@ -2,6 +2,7 @@
 using GoBarber.Data.UnitOfWork;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Appointment;
 using GoBarber.DTO.Authentication;
 using GoBarber.DTO.User;
 using GoBarber.Service.Services.Appointment;
@@ -25,6 +26,9 @@ namespace GoBarber.CrossCutting.DependencyInjection
             {
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserInput, UserEntity>();
+
+                cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
+                cfg.CreateMap<AppointmentInput, AppointmentEntity>();
             });
 
             IMapper mapper = config.CreateMapper();

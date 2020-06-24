@@ -2,6 +2,7 @@
 using GoBarber.DTO.User;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.Services;
+using GoBarber.Web.ViewModels.Appointment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -26,7 +27,22 @@ namespace GoBarber.Web.ViewComponents
 
             var appointments = await AppointmentService.GetAppointments(user.Token);
 
-            return View("_AppointmentViewComponent", appointments);
+            var vm = new List<AppointmentViewModel>();
+
+            foreach (var appointment in appointments.Appointments)
+            {
+                var ap = new AppointmentViewModel
+                {
+                    UserId = appointment.UserId,
+                    User = appointment.User,
+                    ProviderId = appointment.ProviderId,
+                    Date = appointment.Date
+                };
+
+                vm.Add(ap);
+            }
+
+            return View("_AppointmentViewComponent", vm);
         }
     }
 }

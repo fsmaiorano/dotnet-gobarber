@@ -18,12 +18,12 @@ namespace GoBarber.Data.Repository
 
         public IEnumerable<AppointmentEntity> GetByProviderId(int providerId)
         {
-            return _dataset.Where(x => x.ProviderId.Equals(providerId)).ToList();
+            return _dataset.Where(x => x.ProviderId.Equals(providerId)).Include(x=>x.User).Include(y=>y.Provider).ToList();
         }
 
         public IEnumerable<AppointmentEntity> GetByUserId(int userId)
         {
-            return _dataset.Where(x => x.UserId.Equals(userId)).ToList();
+            return _dataset.Where(x => x.UserId.Equals(userId)).Include(x => x.User).Include(y => y.Provider).ToList();
         }
     }
 }

@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+src/web/GoBarber.Web/wwwroot/assets/styles
+src/web/GoBarber.Web/wwwroot/assets/scripts
+
 # User-specific files
 *.rsuser
 *.suo

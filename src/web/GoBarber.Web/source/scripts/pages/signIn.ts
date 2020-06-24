@@ -4,7 +4,10 @@
 }
 
 interface LoginResponse extends GenericResult {
-    token: string;
+    success: boolean,
+    user: {
+        token
+    }
 }
 
 class SignIn {
@@ -63,9 +66,9 @@ class SignIn {
                 body: JSON.stringify(data),
             });
             let response: LoginResponse = await rawResponse.json();
-
+            debugger;
             if (response.success) {
-                window.localStorage.setItem("GoBarber.Web:Token", response.token);
+                window.localStorage.setItem("GoBarber.Web:Token", response.user.token);
                 document.location.href = "/home";
             }
         } catch (e) {

@@ -70,7 +70,7 @@ class SignUp {
                 });
                 let response = yield rawResponse.json();
                 if (response.success) {
-                    window.localStorage.setItem("GoBarber.Web:Token", response.token);
+                    window.localStorage.setItem("GoBarber.Web:Token", response.user.token);
                     document.location.href = "/";
                 }
             }

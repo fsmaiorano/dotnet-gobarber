@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.UnitTest", "src\te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.Web", "src\web\GoBarber.Web\GoBarber.Web.csproj", "{EB6C0881-C5A0-4C31-AF91-E6796ECCF099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBarber.DTO", "src\dto\GoBarber.DTO\GoBarber.DTO.csproj", "{E9C0AF56-9605-4B81-AA03-43CF6F5C1BEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.DTO", "src\dto\GoBarber.DTO\GoBarber.DTO.csproj", "{E9C0AF56-9605-4B81-AA03-43CF6F5C1BEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,7 +30,7 @@ namespace GoBarber.Application.Controllers.User
         [Route("")]
         [Authorize]
         //[Authorize(Roles = RoleConstant.Client)]
-        public ActionResult GetAll()
+        public ActionResult Get()
         {
             if (!ModelState.IsValid)
             {
@@ -85,6 +85,7 @@ namespace GoBarber.Application.Controllers.User
                 user.Role = RoleConstant.Client;
 
                 var userEntity = _mapper.Map<UserInput, UserEntity>(user);
+                userEntity.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
 
                 var createdUser = _userService.Insert(userEntity);
 
@@ -92,7 +93,6 @@ namespace GoBarber.Application.Controllers.User
                 {
                     userResult.User = _mapper.Map<UserEntity, UserDTO>(createdUser);
                     userResult.User.Token = createdUser.Token;
-                    userResult.User.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
                     userResult.Success = true;
 
                     return Ok(userResult);

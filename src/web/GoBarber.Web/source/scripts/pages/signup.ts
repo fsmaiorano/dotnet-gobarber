@@ -7,7 +7,10 @@
 }
 
 interface LoginResponse extends GenericResult {
-    token: string;
+    success: boolean,
+    user: {
+        token
+    }
 }
 
 class SignUp {
@@ -84,7 +87,7 @@ class SignUp {
             let response: LoginResponse = await rawResponse.json();
 
             if (response.success) {
-                window.localStorage.setItem("GoBarber.Web:Token", response.token);
+                window.localStorage.setItem("GoBarber.Web:Token", response.user.token);
                 document.location.href = "/";
             }
         } catch (e) {

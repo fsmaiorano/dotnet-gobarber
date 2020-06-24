@@ -9,9 +9,9 @@ namespace GoBarber.Web.Services
 {
     public static class AppointmentService
     {
-        public static async Task<AppointmentResult> GetAppointments()
+        public static async Task<AppointmentResult> GetAppointments(string token = "")
         {
-            return (AppointmentResult)await HttpHelper.HttpGetAsync<AppointmentResult>(ApiConstants.AppointmentUrl);
+            return (AppointmentResult)await HttpHelper.HttpGetAsync<AppointmentResult>(ApiConstants.AppointmentUrl, token);
         }
     }
 }

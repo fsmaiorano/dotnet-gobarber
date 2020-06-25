@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GoBarber.Web</title>
+    <script src="~/lib/requirejs/require.js"></script>
+    @RenderSection("PageStyle", required: false)
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/main.css" asp-append-version="true" />
 </head>
@@ -23,7 +25,10 @@
             </div>
         </footer>*@
     @* <script async src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script async src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
-    @RenderSection("Scripts", required: false)
+        <script async src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+
+
+    @RenderSection("PageScript", required: false)
+    @*@ @RenderSection("Scripts", required: false) *@
 </body>
 </html>

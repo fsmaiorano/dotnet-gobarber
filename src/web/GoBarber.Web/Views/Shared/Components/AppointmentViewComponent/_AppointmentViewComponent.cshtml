@@ -1,6 +1,12 @@
 ﻿@model List<GoBarber.Web.ViewModels.Appointment.AppointmentViewModel>
 
-<link rel="stylesheet" href="assets/styles/components/appointment.css" asp-append-version="true" />
+@section PageStyle {
+    <link rel="stylesheet" href="~/assets/styles/components/appointment.css" asp-append-version="true" />
+}
+
+@section PageScript {
+    <script src="~/assets/scripts/components/appointment.js" asp-append-version="true"></script>
+}
 
 <div class="appointments">
     <div class="appointment-content">
@@ -13,4 +19,4 @@
     </div>
 </div>
 
-<script src="assets/scripts/components/appointment.js" asp-append-version="true"></script>
+

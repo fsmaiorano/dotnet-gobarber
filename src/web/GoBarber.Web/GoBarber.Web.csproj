@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="source\styles\scss\layout\" />
+    <Folder Include="wwwroot\lib\requirejs\" />
   </ItemGroup>
 
   <ItemGroup>

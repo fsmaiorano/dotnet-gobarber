@@ -5,6 +5,7 @@
     }
 
     init() {
+        console.log("Appointments");
     }
 }
 

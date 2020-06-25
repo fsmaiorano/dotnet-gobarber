@@ -1,13 +1,14 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "target": "es6",
-    "outDir": "./wwwroot/assets/scripts",
-    "rootDir": "source/scripts",
-    "typeRoots": [ "./node_modules/@types" ]
-  },
-  "compileOnSave": true,
-  "exclude": ["./node_modules/"],
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "module": "AMD",
+        "moduleResolution": "Node",
+        "target": "es6",
+        "outDir": "./wwwroot/assets/scripts",
+        "rootDir": "source/scripts",
+        "typeRoots": [ "./node_modules/@types" ],
+        "lib": [ "DOM", "ES2015", "ES2015.Iterable", "ScriptHost" ]
+    },
+    "compileOnSave": true,
+    "exclude": [ "./node_modules/" ]
 }
-
-

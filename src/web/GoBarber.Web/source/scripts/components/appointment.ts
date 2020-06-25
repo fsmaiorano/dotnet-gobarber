@@ -8,5 +8,4 @@
         console.log("Appointments");
     }
 }
-
 new Appointment();

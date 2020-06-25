@@ -3,14 +3,16 @@
     @model GoBarber.Web.ViewModels.User.UserViewModel;
 }
 
-<link rel="stylesheet" href="assets/styles/pages/home.css" />
+@section PageStyle {
+    <link rel="stylesheet" href="assets/styles/pages/home.css" asp-append-version="true" />
+}
 
 <section class="home">
     <div class="header">
         <div class="header-content">
             <img src="assets/images/logo.svg" />
             <div class="profile">
-                <img src="@Model.Avatar != null @Model.Avatar : ''" />
+                <img src="@Model.Avatar" />
                 <div>
                     <span>Olá,</span>
                     @Model.Name
@@ -23,10 +25,8 @@
     </div>
 
     @await Component.InvokeAsync("AppointmentViewComponent")
-
-    @*<div class="appointments-container">
-            <div class="appointments"></div>
-        </div>*@
 </section>
 
-<script src="assets/scripts/pages/home.js"></script>
+@section PageScript {
+    <script src="assets/scripts/pages/home.js"></script>
+}

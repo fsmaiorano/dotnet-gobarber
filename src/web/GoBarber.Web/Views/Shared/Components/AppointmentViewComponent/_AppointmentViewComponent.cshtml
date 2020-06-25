@@ -1,14 +1,6 @@
 ﻿@model List<GoBarber.Web.ViewModels.Appointment.AppointmentViewModel>
 
-@section PageStyle {
-    <link rel="stylesheet" href="~/assets/styles/components/appointment.css" asp-append-version="true" />
-}
-
-@section PageScript {
-    <script src="~/assets/scripts/components/appointment.js" asp-append-version="true"></script>
-}
-
-<div class="appointments">
+<div class="appointment">
     <div class="appointment-content">
         @foreach (var appointment in @Model)
         {
@@ -19,4 +11,4 @@
     </div>
 </div>
 
-
+<script src="~/assets/scripts/components/appointment.js" asp-append-version="true"></script>

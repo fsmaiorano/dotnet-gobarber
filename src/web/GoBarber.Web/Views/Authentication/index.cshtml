@@ -2,7 +2,11 @@
     ViewData["Title"] = "Sign In";
 }
 
-<link rel="stylesheet" href="assets/styles/pages/signin.css" asp-append-version="true" />
+
+@section PageStyle {
+    <link rel="stylesheet" href="assets/styles/pages/signin.css" asp-append-version="true" />
+}
+
 <div class="signin">
     <div class="content">
         <img src="assets/images/logo.svg" />
@@ -24,4 +28,7 @@
     <div class="background" />
 </div>
 
-<script src="assets/scripts/pages/signin.js"></script>
+@section PageScript {
+    <script src="assets/scripts/pages/signin.js"></script>
+}
+

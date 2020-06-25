@@ -3,10 +3,13 @@
     "noEmitOnError": true,
     "noImplicitAny": true,
     "sourceMap": false,
+    "module": "ES6",
     "target": "es6",
     "outDir": "./wwwroot/assets/scripts",
     "rootDir": "./Source/Scripts",
-    "typeRoots": [ "./node_modules/@types" ]
+    "typeRoots": [ "./node_modules/@types" ],
+    "lib": [ "DOM", "ES2015", "ES2015.Iterable", "ScriptHost" ]
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "exclude": [ "./node_modules/" ]
 }

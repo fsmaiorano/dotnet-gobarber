@@ -2,7 +2,10 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<link rel="stylesheet" href="assets/styles/pages/signup.css" asp-append-version="true" />
+@section PageStyle {
+    <link rel="stylesheet" href="assets/styles/pages/signup.css" asp-append-version="true" />
+}
+
 <div class="signup">
     <div class="background"></div>
     <div class="content">
@@ -27,4 +30,6 @@
     </div>
 </div>
 
-<script src="assets/scripts/pages/signup.js"></script>
+@section PageScript {
+    <script src="assets/scripts/pages/signup.js"></script>
+}

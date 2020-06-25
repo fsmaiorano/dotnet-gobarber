@@ -1,11 +1,6 @@
-﻿import { hostUrl } from '../constants';
-
-class Home {
-
+﻿class Home {
     constructor() {
         this.init();
-        debugger;
-        console.log(hostUrl);
     }
 
     init() {

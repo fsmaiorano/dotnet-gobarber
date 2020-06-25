@@ -14,6 +14,7 @@
     "build:css": "node-sass source/styles/scss -o wwwroot/assets/styles --output-style compressed && yarn prefix:css",
     "prefix:css": "postcss --use autoprefixer -b 'last 2 versions' wwwroot/assets/styles --replace"
   },
+  "type": "module",
   "devDependencies": {
     "autoprefixer": "^9.8.0",
     "concurrently": "^5.2.0",

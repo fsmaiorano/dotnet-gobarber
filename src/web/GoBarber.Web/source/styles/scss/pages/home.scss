@@ -1,4 +1,6 @@
 ﻿.home {
+    @import '../components/appointment.scss';
+
     color: #fff;
 
     .header {
@@ -58,6 +60,4 @@
             }
         }
     }
-
-    
 }

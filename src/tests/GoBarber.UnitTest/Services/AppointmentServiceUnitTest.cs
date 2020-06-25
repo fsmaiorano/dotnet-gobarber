@@ -47,7 +47,7 @@ namespace GoBarber.UnitTest.Services
             _appointmentService = _serviceProvider.GetService<IAppointmentService>();
         }
 
-        [TestMethod] 
+        [TestMethod]
         public void CreateAppointment()
         {
             var mockUser = new Faker<UserEntity>()
@@ -55,10 +55,20 @@ namespace GoBarber.UnitTest.Services
              .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
              .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 
-            var user = mockUser.Generate();
-            user.Role = RoleConstant.Client;
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            var createdUser = _userService.Insert(user);
+            var user_1 = mockUser.Generate();
+            user_1.Role = RoleConstant.Client;
+            user_1.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+            var createdUser_1 = _userService.Insert(user_1);
+
+            var user_2 = mockUser.Generate();
+            user_2.Role = RoleConstant.Client;
+            user_2.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+            var createdUser_2 = _userService.Insert(user_2);
+
+            var user_3 = mockUser.Generate();
+            user_3.Role = RoleConstant.Client;
+            user_3.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+            var createdUser_3 = _userService.Insert(user_3);
 
             var mockProvider = new Faker<UserEntity>()
             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
@@ -75,9 +85,22 @@ namespace GoBarber.UnitTest.Services
 
             var appointment = mockAppointment.Generate();
             appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser.Id;
+            appointment.UserId = createdUser_1.Id;
 
             var createdAppoitment = _appointmentService.Insert(appointment);
+
+            appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser_2.Id;
+
+            createdAppoitment = _appointmentService.Insert(appointment);
+
+            appointment = mockAppointment.Generate();
+            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser_3.Id;
+
+            createdAppoitment = _appointmentService.Insert(appointment);
+
             Assert.IsNotNull(appointment);
             Assert.AreEqual(appointment, createdAppoitment);
         }
@@ -115,7 +138,6 @@ namespace GoBarber.UnitTest.Services
 
             var storedAppointment = _appointmentService.GetByUserId(createdUser.Id);
             Assert.IsNotNull(storedAppointment);
-            Assert.AreEqual(createdUser.Id, storedAppointment.UserId);
         }
 
         [TestMethod]
@@ -151,7 +173,6 @@ namespace GoBarber.UnitTest.Services
 
             var storedAppointment = _appointmentService.GetByProviderId(createdProvider.Id);
             Assert.IsNotNull(storedAppointment);
-            Assert.AreEqual(createdProvider.Id, storedAppointment.ProviderId);
         }
 
         [TestMethod]

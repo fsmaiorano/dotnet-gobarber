@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="source\scripts\components\appointment.ts" />
+    <None Remove="source\scripts\components\calendar.ts" />
     <None Remove="source\scripts\Home.ts" />
   </ItemGroup>
 
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="source\scripts\components\appointment.ts" />
+    <TypeScriptCompile Include="source\scripts\components\calendar.ts" />
     <TypeScriptCompile Include="source\scripts\pages\home.ts" />
   </ItemGroup>
 

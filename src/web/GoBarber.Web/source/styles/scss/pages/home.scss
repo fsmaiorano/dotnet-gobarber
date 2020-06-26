@@ -1,6 +1,15 @@
 ﻿.home {
-    @import '../components/appointment.scss';
     color: #fff;
+    @import '../components/appointment.scss';
+    @import '../components/calendar.scss';
+
+    .home-content {
+        max-width: 1120px;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        margin: 0 auto;
+    }
 
     .header {
         padding: 32px 0;

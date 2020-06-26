@@ -12,7 +12,7 @@ namespace GoBarber.UnitTest.Fakes
         public static UserEntity CreateUser()
         {
             var mockUser = new Faker<UserEntity>()
-               .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
+               .RuleFor(u => u.Name, (f, u) => f.Name.FullName())
                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
                .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
 

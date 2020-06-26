@@ -9,6 +9,7 @@ using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
+using GoBarber.UnitTest.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,91 +51,77 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void CreateAppointment()
         {
-            var mockUser = new Faker<UserEntity>()
-             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user_1 = mockUser.Generate();
+            var user_1 = FakeUserFactory.CreateUser();
             user_1.Role = RoleConstant.Client;
-            user_1.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            var createdUser_1 = _userService.Insert(user_1);
 
-            var user_2 = mockUser.Generate();
+            var user_2 = FakeUserFactory.CreateUser();
             user_2.Role = RoleConstant.Client;
-            user_2.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            var createdUser_2 = _userService.Insert(user_2);
 
-            var user_3 = mockUser.Generate();
+            var user_3 = FakeUserFactory.CreateUser();
             user_3.Role = RoleConstant.Client;
-            user_3.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            var createdUser_3 = _userService.Insert(user_3);
 
-            var mockProvider = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+            var user_4 = FakeUserFactory.CreateUser();
+            user_4.Role = RoleConstant.Client;
 
-            var provider = mockProvider.Generate();
+            var user_5 = FakeUserFactory.CreateUser();
+            user_5.Role = RoleConstant.Client;
+
+            var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
-            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+
+            var createdUser_1 = _userService.Insert(user_1);
+            var createdUser_2 = _userService.Insert(user_2);
+            var createdUser_3 = _userService.Insert(user_3);
+            var createdUser_4 = _userService.Insert(user_4);
+            var createdUser_5 = _userService.Insert(user_5);
             var createdProvider = _userService.Insert(provider);
 
-            var mockAppointment = new Faker<AppointmentEntity>()
-            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+            var appointment_1 = FakeAppointmentFactory.CreateAppointment();
+            appointment_1.ProviderId = createdProvider.Id;
+            appointment_1.UserId = createdUser_1.Id;
+            var createdAppointment_1 = _appointmentService.Insert(appointment_1);
+            Assert.IsNotNull(createdAppointment_1);
 
-            var appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser_1.Id;
+            var appointment_2 = FakeAppointmentFactory.CreateAppointment();
+            appointment_2.ProviderId = createdProvider.Id;
+            appointment_2.UserId = createdUser_2.Id;
+            var createdAppointment_2 = _appointmentService.Insert(appointment_2);
+            Assert.IsNotNull(createdAppointment_2);
 
-            var createdAppoitment = _appointmentService.Insert(appointment);
+            var appointment_3 = FakeAppointmentFactory.CreateAppointment();
+            appointment_3.ProviderId = createdProvider.Id;
+            appointment_3.UserId = createdUser_3.Id;
+            var createdAppointment_3 = _appointmentService.Insert(appointment_3);
+            Assert.IsNotNull(createdAppointment_3);
 
-            appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser_2.Id;
+            var appointment_4 = FakeAppointmentFactory.CreateAppointment();
+            appointment_4.ProviderId = createdProvider.Id;
+            appointment_4.UserId = createdUser_4.Id;
+            var createdAppointment_4 = _appointmentService.Insert(appointment_4);
+            Assert.IsNotNull(createdAppointment_4);
 
-            createdAppoitment = _appointmentService.Insert(appointment);
-
-            appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser_3.Id;
-
-            createdAppoitment = _appointmentService.Insert(appointment);
-
-            Assert.IsNotNull(appointment);
-            Assert.AreEqual(appointment, createdAppoitment);
+            var appointment_5 = FakeAppointmentFactory.CreateAppointment();
+            appointment_5.ProviderId = createdProvider.Id;
+            appointment_5.UserId = createdUser_5.Id;
+            var createdAppointment_5 = _appointmentService.Insert(appointment_5);
+            Assert.IsNotNull(createdAppointment_5);
         }
 
         [TestMethod]
         public void GetByUserId()
         {
-            var mockUser = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
-            var mockProvider = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var provider = mockProvider.Generate();
+            var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
-            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
-            var mockAppointment = new Faker<AppointmentEntity>()
-            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
-
-            var appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
+            var appointment = FakeAppointmentFactory.CreateAppointment();
             appointment.UserId = createdUser.Id;
-            var createdAppoitment = _appointmentService.Insert(appointment);
+            appointment.ProviderId = createdProvider.Id;
+            _appointmentService.Insert(appointment);
 
             var storedAppointment = _appointmentService.GetByUserId(createdUser.Id);
             Assert.IsNotNull(storedAppointment);
@@ -143,33 +130,18 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void GetByProviderId()
         {
-            var mockUser = new Faker<UserEntity>()
-          .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-          .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-          .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
-            var mockProvider = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var provider = mockProvider.Generate();
+            var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
-            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
-            var mockAppointment = new Faker<AppointmentEntity>()
-            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
-
-            var appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser.Id;
-            var createdAppoitment = _appointmentService.Insert(appointment);
+            var appointment = FakeAppointmentFactory.CreateAppointment();
+            appointment.ProviderId = createdUser.Id;
+            appointment.UserId = createdProvider.Id;
+            _appointmentService.Insert(appointment);
 
             var storedAppointment = _appointmentService.GetByProviderId(createdProvider.Id);
             Assert.IsNotNull(storedAppointment);
@@ -178,70 +150,40 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void DeleteAppointment()
         {
-            var mockUser = new Faker<UserEntity>()
-             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
-            var mockProvider = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var provider = mockProvider.Generate();
+            var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
-            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
-            var mockAppointment = new Faker<AppointmentEntity>()
-            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
+            var appointment = FakeAppointmentFactory.CreateAppointment();
+            appointment.ProviderId = createdUser.Id;
+            appointment.UserId = createdProvider.Id;
 
-            var appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser.Id;
-
-            var createdAppoitment = _appointmentService.Insert(appointment);
+            var createdAppointment = _appointmentService.Insert(appointment);
             Assert.IsNotNull(appointment);
-            Assert.AreEqual(appointment, createdAppoitment);
+            Assert.AreEqual(appointment, createdAppointment);
 
-            var deletedAppointment = _appointmentService.Delete(createdAppoitment.Id);
+            var deletedAppointment = _appointmentService.Delete(createdAppointment.Id);
             Assert.IsTrue(deletedAppointment);
         }
 
         [TestMethod]
         public void UpdateAppointment()
         {
-            var mockUser = new Faker<UserEntity>()
-             .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-             .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdUser = _userService.Insert(user);
 
-            var mockProvider = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var provider = mockProvider.Generate();
+            var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
-            provider.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
             var createdProvider = _userService.Insert(provider);
 
-            var mockAppointment = new Faker<AppointmentEntity>()
-            .RuleFor(u => u.Date, (f, u) => f.Date.Future());
-
-            var appointment = mockAppointment.Generate();
-            appointment.ProviderId = createdProvider.Id;
-            appointment.UserId = createdUser.Id;
+            var appointment = FakeAppointmentFactory.CreateAppointment();
+            appointment.ProviderId = createdUser.Id;
+            appointment.UserId = createdProvider.Id;
 
             var createdAppointment = _appointmentService.Insert(appointment);
             Assert.IsNotNull(appointment);

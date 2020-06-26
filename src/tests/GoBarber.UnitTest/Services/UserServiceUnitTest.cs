@@ -10,6 +10,7 @@ using GoBarber.Service.Services;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
+using GoBarber.UnitTest.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -59,15 +60,8 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void CreateUser()
         {
-            var mockUser = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
+            var user = FakeUserFactory.CreateUser();
 
-            var user = mockUser.Generate();
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            user.Role = RoleConstant.Client;
-            
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
             Assert.AreEqual(user, createdUser);
@@ -76,14 +70,7 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void UpdateUser()
         {
-            var mockUser = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-            user.Role = RoleConstant.Client;
+            var user = FakeUserFactory.CreateUser();
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
@@ -98,13 +85,7 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void DeleteUserByEmail()
         {
-            var mockUser = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);

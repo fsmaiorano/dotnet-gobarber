@@ -1,6 +1,5 @@
 ﻿.home {
     @import '../components/appointment.scss';
-
     color: #fff;
 
     .header {
@@ -57,6 +56,12 @@
                 strong {
                     color: #ff9000;
                 }
+            }
+        }
+
+        @media screen and (max-width: 920px) {
+            .header-content {
+                margin: 0 50px;
             }
         }
     }

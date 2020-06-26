@@ -34,7 +34,7 @@ namespace GoBarber.Web.Controllers
             }
 
             var signInResponse = await UserService.Register(input);
-
+            
             if (signInResponse.Success)
             {
                 _cache.Set(CacheConstants.User, signInResponse.User);

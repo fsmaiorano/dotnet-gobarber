@@ -9,6 +9,7 @@ using GoBarber.Domain.Interfaces.Services;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
+using GoBarber.UnitTest.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,13 +52,7 @@ namespace GoBarber.UnitTest.Services
         [TestMethod]
         public void AuthenticateUser()
         {
-            var mockUser = new Faker<UserEntity>()
-            .RuleFor(u => u.Name, (f, u) => f.Name.FirstName())
-            .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
-            .RuleFor(u => u.Password, (f, u) => f.Internet.Password());
-
-            var user = mockUser.Generate();
-            user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+            var user = FakeUserFactory.CreateUser();
             user.Role = RoleConstant.Client;
 
             var createdUser = _userService.Insert(user);
@@ -65,7 +60,7 @@ namespace GoBarber.UnitTest.Services
             Assert.AreEqual(user, createdUser);
 
             var doLogin = _authenticationService.SignIn(user.Email, user.Password);
-            Assert.IsNotNull(doLogin.Token); 
+            Assert.IsNotNull(doLogin.Token);
 
             var authenticated = _authenticationService.GetByUserId(createdUser.Id);
             Assert.IsNotNull(authenticated);

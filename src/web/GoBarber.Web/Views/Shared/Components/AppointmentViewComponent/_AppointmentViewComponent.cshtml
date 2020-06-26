@@ -4,9 +4,9 @@
     <div class="appointment-content">
         @foreach (var appointment in @Model)
         {
-            <p>
+            <div class="appointment-item">
                 @appointment.User.Name
-            </p>
+            </div>
         }
     </div>
 </div>

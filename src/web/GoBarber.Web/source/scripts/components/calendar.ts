@@ -96,7 +96,6 @@ function showCalendar(month, year) {
         ) {
           cell.className = "date-picker selected";
         }
-        debugger;
         if (cell !== null) {
           cell.addEventListener("click", (selectedDay: MouseEvent) => {
             var cellElement = selectedDay.currentTarget as HTMLTableCellElement;

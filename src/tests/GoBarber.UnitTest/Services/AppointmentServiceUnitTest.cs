@@ -66,6 +66,15 @@ namespace GoBarber.UnitTest.Services
             var user_5 = FakeUserFactory.CreateUser();
             user_5.Role = RoleConstant.Client;
 
+            var user_6 = FakeUserFactory.CreateUser();
+            user_6.Role = RoleConstant.Client;
+
+            var user_7 = FakeUserFactory.CreateUser();
+            user_7.Role = RoleConstant.Client;
+
+            var user_8 = FakeUserFactory.CreateUser();
+            user_8.Role = RoleConstant.Client;
+
             var provider = FakeUserFactory.CreateUser();
             provider.Role = RoleConstant.Provider;
 
@@ -74,6 +83,9 @@ namespace GoBarber.UnitTest.Services
             var createdUser_3 = _userService.Insert(user_3);
             var createdUser_4 = _userService.Insert(user_4);
             var createdUser_5 = _userService.Insert(user_5);
+            var createdUser_6 = _userService.Insert(user_6);
+            var createdUser_7 = _userService.Insert(user_7);
+            var createdUser_8 = _userService.Insert(user_8);
             var createdProvider = _userService.Insert(provider);
 
             var appointment_1 = FakeAppointmentFactory.CreateAppointment();
@@ -105,6 +117,24 @@ namespace GoBarber.UnitTest.Services
             appointment_5.UserId = createdUser_5.Id;
             var createdAppointment_5 = _appointmentService.Insert(appointment_5);
             Assert.IsNotNull(createdAppointment_5);
+
+            var appointment_6 = FakeAppointmentFactory.CreateAppointment();
+            appointment_6.ProviderId = createdProvider.Id;
+            appointment_6.UserId = createdUser_6.Id;
+            var createdAppointment_6 = _appointmentService.Insert(appointment_6);
+            Assert.IsNotNull(createdAppointment_6);
+
+            var appointment_7 = FakeAppointmentFactory.CreateAppointment();
+            appointment_7.ProviderId = createdProvider.Id;
+            appointment_7.UserId = createdUser_7.Id;
+            var createdAppointment_7 = _appointmentService.Insert(appointment_7);
+            Assert.IsNotNull(appointment_7);
+
+            var appointment_8 = FakeAppointmentFactory.CreateAppointment();
+            appointment_8.ProviderId = createdProvider.Id;
+            appointment_8.UserId = createdUser_8.Id;
+            var createdAppointment_8 = _appointmentService.Insert(appointment_8);
+            Assert.IsNotNull(createdAppointment_8);
         }
 
         [TestMethod]

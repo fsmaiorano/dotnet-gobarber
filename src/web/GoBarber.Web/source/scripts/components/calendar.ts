@@ -1,113 +1,147 @@
-﻿class Calendar {
-    date: number = 1;
-    today: Date;
-    currentMonth: number;
-    currentYear: number;
-    selectedDate: any;
+﻿let date: number = 1;
+let today: Date;
+let currentMonth: number;
+let currentYear: number;
+let selectedDate: any;
 
-    months: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    monthAndYear = document.getElementById("monthAndYear");
-    calendar: HTMLElement = document.getElementById("calendar");
+let months: string[] = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+let days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let monthAndYear = document.getElementById("monthAndYear");
+let calendar: HTMLElement = document.getElementById("calendar");
 
-    //btnNext: HTMLButtonElement = document.querySelector(".btn-next");
-    //btnprevious: HTMLButtonElement = document.querySelector(".btn-previous");
+let btnNext: HTMLButtonElement = document.querySelector(".btn-next");
+let btnprevious: HTMLButtonElement = document.querySelector(".btn-previous");
 
-    constructor() {
-        this.init();
-    }
+console.log("Calendar");
+today = new Date();
+currentMonth = today.getMonth();
+currentYear = today.getFullYear();
 
-    init() {
-        console.log("Calendar");
-        this.today = new Date();
-        this.currentMonth = this.today.getMonth();
-        this.currentYear = this.today.getFullYear();
+btnNext.onclick = () => {
+  next();
+};
 
-        //this.btnNext.onclick = () => {
-        //    this.next();
-        //};
+btnprevious.onclick = () => {
+  previous();
+};
 
-        //this.btnprevious.onclick = () => {
-        //    this.previous();
-        //};
-
-        var dayHeader = "<tr>";
-        for (let day in this.days) {
-            dayHeader += "<th data-days='" + this.days[day] + "'>" + this.days[day] + "</th>";
-        }
-        dayHeader += "</tr>";
-
-        document.getElementById("thead-month").innerHTML = dayHeader;
-
-        this.showCalendar(this.currentMonth, this.currentYear);
-    }
-
-    public next() {
-        this.currentYear = (this.currentMonth === 11) ? this.currentYear + 1 : this.currentYear;
-        this.currentMonth = (this.currentMonth + 1) % 12;
-        this.showCalendar(this.currentMonth, this.currentYear);
-    }
-
-    public previous() {
-        this.currentYear = (this.currentMonth === 0) ? this.currentYear - 1 : this.currentYear;
-        this.currentMonth = (this.currentMonth === 0) ? 11 : this.currentMonth - 1;
-        this.showCalendar(this.currentMonth, this.currentYear);
-    }
-
-    public showCalendar(month, year) {
-        var firstDay = (new Date(year, month)).getDay();
-
-        let tbl = document.getElementById("calendar-body");
-        tbl.innerHTML = "";
-
-        this.monthAndYear.innerHTML = this.months[month] + " " + year;
-
-        for (var i = 0; i < 6; i++) {
-            let row = document.createElement("tr");
-
-            for (var j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    let cell: HTMLTableCellElement = document.createElement("td");
-                    let cellText = document.createTextNode("");
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                } else if (this.date > this.daysInMonth(month, year)) {
-                    break;
-                } else {
-                    let cell: HTMLTableCellElement = document.createElement("td");
-                    cell.setAttribute("data-date", this.date.toString());
-                    cell.setAttribute("data-month", month + 1);
-                    cell.setAttribute("data-year", year);
-                    cell.setAttribute("data-month_name", this.months[month]);
-                    cell.className = "date-picker";
-                    cell.innerHTML = "<span>" + this.date + "</span>";
-
-                    if (this.date === this.today.getDate() && year === this.today.getFullYear() && month === this.today.getMonth()) {
-                        cell.className = "date-picker selected";
-                    }
-
-                    cell.addEventListener("click", (selectedDay: MouseEvent) => {
-                        var cellElement = selectedDay.currentTarget as HTMLTableCellElement;
-                        this.setSelectedDate(cellElement, parseInt(cellElement.textContent), month + 1, year);
-                    });
-
-                    row.appendChild(cell);
-                    this.date++;
-                }
-            }
-
-            tbl.appendChild(row);
-        }
-    }
-
-    public daysInMonth(iMonth, iYear) {
-        return 32 - new Date(iYear, iMonth, 32).getDate();
-    }
-
-    public setSelectedDate(element: HTMLTableCellElement, day: number, month: number, year: number) {
-        let oldSelectedElement: HTMLTableCellElement = this.calendar.querySelector('.selected');
-        oldSelectedElement.classList.remove('selected');
-        element.classList.add('selected');
-    }
+var dayHeader = "<tr>";
+for (let day in days) {
+  dayHeader += "<th data-days='" + days[day] + "'>" + days[day] + "</th>";
 }
-new Calendar();
+dayHeader += "</tr>";
+
+document.getElementById("thead-month").innerHTML = dayHeader;
+
+showCalendar(currentMonth, currentYear);
+
+function next() {
+  currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+  currentMonth = (currentMonth + 1) % 12;
+  showCalendar(currentMonth, currentYear);
+}
+
+function previous() {
+  currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  showCalendar(currentMonth, currentYear);
+}
+
+function showCalendar(month, year) {
+  var firstDay = new Date(year, month).getDay();
+
+  let tbl = document.getElementById("calendar-body");
+  tbl.innerHTML = "";
+
+  monthAndYear.innerHTML = months[month] + " " + year;
+  var date = 1;
+
+  for (var i = 0; i < 6; i++) {
+    var row = document.createElement("tr");
+
+    for (var j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDay) {
+        let cell = document.createElement("td");
+        let cellText = document.createTextNode("");
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+      } else if (date > daysInMonth(month, year)) {
+        break;
+      } else {
+        let cell = document.createElement("td");
+        cell.setAttribute("data-date", this.date);
+        cell.setAttribute("data-month", month + 1);
+        cell.setAttribute("data-year", year);
+        cell.setAttribute("data-month_name", months[month]);
+        cell.className = "date-picker";
+        cell.innerHTML = "<span>" + date + "</span>";
+
+        if (
+          date === today.getDate() &&
+          year === today.getFullYear() &&
+          month === today.getMonth()
+        ) {
+          cell.className = "date-picker selected";
+        }
+        debugger;
+        if (cell !== null) {
+          cell.addEventListener("click", (selectedDay: MouseEvent) => {
+            var cellElement = selectedDay.currentTarget as HTMLTableCellElement;
+            this.setSelectedDate(
+              cellElement,
+              parseInt(cellElement.textContent),
+              month + 1,
+              year
+            );
+          });
+        }
+
+        row.appendChild(cell);
+        date++;
+      }
+    }
+
+    tbl.appendChild(row);
+  }
+}
+
+function daysInMonth(iMonth, iYear) {
+  return 32 - new Date(iYear, iMonth, 32).getDate();
+}
+
+function cleanSelectedDate() {
+  let oldSelectedElement: HTMLTableCellElement = this.calendar.querySelector(
+    ".selected"
+  );
+  if (oldSelectedElement !== null) {
+    oldSelectedElement.classList.remove("selected");
+  }
+}
+
+function setSelectedDate(
+  element: HTMLTableCellElement,
+  day: number,
+  month: number,
+  year: number
+) {
+  let oldSelectedElement: HTMLTableCellElement = this.calendar.querySelector(
+    ".selected"
+  );
+  if (oldSelectedElement !== null) {
+    oldSelectedElement.classList.remove("selected");
+  }
+  element.classList.add("selected");
+}

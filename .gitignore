@@ -8,7 +8,7 @@ src/web/GoBarber.Web/wwwroot/assets/scripts
 
 # User-specific files
 *.vs
-*.vscode
+##*.vscode
 *.rsuser
 *.suo
 *.user

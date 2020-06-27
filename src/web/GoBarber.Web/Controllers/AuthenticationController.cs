@@ -41,10 +41,10 @@ namespace GoBarber.Web.Controllers.Authentication
             if (signInResponse.Success)
             {
                 var vm = new UserViewModel(signInResponse.User.Name,
-                                signInResponse.User.Email,
-                                signInResponse.User.Avatar,
-                                signInResponse.User.Role,
-                                signInResponse.User.Token);
+                                            signInResponse.User.Email,
+                                            signInResponse.User.Avatar,
+                                            signInResponse.User.Role,
+                                            signInResponse.User.Token);
 
                 _cache.Set(CacheConstants.UserViewModel, vm);
                 _cache.Set(CacheConstants.User, signInResponse.User);

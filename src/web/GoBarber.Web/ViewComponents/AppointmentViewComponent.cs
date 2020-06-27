@@ -25,7 +25,7 @@ namespace GoBarber.Web.ViewComponents
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
 
-            var appointments = await AppointmentService.GetAppointments(user.Token);
+            var appointments = await AppointmentService.GetAppointmentsByDate(DateTime.Now.Date ,user.Token);
 
             var vm = new List<AppointmentViewModel>();
 
@@ -43,6 +43,10 @@ namespace GoBarber.Web.ViewComponents
             }
 
             return View("_AppointmentViewComponent", vm);
+        }
+
+        public void SelectMonth(){
+            var x = 1;
         }
     }
 }

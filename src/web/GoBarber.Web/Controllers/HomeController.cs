@@ -40,8 +40,6 @@ namespace GoBarber.Web.Controllers
 
             var vm = _cache.Get(CacheConstants.UserViewModel);
 
-            var appointments = await AppointmentService.GetAppointments();
-
             return View(vm);
         }
 

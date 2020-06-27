@@ -13,7 +13,9 @@ using GoBarber.UnitTest.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NuGet.Frameworks;
 using System;
+using System.Linq;
 
 namespace GoBarber.UnitTest.Services
 {
@@ -135,6 +137,29 @@ namespace GoBarber.UnitTest.Services
             appointment_8.UserId = createdUser_8.Id;
             var createdAppointment_8 = _appointmentService.Insert(appointment_8);
             Assert.IsNotNull(createdAppointment_8);
+        }
+
+        [TestMethod]
+        public void GetByDate()
+        {
+            var user = FakeUserFactory.CreateUser();
+            user.Role = RoleConstant.Client;
+            var createdUser = _userService.Insert(user);
+
+            var provider = FakeUserFactory.CreateUser();
+            provider.Role = RoleConstant.Provider;
+            var createdProvider = _userService.Insert(provider);
+
+            var appointment = FakeAppointmentFactory.CreateAppointment();
+            appointment.UserId = createdUser.Id;
+            appointment.ProviderId = createdProvider.Id;
+            _appointmentService.Insert(appointment);
+
+            var storedAppointments = _appointmentService.GetByProviderId(createdProvider.Id);
+
+            var myDate = DateTime.Now;
+            var result = storedAppointments.Where(x => x.Date.Equals(myDate.Date)).ToList();
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]

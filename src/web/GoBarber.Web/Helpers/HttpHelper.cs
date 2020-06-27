@@ -30,7 +30,7 @@ namespace GoBarber.Web.Helpers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;

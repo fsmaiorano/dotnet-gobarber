@@ -11,6 +11,8 @@ namespace GoBarber.Domain.Interfaces.Services
         IEnumerable<AppointmentEntity> GetByUserId(Int32 userId);
         IEnumerable<AppointmentEntity> GetByProviderId(Int32 providerId);
 
+        IEnumerable<AppointmentEntity> GetByProviderIdAndDate(Int32 providerId, DateTime date);
+
         IEnumerable<AppointmentEntity> SelectAll();
 
         AppointmentEntity Insert(AppointmentEntity user);

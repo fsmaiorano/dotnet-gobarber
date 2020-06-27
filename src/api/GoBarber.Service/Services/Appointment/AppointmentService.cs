@@ -4,6 +4,7 @@ using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GoBarber.Service.Services.Appointment
@@ -29,6 +30,13 @@ namespace GoBarber.Service.Services.Appointment
         public IEnumerable<AppointmentEntity> GetByProviderId(int providerId)
         {
             return _unitOfWork.AppointmentRepository.GetByProviderId(providerId);
+        }
+
+        public IEnumerable<AppointmentEntity> GetByProviderIdAndDate(int providerId, DateTime date)
+        {
+            var appointments = _unitOfWork.AppointmentRepository.GetByProviderId(providerId);
+            var result =  appointments.Where(x => x.Date.Date.Equals(date.Date)).ToList();
+            return result;
         }
 
         public IEnumerable<AppointmentEntity> GetByUserId(int userId)

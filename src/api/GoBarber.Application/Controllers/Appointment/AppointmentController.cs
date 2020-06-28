@@ -83,7 +83,8 @@ namespace GoBarber.Application.Controllers.Appointment
 
                     if (response.Success)
                     {
-                        result.Appointments = response.Appointments;
+                        var formattedDate = DateTime.Parse(date.ToString());
+                        result.Appointments = response.Appointments.Where(x => x.Date.Date.Equals(formattedDate)).ToList();
                         result.Success = true;
                     }
                 }

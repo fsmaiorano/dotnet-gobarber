@@ -151,6 +151,7 @@ namespace GoBarber.UnitTest.Services
             var appointment_8 = FakeAppointmentFactory.CreateAppointment();
             appointment_8.ProviderId = createdProvider.User.Id;
             appointment_8.UserId = createdUser_8.User.Id;
+            appointment_8.Date = DateTime.Now;
             var createdAppointment_8 = _appointmentService.Insert(appointment_8);
             Assert.IsNotNull(createdAppointment_8);
         }

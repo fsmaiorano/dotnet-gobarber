@@ -14,9 +14,9 @@ namespace GoBarber.Web.Services
       return (AppointmentResult)await HttpHelper.HttpGetAsync<AppointmentResult>(ApiConstants.AppointmentUrl, token);
     }
 
-    public static async Task<AppointmentResult> GetAppointmentsByDate(DateTime date, string token = "")
+    public static async Task<AppointmentResult> GetAppointmentsByDate(string date, string token = "")
     {
-        var url = ApiConstants.AppointmentUrl+ '/' + date.ToString("dd-MM-yyyy");
+      var url = ApiConstants.AppointmentUrl + '/' + date;
       return (AppointmentResult)await HttpHelper.HttpGetAsync<AppointmentResult>(url, token);
     }
   }

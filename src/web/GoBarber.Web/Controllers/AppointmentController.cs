@@ -1,31 +1,36 @@
-﻿using GoBarber.DTO.Appointment;
 using GoBarber.DTO.User;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.Services;
 using GoBarber.Web.ViewModels.Appointment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace GoBarber.Web.ViewComponents
+namespace GoBarber.Web.Controllers
 {
-    [ViewComponent(Name = "AppointmentViewComponent")]
-    public class AppointmentViewComponent : ViewComponent
+    [Route("appointment")]
+    public class AppointmentController : Controller
     {
-        private IMemoryCache _cache;
-        public AppointmentViewComponent(IMemoryCache memoryCache)
+        private readonly IMemoryCache _cache;
+        private readonly ILogger<AppointmentController> _logger;
+
+        public AppointmentController(ILogger<AppointmentController> logger, IMemoryCache memoryCache)
         {
             _cache = memoryCache;
+            _logger = logger;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        [HttpGet]
+
+        public async Task<PartialViewResult> AppointmentsList(string date)
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
 
-            var appointments = await AppointmentService.GetAppointmentsByDate(DateTime.Now.Date ,user.Token);
+            var appointments = await AppointmentService.GetAppointmentsByDate(date, user.Token);
 
             var vm = new List<AppointmentViewModel>();
 
@@ -42,11 +47,7 @@ namespace GoBarber.Web.ViewComponents
                 vm.Add(ap);
             }
 
-            return View("_AppointmentViewComponent", vm);
-        }
-
-        public void SelectMonth(){
-            var x = 1;
+            return PartialView("_AppointmentsList", vm);
         }
     }
 }

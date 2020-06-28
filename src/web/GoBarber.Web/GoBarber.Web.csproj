@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="source\scripts\components\appointment.ts" />
+    <TypeScriptCompile Include="source\scripts\pages\appointment.ts" />
     <TypeScriptCompile Include="source\scripts\components\calendar.ts" />
     <TypeScriptCompile Include="source\scripts\pages\home.ts" />
   </ItemGroup>

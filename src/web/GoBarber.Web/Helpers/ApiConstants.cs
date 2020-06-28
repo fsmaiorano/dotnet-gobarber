@@ -12,6 +12,5 @@ namespace GoBarber.Web.Helpers
         public static string SignInUrl = $"{ApiHost}/api/Authentication";
         public static string SignUpUrl = $"{ApiHost}/api/User";
         public static string AppointmentUrl = $"{ApiHost}/api/Appointment";
-        public static string AppointmentByDateUrl = $"{ApiHost}/api/Appointment";
     }
 }

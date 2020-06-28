@@ -17,36 +17,36 @@ using GoBarber.Web.Services;
 
 namespace GoBarber.Web.Controllers
 {
-    public class HomeController : Controller
+  public class HomeController : Controller
+  {
+    private IMemoryCache _cache;
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache)
     {
-        private IMemoryCache _cache;
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache)
-        {
-            _logger = logger;
-            _cache = memoryCache;
-        }
-
-        [AuthenticationFilter]
-        public async Task<IActionResult> IndexAsync()
-        {
-            var user = (UserDTO)_cache.Get(CacheConstants.User);
-
-            if (user == null)
-            {
-                return RedirectToAction("index", "authentication");
-            }
-
-            var vm = _cache.Get(CacheConstants.UserViewModel);
-
-            return View(vm);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      _logger = logger;
+      _cache = memoryCache;
     }
+
+    [AuthenticationFilter]
+    public IActionResult Index()
+    {
+      var user = (UserDTO)_cache.Get(CacheConstants.User);
+
+      if (user == null)
+      {
+        return RedirectToAction("index", "authentication");
+      }
+
+      var vm = _cache.Get(CacheConstants.UserViewModel);
+
+      return View(vm);
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+  }
 }

@@ -74,7 +74,7 @@ namespace GoBarber.UnitTest.Services
             Assert.AreEqual(user, createdUser);
 
             var doLogin = _authenticationService.SignIn(user.Email, user.Password);
-            Assert.IsNotNull(doLogin.Token);
+            Assert.IsNotNull(doLogin.User);
 
             var authenticated = _authenticationService.GetByUserId(createdUser.Id);
             Assert.IsNotNull(authenticated);

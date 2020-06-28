@@ -16,14 +16,12 @@ namespace GoBarber.Application.Controllers.Authentication
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService, IMapper mapper)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IOptions<AppSettings> appSettings, IAuthenticationService authenticationService)
         {
-            _mapper = mapper;
             _logger = logger;
             _appSettings = appSettings;
             _authenticationService = authenticationService;
@@ -33,26 +31,28 @@ namespace GoBarber.Application.Controllers.Authentication
         [AllowAnonymous]
         public AuthenticationResult Login(AuthenticationInput input)
         {
+            var result = new AuthenticationResult();
             try
             {
-                var user = _authenticationService.SignIn(input.Email, input.Password);
+                var authResponse = _authenticationService.SignIn(input.Email, input.Password);
 
-                var userDTO = _mapper.Map<UserEntity, UserDTO>(user);
-
-                if (user != null)
+                if (authResponse.Success)
                 {
-                    return new AuthenticationResult { User = userDTO, Success = true };
+                    result.Success = true;
+                    result.User = authResponse.User;
                 }
                 else
                 {
-                    return new AuthenticationResult { Success = false };
+                    result.Success = false;
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogCritical($"AuthenticationController/Login - {ex.Message}");
-                return new AuthenticationResult { Success = false };
+                result.Success = false;
             }
+
+            return result;
         }
     }
 }

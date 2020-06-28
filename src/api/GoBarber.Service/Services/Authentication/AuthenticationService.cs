@@ -9,55 +9,97 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using GoBarber.CrossCutting.Configuration;
 using GoBarber.Data.UnitOfWork;
+using AutoMapper;
+using GoBarber.DTO.Authentication;
+using GoBarber.DTO.User;
 
 namespace GoBarber.Service.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
         private IUnitOfWork _unitOfWork;
-        public AuthenticationService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public AuthenticationService(IUnitOfWork unitOfWork, IMapper mapper)
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
-        public UserEntity SignIn(string email, string password)
+        public AuthenticationResult SignIn(string email, string password)
         {
-            var user = _unitOfWork.UserRepository.GetByEmail(email);
+            var result = new AuthenticationResult();
 
-            if (user != null)
+            try
             {
-                var token = TokenService.GenerateToken(user);
-                user.Token = token;
+                var user = _unitOfWork.UserRepository.GetByEmail(email);
 
-                var userToken = new UserTokenEntity
+                if (user != null)
                 {
-                    UserId = user.Id,
-                    Token = user.Token,
-                };
+                    var token = TokenService.GenerateToken(user);
+                    user.Token = token;
 
-                var storedToken = _unitOfWork.AuthenticationRepository.GetByUserId(user.Id);
+                    var userToken = new UserTokenEntity
+                    {
+                        UserId = user.Id,
+                        Token = user.Token,
+                    };
 
-                if (storedToken != null)
-                {
-                    storedToken.Token = token;
-                    _unitOfWork.AuthenticationRepository.Update(storedToken);
+                    var userTokenEntity = _unitOfWork.AuthenticationRepository.GetByUserId(user.Id);
+
+                    if (userTokenEntity != null)
+                    {
+                        userTokenEntity.Token = token;
+
+                        _unitOfWork.AuthenticationRepository.Update(userTokenEntity);
+                    }
+                    else
+                    {
+                        _unitOfWork.AuthenticationRepository.Insert(userToken);
+                    }
+
+                    _unitOfWork.Commit();
+
+                    result.User = _mapper.Map<UserEntity, UserDTO>(user);
+                    result.Success = true;
                 }
                 else
                 {
-                    _unitOfWork.AuthenticationRepository.Insert(userToken);
+                    result.Success = false;
                 }
-                _unitOfWork.Commit();
+
             }
-            else
+            catch (Exception)
             {
-                user = null;
+                result.Success = false;
+                
             }
 
-            return user;
+            return result;
         }
-        public UserTokenEntity GetByUserId(int userId)
+
+        public AuthenticationResult GetByUserId(int userId)
         {
-            return _unitOfWork.AuthenticationRepository.GetByUserId(userId);
+            var result = new AuthenticationResult();
+
+            try
+            {
+                var storedUserToken = _unitOfWork.AuthenticationRepository.GetByUserId(userId);
+
+                if(storedUserToken == null) {
+                    result.Success = false;
+                }
+                else {
+                    result.User = _mapper.Map<UserEntity, UserDTO>(storedUserToken.User);
+                    result.User.Token = storedUserToken.Token;
+                }
+
+            }
+            catch (Exception)
+            {
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

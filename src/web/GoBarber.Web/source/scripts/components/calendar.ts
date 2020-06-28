@@ -139,12 +139,18 @@ function setSelectedDate(
     let oldSelectedElement: HTMLTableCellElement = this.calendar.querySelector(
         ".selected"
     );
+
     if (oldSelectedElement !== null) {
         oldSelectedElement.classList.remove("selected");
     }
+
     element.classList.add("selected");
 
-    let url = `https://localhost:3333/appointment?date=${day}-${month+1}-${year}`;
+    this.getAppointments(day, month, year)
+}
+
+function getAppointments(day: string, month: string, year: string) {
+    let url = `https://localhost:3333/appointment?date=${day}-${month + 1}-${year}`;
     fetch(url, {
         method: "GET",
         headers: {
@@ -153,9 +159,7 @@ function setSelectedDate(
         },
     }).then(function (response) {
         return response.text();
-    })
-        .then(function (body) {
-            document.querySelector('.component-appointments').innerHTML = body;
-        });
-
+    }).then(function (body) {
+        document.querySelector('.component-appointments').innerHTML = body;
+    });
 }

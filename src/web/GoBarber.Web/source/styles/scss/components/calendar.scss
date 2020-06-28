@@ -12,16 +12,27 @@
         overflow: auto;
     }
 
-    .button-container-calendar button {
-        cursor: pointer;
-        display: inline-block;
-        zoom: 1;
-        background: #00a2b7;
-        color: #fff;
-        border: 1px solid #0aa2b5;
-        border-radius: 4px;
-        padding: 5px 10px;
+    .calendar-detail {
+        display: flex;
+        justify-content: space-between;
+
+        h3 {
+        }
+
+        button {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            display: inline-block;
+            zoom: 1;
+            background: #28262e;
+            color: #fff;
+            border: 1px solid #28262e;
+            border-radius: 4px;
+            padding: 5px 50px;
+        }
     }
+
 
     .table-calendar {
         border-collapse: collapse;
@@ -36,7 +47,7 @@
         font-size: 1.2rem;
 
         &:hover {
-            background-color: red;
+            background-color: #28262e;
             cursor: pointer;
         }
     }
@@ -52,11 +63,11 @@
     }
     /* sunday */
     .date-picker:nth-child(1) {
-/*        color: red;*/
+        /*        color: red;*/
     }
     /* friday */
     .date-picker:nth-child(6) {
-/*        color: green;*/
+        /*        color: green;*/
     }
 
     #monthAndYear {

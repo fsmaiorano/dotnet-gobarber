@@ -1,7 +1,8 @@
-﻿using System;
+﻿using GoBarber.App.Services.Authentication;
+using GoBarber.App.Services.Routing;
+using GoBarber.App.ViewModels;
+using Splat;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using GoBarber.App.Services;
 
 namespace GoBarber.App
 {
@@ -10,10 +11,23 @@ namespace GoBarber.App
 
         public App()
         {
+            InitializeDi();
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+        }
+
+        private void InitializeDi()
+        {
+            // Services
+            Locator.CurrentMutable.RegisterLazySingleton<IRoutingService>(() => new RoutingService());
+            Locator.CurrentMutable.RegisterLazySingleton<IAuthenticationService>(() => new AuthenticationService());
+
+            // ViewModels
+            Locator.CurrentMutable.Register(() => new LoadingViewModel());
+            Locator.CurrentMutable.Register(() => new SignInViewModel());
+            Locator.CurrentMutable.Register(() => new SignUpViewModel());
         }
 
         protected override void OnStart()

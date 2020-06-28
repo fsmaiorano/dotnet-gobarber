@@ -3,6 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:shared="clr-namespace:GoBarber.App.Views.Shared"
+       xmlns:authentication="clr-namespace:GoBarber.App.Views.Authentication"
        mc:Ignorable="d"
        Title="GoBarber.App"
        x:Class="GoBarber.App.AppShell">
@@ -27,16 +29,23 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
-
+    <!-- Loading/Start Page -->
+    <ShellItem Route="loading">
+        <ShellContent ContentTemplate="{DataTemplate shared:LoadingPage}" />
+    </ShellItem>
+    <!-- Login and Registration Page -->
+    <ShellContent Route="login" ContentTemplate="{DataTemplate authentication:SignIn}"></ShellContent>
+    <!-- Main Page -->
+    <!-- We will get to this later -->
     <!-- Your Pages -->
-    <TabBar>
+    <!--<TabBar>
         <Tab Title="Browse" Icon="tab_feed.png">
             <ShellContent ContentTemplate="{DataTemplate local:ItemsPage}" />
         </Tab>
         <Tab Title="About" Icon="tab_about.png">
             <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
         </Tab>
-    </TabBar>
+    </TabBar>-->
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

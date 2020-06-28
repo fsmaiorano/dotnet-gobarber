@@ -37,7 +37,6 @@ namespace GoBarber.Service.Services.Appointment
             }
             catch (Exception)
             {
-
                 result.Success = false;
             }
 
@@ -63,7 +62,6 @@ namespace GoBarber.Service.Services.Appointment
             }
             catch (Exception)
             {
-
                 result.Success = false;
             }
 
@@ -162,6 +160,7 @@ namespace GoBarber.Service.Services.Appointment
                 }
                 else
                 {
+                    _unitOfWork.Rollback();
                     result.Success = false;
                 }
             }
@@ -190,6 +189,7 @@ namespace GoBarber.Service.Services.Appointment
                 }
                 else
                 {
+                    _unitOfWork.Rollback();
                     result.Success = false;
                 }
             }

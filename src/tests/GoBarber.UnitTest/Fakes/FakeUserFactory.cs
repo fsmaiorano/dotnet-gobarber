@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
+using GoBarber.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +10,9 @@ namespace GoBarber.UnitTest.Fakes
 {
     public class FakeUserFactory
     {
-        public static UserEntity CreateUser()
+        public static UserInput CreateUser()
         {
-            var mockUser = new Faker<UserEntity>()
+            var mockUser = new Faker<UserInput>()
                .RuleFor(u => u.Name, (f, u) => f.Name.FullName())
                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name))
                .RuleFor(u => u.Password, (f, u) => f.Internet.Password());

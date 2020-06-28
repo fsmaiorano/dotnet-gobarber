@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoBarber.DTO.User
 {
@@ -15,6 +17,7 @@ namespace GoBarber.DTO.User
 
     public class UserInput
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -28,5 +31,6 @@ namespace GoBarber.DTO.User
     public class UserResult : GenericResult
     {
         public UserDTO User { get; set; }
+        public IEnumerable<UserDTO> Users { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace GoBarber.UnitTest.Services
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAppointmentService _appointmentService;
+        private readonly IMapper _mapper;
 
         public UserServiceUnitTest()
         {
@@ -48,9 +49,11 @@ namespace GoBarber.UnitTest.Services
             {
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserInput, UserEntity>();
+                cfg.CreateMap<UserDTO, UserInput>();
 
                 cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
                 cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+                cfg.CreateMap<AppointmentDTO, AppointmentInput>();
             });
 
             IMapper mapper = config.CreateMapper();
@@ -64,6 +67,7 @@ namespace GoBarber.UnitTest.Services
             _userService = _serviceProvider.GetService<IUserService>();
             _authenticationService = _serviceProvider.GetService<IAuthenticationService>();
             _appointmentService = _serviceProvider.GetService<IAppointmentService>();
+            _mapper = _serviceProvider.GetService<IMapper>();
         }
 
         //var builder = WebHost
@@ -80,7 +84,6 @@ namespace GoBarber.UnitTest.Services
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
-            Assert.AreEqual(user, createdUser);
         }
 
         [TestMethod]
@@ -89,13 +92,14 @@ namespace GoBarber.UnitTest.Services
             var user = FakeUserFactory.CreateUser();
 
             var createdUser = _userService.Insert(user);
-            Assert.IsNotNull(createdUser);
-            Assert.AreEqual(user, createdUser);
+            Assert.IsTrue(createdUser.Success);
 
-            createdUser.Name = $"{createdUser.Name}_edited";
+            createdUser.User.Name = $"{createdUser.User.Name}_edited";
 
-            var updatedUser = _userService.Update(createdUser);
-            Assert.AreEqual(updatedUser.Name, createdUser.Name);
+            var userInput = _mapper.Map<UserDTO, UserInput>(createdUser.User);
+
+            var updatedUser = _userService.Update(userInput);
+            Assert.IsNotNull(updatedUser.User);
         }
 
         [TestMethod]
@@ -106,17 +110,16 @@ namespace GoBarber.UnitTest.Services
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
-            Assert.AreEqual(user, createdUser);
 
-            var isDeleted = _userService.Delete(createdUser.Id);
-            Assert.IsTrue(isDeleted);
+            var result = _userService.Delete(createdUser.User.Id);
+            Assert.IsTrue(result.Success);
         }
 
 
         [TestMethod]
         public void ListAllUsers()
         {
-            var users = _userService.SelectAll();
+            var users = _userService.Get();
             Assert.IsNotNull(users);
         }
     }

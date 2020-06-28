@@ -16,7 +16,7 @@ namespace GoBarber.Domain.Interfaces
 
         T GetById(Int32 id);
 
-        IEnumerable<T> GetAll();
+        IEnumerable<T> Get();
 
         bool Exist(Int32 id);
     }

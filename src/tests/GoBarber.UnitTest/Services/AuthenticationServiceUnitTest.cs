@@ -47,9 +47,11 @@ namespace GoBarber.UnitTest.Services
             {
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserInput, UserEntity>();
+                cfg.CreateMap<UserDTO, UserInput>();
 
                 cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
                 cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+                cfg.CreateMap<AppointmentDTO, AppointmentInput>();
             });
 
             IMapper mapper = config.CreateMapper();
@@ -71,12 +73,11 @@ namespace GoBarber.UnitTest.Services
 
             var createdUser = _userService.Insert(user);
             Assert.IsNotNull(createdUser);
-            Assert.AreEqual(user, createdUser);
 
             var doLogin = _authenticationService.SignIn(user.Email, user.Password);
             Assert.IsNotNull(doLogin.User);
 
-            var authenticated = _authenticationService.GetByUserId(createdUser.Id);
+            var authenticated = _authenticationService.GetByUserId(createdUser.User.Id);
             Assert.IsNotNull(authenticated);
         }
 

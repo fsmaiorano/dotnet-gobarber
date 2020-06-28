@@ -39,7 +39,7 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                return Ok(_userService.SelectAll());
+                return Ok(_userService.Get());
 
             }
             catch (ArgumentException e)
@@ -78,29 +78,20 @@ namespace GoBarber.Application.Controllers.User
                 return BadRequest(ModelState);
             }
 
-            var userResult = new UserResult();
-
             try
             {
                 user.Role = RoleConstant.Client;
-
-                var userEntity = _mapper.Map<UserInput, UserEntity>(user);
-                userEntity.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
-
-                var createdUser = _userService.Insert(userEntity);
+                user.Avatar = $"https://api.adorable.io/avatars/{new Random().Next(10000)}";
+                
+                var createdUser = _userService.Insert(user);
 
                 if (createdUser != null)
                 {
-                    userResult.User = _mapper.Map<UserEntity, UserDTO>(createdUser);
-                    userResult.User.Token = createdUser.Token;
-                    userResult.Success = true;
-
-                    return Ok(userResult);
+                    return Ok(createdUser);
                 }
                 else
                 {
-                    userResult.Success = false;
-                    return BadRequest(userResult);
+                    return BadRequest(createdUser);
                 }
 
             }
@@ -112,7 +103,7 @@ namespace GoBarber.Application.Controllers.User
 
         [HttpPut]
         [Authorize]
-        public ActionResult Put([FromBody] UserEntity user)
+        public ActionResult Put([FromBody] UserInput user)
         {
             if (!ModelState.IsValid)
             {
@@ -121,14 +112,15 @@ namespace GoBarber.Application.Controllers.User
 
             try
             {
-                var result = _userService.Update(user);
-                if (result != null)
+                var updatedUser = _userService.Update(user);
+
+                if (updatedUser != null)
                 {
-                    return Ok(result);
+                    return Ok(updatedUser);
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest(updatedUser);
                 }
 
             }

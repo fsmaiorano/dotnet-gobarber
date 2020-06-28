@@ -73,7 +73,7 @@ namespace GoBarber.Data.Repository
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> Get()
         {
             try
             {

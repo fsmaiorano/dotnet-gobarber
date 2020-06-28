@@ -1,4 +1,5 @@
 ﻿using GoBarber.Domain.Entities;
+using GoBarber.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,16 +9,16 @@ namespace GoBarber.Domain.Interfaces.Services
 {
     public interface IUserService
     {
-        UserEntity GetById(Int32 id);
-        UserEntity GetByEmail(string email);
+        UserResult GetById(Int32 id);
+        UserResult GetByEmail(string email);
 
-        IEnumerable<UserEntity> SelectAll();
+        UserResult Get();
 
-        UserEntity Insert(UserEntity user);
+        UserResult Insert(UserInput user);
 
-        UserEntity Update(UserEntity user);
+        UserResult Update(UserInput user);
 
-        bool Delete(Int32 id);
+        UserResult Delete(int id);
     }
 }
 

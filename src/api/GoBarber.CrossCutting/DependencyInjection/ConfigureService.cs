@@ -26,9 +26,11 @@ namespace GoBarber.CrossCutting.DependencyInjection
             {
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserInput, UserEntity>();
+                cfg.CreateMap<UserDTO, UserInput>();
 
                 cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
                 cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+                cfg.CreateMap<AppointmentDTO, AppointmentInput>();
             });
 
             IMapper mapper = config.CreateMapper();

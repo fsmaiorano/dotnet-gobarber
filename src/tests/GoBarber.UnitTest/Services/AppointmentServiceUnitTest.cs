@@ -49,9 +49,11 @@ namespace GoBarber.UnitTest.Services
             {
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserInput, UserEntity>();
+                cfg.CreateMap<UserDTO, UserInput>();
 
                 cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
                 cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+                cfg.CreateMap<AppointmentDTO, AppointmentInput>();
             });
 
             IMapper mapper = config.CreateMapper();
@@ -105,50 +107,50 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment_1 = FakeAppointmentFactory.CreateAppointment();
-            appointment_1.ProviderId = createdProvider.Id;
-            appointment_1.UserId = createdUser_1.Id;
+            appointment_1.ProviderId = createdProvider.User.Id;
+            appointment_1.UserId = createdUser_1.User.Id;
             var createdAppointment_1 = _appointmentService.Insert(appointment_1);
             Assert.IsNotNull(createdAppointment_1);
 
             var appointment_2 = FakeAppointmentFactory.CreateAppointment();
-            appointment_2.ProviderId = createdProvider.Id;
-            appointment_2.UserId = createdUser_2.Id;
+            appointment_2.ProviderId = createdProvider.User.Id;
+            appointment_2.UserId = createdUser_2.User.Id;
             var createdAppointment_2 = _appointmentService.Insert(appointment_2);
             Assert.IsNotNull(createdAppointment_2);
 
             var appointment_3 = FakeAppointmentFactory.CreateAppointment();
-            appointment_3.ProviderId = createdProvider.Id;
-            appointment_3.UserId = createdUser_3.Id;
+            appointment_3.ProviderId = createdProvider.User.Id;
+            appointment_3.UserId = createdUser_3.User.Id;
             var createdAppointment_3 = _appointmentService.Insert(appointment_3);
             Assert.IsNotNull(createdAppointment_3);
 
             var appointment_4 = FakeAppointmentFactory.CreateAppointment();
-            appointment_4.ProviderId = createdProvider.Id;
-            appointment_4.UserId = createdUser_4.Id;
+            appointment_4.ProviderId = createdProvider.User.Id;
+            appointment_4.UserId = createdUser_4.User.Id;
             var createdAppointment_4 = _appointmentService.Insert(appointment_4);
             Assert.IsNotNull(createdAppointment_4);
 
             var appointment_5 = FakeAppointmentFactory.CreateAppointment();
-            appointment_5.ProviderId = createdProvider.Id;
-            appointment_5.UserId = createdUser_5.Id;
+            appointment_5.ProviderId = createdProvider.User.Id;
+            appointment_5.UserId = createdUser_5.User.Id;
             var createdAppointment_5 = _appointmentService.Insert(appointment_5);
             Assert.IsNotNull(createdAppointment_5);
 
             var appointment_6 = FakeAppointmentFactory.CreateAppointment();
-            appointment_6.ProviderId = createdProvider.Id;
-            appointment_6.UserId = createdUser_6.Id;
+            appointment_6.ProviderId = createdProvider.User.Id;
+            appointment_6.UserId = createdUser_6.User.Id;
             var createdAppointment_6 = _appointmentService.Insert(appointment_6);
             Assert.IsNotNull(createdAppointment_6);
 
             var appointment_7 = FakeAppointmentFactory.CreateAppointment();
-            appointment_7.ProviderId = createdProvider.Id;
-            appointment_7.UserId = createdUser_7.Id;
+            appointment_7.ProviderId = createdProvider.User.Id;
+            appointment_7.UserId = createdUser_7.User.Id;
             var createdAppointment_7 = _appointmentService.Insert(appointment_7);
             Assert.IsNotNull(appointment_7);
 
             var appointment_8 = FakeAppointmentFactory.CreateAppointment();
-            appointment_8.ProviderId = createdProvider.Id;
-            appointment_8.UserId = createdUser_8.Id;
+            appointment_8.ProviderId = createdProvider.User.Id;
+            appointment_8.UserId = createdUser_8.User.Id;
             var createdAppointment_8 = _appointmentService.Insert(appointment_8);
             Assert.IsNotNull(createdAppointment_8);
         }
@@ -165,11 +167,11 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment = FakeAppointmentFactory.CreateAppointment();
-            appointment.UserId = createdUser.Id;
-            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.User.Id;
+            appointment.ProviderId = createdProvider.User.Id;
             _appointmentService.Insert(appointment);
 
-            var storedAppointments = _appointmentService.GetByProviderId(createdProvider.Id);
+            var storedAppointments = _appointmentService.GetByProviderId(createdProvider.User.Id);
 
             var myDate = DateTime.Now;
             var result = storedAppointments.Appointments.Where(x => x.Date.Equals(myDate.Date.ToString("dd-MM-yyyyy"))).ToList();
@@ -188,11 +190,11 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment = FakeAppointmentFactory.CreateAppointment();
-            appointment.UserId = createdUser.Id;
-            appointment.ProviderId = createdProvider.Id;
+            appointment.UserId = createdUser.User.Id;
+            appointment.ProviderId = createdProvider.User.Id;
             _appointmentService.Insert(appointment);
 
-            var storedAppointment = _appointmentService.GetByUserId(createdUser.Id);
+            var storedAppointment = _appointmentService.GetByUserId(createdUser.User.Id);
             Assert.IsNotNull(storedAppointment);
         }
 
@@ -208,11 +210,11 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment = FakeAppointmentFactory.CreateAppointment();
-            appointment.ProviderId = createdUser.Id;
-            appointment.UserId = createdProvider.Id;
+            appointment.ProviderId = createdUser.User.Id;
+            appointment.UserId = createdProvider.User.Id;
             _appointmentService.Insert(appointment);
 
-            var storedAppointment = _appointmentService.GetByProviderId(createdProvider.Id);
+            var storedAppointment = _appointmentService.GetByProviderId(createdProvider.User.Id);
             Assert.IsNotNull(storedAppointment);
         }
 
@@ -228,8 +230,8 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment = FakeAppointmentFactory.CreateAppointment();
-            appointment.ProviderId = createdUser.Id;
-            appointment.UserId = createdProvider.Id;
+            appointment.ProviderId = createdUser.User.Id;
+            appointment.UserId = createdProvider.User.Id;
 
             var createdAppointment = _appointmentService.Insert(appointment);
             Assert.IsNotNull(createdAppointment.Appointment);
@@ -250,8 +252,8 @@ namespace GoBarber.UnitTest.Services
             var createdProvider = _userService.Insert(provider);
 
             var appointment = FakeAppointmentFactory.CreateAppointment();
-            appointment.ProviderId = createdUser.Id;
-            appointment.UserId = createdProvider.Id;
+            appointment.ProviderId = createdUser.User.Id;
+            appointment.UserId = createdProvider.User.Id;
 
             var createdAppointment = _appointmentService.Insert(appointment);
             Assert.IsNotNull(createdAppointment.Appointment);

@@ -7,8 +7,9 @@ namespace GoBarber.DTO.Appointment
 {
     public class AppointmentDTO
     {
-        public Int32 ProviderId { get; set; }
-        public Int32 UserId { get; set; }
+        public int Id { get; set; }
+        public int ProviderId { get; set; }
+        public int UserId { get; set; }
         public DateTime Date { get; set; }
         public virtual UserDTO User { get; set; }
     }
@@ -20,6 +21,7 @@ namespace GoBarber.DTO.Appointment
 
     public class AppointmentResult : GenericResult
     {
+        public AppointmentDTO Appointment { get; set; }
         public IEnumerable<AppointmentDTO> Appointments { get; set; }
     }
 }

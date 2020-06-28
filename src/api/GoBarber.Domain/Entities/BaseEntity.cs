@@ -8,7 +8,7 @@ namespace GoBarber.Domain.Entities
     public abstract class BaseEntity
     {
         [Column("id")]
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
         private DateTime? _createdAt;
         [Column("created_at")]
         public DateTime? CreatedAt

@@ -1,4 +1,4 @@
-﻿using Bogus;
+﻿using AutoMapper;
 using GoBarber.Data.Context;
 using GoBarber.Data.Repository;
 using GoBarber.Data.UnitOfWork;
@@ -6,6 +6,8 @@ using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Appointment;
+using GoBarber.DTO.User;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
@@ -13,7 +15,6 @@ using GoBarber.UnitTest.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NuGet.Frameworks;
 using System;
 using System.Linq;
 
@@ -27,6 +28,7 @@ namespace GoBarber.UnitTest.Services
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAppointmentService _appointmentService;
+
 
         public AppointmentServiceUnitTest()
         {
@@ -42,6 +44,18 @@ namespace GoBarber.UnitTest.Services
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UserEntity, UserDTO>();
+                cfg.CreateMap<UserInput, UserEntity>();
+
+                cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
+                cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             _services = services;
             _serviceProvider = services.BuildServiceProvider();
@@ -158,7 +172,7 @@ namespace GoBarber.UnitTest.Services
             var storedAppointments = _appointmentService.GetByProviderId(createdProvider.Id);
 
             var myDate = DateTime.Now;
-            var result = storedAppointments.Where(x => x.Date.Equals(myDate.Date)).ToList();
+            var result = storedAppointments.Appointments.Where(x => x.Date.Equals(myDate.Date.ToString("dd-MM-yyyyy"))).ToList();
             Assert.IsNotNull(result);
         }
 
@@ -218,11 +232,10 @@ namespace GoBarber.UnitTest.Services
             appointment.UserId = createdProvider.Id;
 
             var createdAppointment = _appointmentService.Insert(appointment);
-            Assert.IsNotNull(appointment);
-            Assert.AreEqual(appointment, createdAppointment);
+            Assert.IsNotNull(createdAppointment.Appointment);
 
-            var deletedAppointment = _appointmentService.Delete(createdAppointment.Id);
-            Assert.IsTrue(deletedAppointment);
+            var deletedAppointment = _appointmentService.Delete(createdAppointment.Appointment.Id);
+            Assert.IsTrue(deletedAppointment.Success);
         }
 
         [TestMethod]
@@ -241,14 +254,22 @@ namespace GoBarber.UnitTest.Services
             appointment.UserId = createdProvider.Id;
 
             var createdAppointment = _appointmentService.Insert(appointment);
-            Assert.IsNotNull(appointment);
-            Assert.AreEqual(appointment, createdAppointment);
+            Assert.IsNotNull(createdAppointment.Appointment);
 
             var newDate = DateTime.Now;
 
-            createdAppointment.Date = newDate;
-            var updatedAppointment = _appointmentService.Update(createdAppointment);
-            Assert.AreEqual(updatedAppointment.Date, newDate);
+            createdAppointment.Appointment.Date = newDate;
+
+            var entity = new AppointmentEntity
+            {
+                ProviderId = createdAppointment.Appointment.ProviderId,
+                UserId = createdAppointment.Appointment.UserId,
+                Id = createdAppointment.Appointment.Id,
+                Date = createdAppointment.Appointment.Date
+            };
+
+            var updatedAppointment = _appointmentService.Update(entity);
+            Assert.AreEqual(updatedAppointment.Appointment.Date, newDate);
         }
     }
 }

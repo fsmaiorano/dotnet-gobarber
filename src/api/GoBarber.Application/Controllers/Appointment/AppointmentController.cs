@@ -19,14 +19,12 @@ namespace GoBarber.Application.Controllers.Appointment
     [Authorize]
     public class AppointmentController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
         private readonly IAppointmentService _appointmentService;
         private readonly ILogger<AppointmentController> _logger;
 
-        public AppointmentController(ILogger<AppointmentController> logger, IOptions<AppSettings> appSettings, IAppointmentService appointmentService, IMapper mapper)
+        public AppointmentController(ILogger<AppointmentController> logger, IOptions<AppSettings> appSettings, IAppointmentService appointmentService)
         {
-            _mapper = mapper;
             _logger = logger;
             _appSettings = appSettings;
             _appointmentService = appointmentService;
@@ -44,19 +42,21 @@ namespace GoBarber.Application.Controllers.Appointment
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return null;
+                    result.Success = false;
                 }
+                else
+                {
+                    var response = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
 
-                var appointments = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
-                var appointmentsDTO = _mapper.Map<IEnumerable<AppointmentEntity>, IEnumerable<AppointmentDTO>>(appointments);
-
-
-                result.Success = true;
-                result.Appointments = (IEnumerable<AppointmentDTO>)appointmentsDTO.OrderBy(date => date.Date).ToList();
+                    if (response.Success)
+                    {
+                        result.Appointments = response.Appointments;
+                        result.Success = true;
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
                 result.Success = false;
             }
 
@@ -75,19 +75,21 @@ namespace GoBarber.Application.Controllers.Appointment
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return null;
+                    result.Success = false;
                 }
+                else
+                {
+                    var response = _appointmentService.GetByProviderId(Convert.ToInt32(userId));
 
-                var datetime = DateTime.Parse(date);
-                var appointments = _appointmentService.GetByProviderIdAndDate(Convert.ToInt32(userId), datetime.Date);
-                var appointmentsDTO = _mapper.Map<IEnumerable<AppointmentEntity>, IEnumerable<AppointmentDTO>>(appointments);
-
-                result.Success = true;
-                result.Appointments = (IEnumerable<AppointmentDTO>)appointmentsDTO.OrderBy(date => date.Date).ToList();
+                    if (response.Success)
+                    {
+                        result.Appointments = response.Appointments;
+                        result.Success = true;
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
                 result.Success = false;
             }
 

@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using AutoMapper;
+using Bogus;
 using GoBarber.Data.Context;
 using GoBarber.Data.Repository;
 using GoBarber.Data.UnitOfWork;
@@ -6,6 +7,8 @@ using GoBarber.Domain.Constants;
 using GoBarber.Domain.Entities;
 using GoBarber.Domain.Interfaces;
 using GoBarber.Domain.Interfaces.Services;
+using GoBarber.DTO.Appointment;
+using GoBarber.DTO.User;
 using GoBarber.Service.Services.Appointment;
 using GoBarber.Service.Services.Authentication;
 using GoBarber.Service.Services.User;
@@ -40,6 +43,17 @@ namespace GoBarber.UnitTest.Services
             services.AddDbContext<MyContext>(
              options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
          );
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UserEntity, UserDTO>();
+                cfg.CreateMap<UserInput, UserEntity>();
+
+                cfg.CreateMap<AppointmentEntity, AppointmentDTO>();
+                cfg.CreateMap<AppointmentInput, AppointmentEntity>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             _services = services;
             _serviceProvider = services.BuildServiceProvider();

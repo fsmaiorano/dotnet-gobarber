@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\dto\GoBarber.DTO\GoBarber.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

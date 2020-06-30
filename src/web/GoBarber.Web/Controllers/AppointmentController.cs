@@ -57,24 +57,14 @@ namespace GoBarber.Web.Controllers
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
 
-            var appointments = await AppointmentService.GetAppointmentsById(vm.Id, user.Token);
+            var selectedAppointment = await AppointmentService.GetAppointmentsById(vm.Id, user.Token);
 
-            //var vm = new List<AppointmentViewModel>();
+            vm.UserId = selectedAppointment.Appointment.UserId;
+            vm.User = selectedAppointment.Appointment.User;
+            vm.ProviderId = selectedAppointment.Appointment.ProviderId;
+            vm.Date = selectedAppointment.Appointment.Date;
 
-            //foreach (var appointment in appointments.Appointments)
-            //{
-            //    var ap = new AppointmentViewModel
-            //    {
-            //        UserId = appointment.UserId,
-            //        User = appointment.User,
-            //        ProviderId = appointment.ProviderId,
-            //        Date = appointment.Date
-            //    };
-
-            //    vm.Add(ap);
-            //}
-
-            return PartialView("_AppointmentsDetail");
+            return PartialView("_AppointmentsDetail", vm);
         }
     }
 }

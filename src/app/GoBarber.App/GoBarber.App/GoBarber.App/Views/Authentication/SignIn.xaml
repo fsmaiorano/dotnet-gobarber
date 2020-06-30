@@ -5,11 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              mc:Ignorable="d"
+             BackgroundColor="{StaticResource DefaultBackgroundColor}"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled"
              Shell.TabBarIsVisible="False"
-             Shell.PresentationMode="ModalAnimated"
-             x:Class="GoBarber.App.Views.Authentication.SignIn">
+             Shell.PresentationMode="ModalAnimated" x:Class="GoBarber.App.Views.Authentication.SignIn"
+        Style="{Binding BaseStyle}">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="16" Margin="16,32">
             <Frame>

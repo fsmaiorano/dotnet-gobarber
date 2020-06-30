@@ -58,6 +58,7 @@ namespace GoBarber.Application.Controllers.Appointment
             catch (Exception ex)
             {
                 result.Success = false;
+                result.Message = ex.Message;
             }
 
             return result;
@@ -92,6 +93,7 @@ namespace GoBarber.Application.Controllers.Appointment
             catch (Exception ex)
             {
                 result.Success = false;
+                result.Message = ex.Message;
             }
 
             return result;

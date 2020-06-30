@@ -9,8 +9,9 @@ namespace GoBarber.Web.ViewModels.Appointment
 {
     public class AppointmentViewModel
     {
-        public Int32 ProviderId { get; set; }
-        public Int32 UserId { get; set; }
+        public int Id { get; set; }
+        public int ProviderId { get; set; }
+        public int UserId { get; set; }
         public DateTime Date { get; set; }
         public virtual UserDTO User { get; set; }
     }

@@ -10,7 +10,7 @@
         {
             @foreach (var appointment in @Model)
             {
-                <div class="appointment">
+                <div id="@appointment.Id" class="appointment">
                     <div class="appointment-content">
                         <img src="@appointment.User.Avatar" />
                         <div class="appointment-detail">
@@ -23,7 +23,7 @@
         }
         else
         {
-    <div>No Schedules 😭</div>
+            <div>No Schedules 😭</div>
         }
     </div>
 </div>

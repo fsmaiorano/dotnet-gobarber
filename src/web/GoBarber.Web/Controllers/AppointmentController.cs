@@ -24,7 +24,7 @@ namespace GoBarber.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("AppointmentList")]
 
         public async Task<PartialViewResult> AppointmentsList(string date)
         {
@@ -38,6 +38,7 @@ namespace GoBarber.Web.Controllers
             {
                 var ap = new AppointmentViewModel
                 {
+                    Id = appointment.Id,
                     UserId = appointment.UserId,
                     User = appointment.User,
                     ProviderId = appointment.ProviderId,
@@ -48,6 +49,32 @@ namespace GoBarber.Web.Controllers
             }
 
             return PartialView("_AppointmentsList", vm);
+        }
+
+
+        [HttpGet("AppointmentDetail/{id}")]
+        public async Task<PartialViewResult> AppointmentDetail(AppointmentViewModel vm)
+        {
+            var user = (UserDTO)_cache.Get(CacheConstants.User);
+
+            var appointments = await AppointmentService.GetAppointmentsById(vm.Id, user.Token);
+
+            //var vm = new List<AppointmentViewModel>();
+
+            //foreach (var appointment in appointments.Appointments)
+            //{
+            //    var ap = new AppointmentViewModel
+            //    {
+            //        UserId = appointment.UserId,
+            //        User = appointment.User,
+            //        ProviderId = appointment.ProviderId,
+            //        Date = appointment.Date
+            //    };
+
+            //    vm.Add(ap);
+            //}
+
+            return PartialView("_AppointmentsDetail");
         }
     }
 }

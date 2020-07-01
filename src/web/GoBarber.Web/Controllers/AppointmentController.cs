@@ -28,7 +28,7 @@ namespace GoBarber.Web.Controllers
 
         [HttpGet("AppointmentList")]
 
-        public async Task<PartialViewResult> AppointmentsList(string date)
+        public async Task<PartialViewResult> AppointmentList(string date)
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
 
@@ -52,12 +52,12 @@ namespace GoBarber.Web.Controllers
 
             _cache.Set<List<AppointmentViewModel>>(CacheConstants.Daily, vm);
 
-            return PartialView("_AppointmentsList", vm);
+            return PartialView("_AppointmentList", vm);
         }
 
 
         [HttpGet("AppointmentDetail/{id}")]
-        public async Task<PartialViewResult> AppointmentDetail(AppointmentViewModel vm)
+        public PartialViewResult AppointmentDetail(AppointmentViewModel vm)
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
             var appointments = _cache.Get<List<AppointmentViewModel>>(CacheConstants.Daily);
@@ -69,7 +69,7 @@ namespace GoBarber.Web.Controllers
             vm.ProviderId = appointment.ProviderId;
             vm.Date = appointment.Date;
 
-            return PartialView("_AppointmentsDetail", vm);
+            return PartialView("_AppointmentDetail", vm);
         }
     }
 }

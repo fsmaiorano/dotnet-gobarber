@@ -150,7 +150,7 @@ function setSelectedDate(
 }
 
 function getAppointments(day: string, month: string, year: string) {
-    let url = `https://localhost:3333/appointment?date=${day}-${month + 1}-${year}`;
+    let url = `https://localhost:3333/appointment/appointmentlist?date=${day}-${month + 1}-${year}`;
     fetch(url, {
         method: "GET",
         headers: {

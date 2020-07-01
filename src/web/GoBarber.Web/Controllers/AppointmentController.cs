@@ -1,3 +1,4 @@
+using GoBarber.DTO.Appointment;
 using GoBarber.DTO.User;
 using GoBarber.Web.Helpers;
 using GoBarber.Web.Services;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GoBarber.Web.Controllers
@@ -48,6 +50,8 @@ namespace GoBarber.Web.Controllers
                 vm.Add(ap);
             }
 
+            _cache.Set<List<AppointmentViewModel>>(CacheConstants.Daily, vm);
+
             return PartialView("_AppointmentsList", vm);
         }
 
@@ -56,13 +60,14 @@ namespace GoBarber.Web.Controllers
         public async Task<PartialViewResult> AppointmentDetail(AppointmentViewModel vm)
         {
             var user = (UserDTO)_cache.Get(CacheConstants.User);
+            var appointments = _cache.Get<List<AppointmentViewModel>>(CacheConstants.Daily);
 
-            var selectedAppointment = await AppointmentService.GetAppointmentsById(vm.Id, user.Token);
+            var appointment = appointments.Where(x => x.Id.Equals(vm.Id)).FirstOrDefault();
 
-            vm.UserId = selectedAppointment.Appointment.UserId;
-            vm.User = selectedAppointment.Appointment.User;
-            vm.ProviderId = selectedAppointment.Appointment.ProviderId;
-            vm.Date = selectedAppointment.Appointment.Date;
+            vm.UserId = appointment.UserId;
+            vm.User = appointment.User;
+            vm.ProviderId = appointment.ProviderId;
+            vm.Date = appointment.Date;
 
             return PartialView("_AppointmentsDetail", vm);
         }

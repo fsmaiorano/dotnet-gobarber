@@ -9,5 +9,6 @@ namespace GoBarber.Web.Helpers
     {
         public static string User = "User";
         public static string UserViewModel = "UserViewModel";
+        public static string Daily = "Daily";
     }
 }

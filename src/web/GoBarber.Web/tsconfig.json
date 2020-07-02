@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
     "noImplicitAny": false,
-    "module": "ES6",
-    "target": "es6",
+    "target": "ES5",
+    "module": "AMD",
+    "moduleResolution": "Node",
     "outDir": "./wwwroot/assets/scripts",
     "rootDir": "source/scripts",
     "typeRoots": [ "./node_modules/@types" ],
-    "lib": [ "DOM", "ES2015", "ES2015.Iterable", "ScriptHost" ]
+    "lib": [ "dom", "es5", "es2015", "es2015.iterable", "scripthost" ],
+    "strict": false,
+    "sourceMap": true,
+    "esModuleInterop": true
   },
   "compileOnSave": true,
   "exclude": [ "./node_modules/" ]
 }
+
+

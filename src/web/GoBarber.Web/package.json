@@ -3,17 +3,8 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
-    "gulp": "yarn gulp",
-    "build:dev": "tsc & yarn build:dev:css",
-    "dev": "concurrently  \"yarn watch:typescript\" \"yarn watch:css\" \"dotnet watch run\" ",
-    "dev:assets": "concurrently \"yarn watch:typescript\" \"yarn watch:css\" ",
-    "build:prod": "yarn build:typescript & yarn build:css",
-    "watch:typescript": "tsc --watch",
-    "build:typescript": "tsc --p ./tsconfig.production.json",
-    "watch:css": "node-sass --watch source/styles/scss -o wwwroot/assets/styles",
-    "build:dev:css": "node-sass source/styles/scss -o wwwroot/assets/styles",
-    "build:css": "node-sass source/styles/scss -o wwwroot/assets/styles --output-style compressed && yarn prefix:css",
-    "prefix:css": "postcss --use autoprefixer -b 'last 2 versions' wwwroot/assets/styles --replace"
+    "dev": "yarn gulp dev",
+    "build": "yarn gulp build"
   },
   "devDependencies": {
     "@types/requirejs": "^2.1.32",

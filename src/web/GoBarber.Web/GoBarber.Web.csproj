@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="yarn build:dev" />
+    <Exec Command="yarn build" />
   </Target>
 
 </Project>

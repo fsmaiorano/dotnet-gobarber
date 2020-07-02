@@ -1,14 +1,11 @@
-﻿require(['./pages/appointment'])
+﻿require(["./pages/appointment"]);
 
 class Home {
+  constructor() {
+    this.init();
+  }
 
-    constructor() {
-        this.init();
-    }
-
-    init() {
-      
-    }
+  init() {}
 }
 
 new Home();

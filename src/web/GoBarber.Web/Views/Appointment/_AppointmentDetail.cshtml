@@ -1,4 +1,17 @@
 ﻿@model GoBarber.Web.ViewModels.Appointment.AppointmentViewModel
 
-<button class="btn btn-goback"><</button>
-<h1>@Model.User.Name</h1>
+<button class="btn btn-goback">
+    <img src="assets/icons/feather/chevron-left.svg" />
+    <span>Back</span>
+</button>
+
+<div id="@Model.Id" class="appointment">
+    <div class="appointment-content">
+        <img src="@Model.User.Avatar" />
+        <div class="appointment-detail">
+            <p>@Model.User.Name</p>
+            <p>@Model.User.Email</p>
+            <p>@Model.Date</p>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
+    "start": "concurrently \"yarn dev\" \"dotnet watch run\" ",
     "dev": "yarn gulp dev",
     "build": "yarn gulp build"
   },

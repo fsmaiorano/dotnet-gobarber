@@ -3,6 +3,8 @@
 // /// <reference types="flickity"/>
 // /// <reference types="isotope-layout"/>
 
+declare const Notyf: any;
+
 // declare const ClipboardJS: ClipboardJS | any;
 // declare const Flickity: Flickity | any;
 // declare const Hls: Hls | any;

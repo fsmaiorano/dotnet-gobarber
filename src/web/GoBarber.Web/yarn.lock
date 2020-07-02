@@ -47,6 +47,13 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/notyf@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/notyf/-/notyf-3.0.0.tgz#8a61a08774c5df37a9fa071f386d2b2b2efc56d8"
+  integrity sha512-3hukIpKvqYUV8gD2yWSLf0LDgPeedFOXn7zqE7qpq0+1J3kpmxuJxypJ9LTyBU9u7c2AjX37OJ6gi62W9h/PsA==
+  dependencies:
+    notyf "*"
+
 "@types/requirejs@^2.1.32":
   version "2.1.32"
   resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.32.tgz#c936a1f4b08f0a8bc10a380d7b837ccf9137d4b9"
@@ -2647,6 +2654,11 @@ normalize-range@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
+
+notyf@*, notyf@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/notyf/-/notyf-3.7.0.tgz#adeaab5482fa25259c3682d2aaf5bf3d37cb0421"
+  integrity sha512-YLku5YhncldCrSK/KeRAa3b+G6ylEjSbAWqZcF2NccWNUYhOk9bEvxyKgrZ04bBCmzNKEn6fOKYreYkRfNFYzA==
 
 now-and-later@^2.0.0:
   version "2.0.1"

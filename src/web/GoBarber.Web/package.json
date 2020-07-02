@@ -8,7 +8,10 @@
     "build": "yarn gulp build"
   },
   "devDependencies": {
+    "@types/notyf": "^3.0.0",
     "@types/requirejs": "^2.1.32",
+    "autoprefixer": "^9.8.4",
+    "concurrently": "^5.2.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
@@ -18,14 +21,13 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-strip-css-comments": "^2.0.0",
     "gulp-typescript": "^5.0.1",
-    "autoprefixer": "^9.8.4",
-    "concurrently": "^5.2.0",
     "node-sass": "^4.14.1",
     "postcss": "^7.0.32",
     "postcss-cli": "^7.1.1",
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "notyf": "^3.7.0",
     "requirejs": "^2.3.6"
   }
 }

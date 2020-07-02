@@ -3,6 +3,7 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
+    "gulp": "yarn gulp",
     "build:dev": "tsc & yarn build:dev:css",
     "dev": "concurrently  \"yarn watch:typescript\" \"yarn watch:css\" \"dotnet watch run\" ",
     "dev:assets": "concurrently \"yarn watch:typescript\" \"yarn watch:css\" ",
@@ -14,13 +15,25 @@
     "build:css": "node-sass source/styles/scss -o wwwroot/assets/styles --output-style compressed && yarn prefix:css",
     "prefix:css": "postcss --use autoprefixer -b 'last 2 versions' wwwroot/assets/styles --replace"
   },
-  "type": "module",
   "devDependencies": {
-    "autoprefixer": "^9.8.0",
+    "@types/requirejs": "^2.1.32",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^3.0.0",
+    "gulp-minifier": "^3.5.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-strip-css-comments": "^2.0.0",
+    "gulp-typescript": "^5.0.1",
+    "autoprefixer": "^9.8.4",
     "concurrently": "^5.2.0",
     "node-sass": "^4.14.1",
     "postcss": "^7.0.32",
     "postcss-cli": "^7.1.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.6"
   }
 }

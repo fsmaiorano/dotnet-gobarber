@@ -1,7 +1,11 @@
 ﻿class Appointment {
 
+   
+
     constructor() {
         this.init();
+
+      
     }
 
     init() {
@@ -39,11 +43,18 @@
                             return response.text();
                         }).then(function (body) {
                             let appointmentList: HTMLDivElement = document.querySelector('.appointments-list');
-                            let appointmentDetail: HTMLDivElement = document.querySelector('.appointment-info');
+                            let appointmentInfo: HTMLDivElement = document.querySelector('.appointment-info');
                             appointmentList.style.display = "none";
-                            debugger;
-                            appointmentDetail.innerHTML = body;
-                            appointmentDetail.style.display = "true";
+                            appointmentInfo.innerHTML = body;
+                            appointmentInfo.style.display = "block";
+
+                            let btnGoBack: HTMLButtonElement = document.querySelector('.btn-goback');
+                            btnGoBack.onclick = () => {
+                                let appointmentList: HTMLDivElement = document.querySelector('.appointments-list');
+                                let appointmentInfo: HTMLDivElement = document.querySelector('.appointment-info');
+                                appointmentList.style.display = "block";
+                                appointmentInfo.style.display = "none";
+                            }
                         });
                     }));
                 }

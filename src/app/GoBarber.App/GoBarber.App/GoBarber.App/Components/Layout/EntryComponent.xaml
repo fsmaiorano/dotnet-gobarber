@@ -4,16 +4,17 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="GoBarber.App.Components.Layout.ButtonComponent">
+             x:Class="GoBarber.App.Components.Layout.EntryComponent"
+             Visual="Material">
     <ContentView.Resources>
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
         </Style>
     </ContentView.Resources>
-  <ContentView.Content>
+    <ContentView.Content>
       <StackLayout>
-            <Button x:Name="Btn"/>
+            <Entry x:Name="Entry" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>

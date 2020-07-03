@@ -19,7 +19,7 @@ namespace GoBarber.App.Components.Layout
         }
 
         public static readonly BindableProperty LabelProperty = BindableProperty.Create(
-                                                         propertyName: "TitleText",
+                                                         propertyName: "LabelProperty",
                                                          returnType: typeof(string),
                                                          declaringType: typeof(ButtonComponent),
                                                          defaultValue: "",
@@ -34,7 +34,7 @@ namespace GoBarber.App.Components.Layout
         public static void SetLabel(BindableObject bindable, object oldValue, object newValue)
         {
             var ui = (ButtonComponent)bindable;
-            ui.btn.Text = newValue.ToString();
+            ui.Btn.Text = newValue.ToString();
         }
     }
 }

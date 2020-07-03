@@ -1,18 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             mc:Ignorable="d"
-             BackgroundColor="{StaticResource DefaultBackgroundColor}"
-             Shell.NavBarIsVisible="False"
-             Shell.FlyoutBehavior="Disabled"
-             Shell.TabBarIsVisible="False"
-             Shell.PresentationMode="ModalAnimated" x:Class="GoBarber.App.Views.Authentication.SignIn"
-        Style="{Binding BaseStyle}">
-    <ContentPage.Resources>
-    </ContentPage.Resources>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" mc:Ignorable="d"
+        BackgroundColor="{StaticResource DefaultBackgroundColor}"
+        xmlns:LayoutComponents="clr-namespace:GoBarber.App.Components.Layout" Shell.NavBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled" Shell.TabBarIsVisible="False" Shell.PresentationMode="ModalAnimated"
+        x:Class="GoBarber.App.Views.Authentication.SignIn" Style="{Binding BaseStyle}">
+    <ContentPage.Resources></ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="16" Margin="16,32">
             <Frame>
@@ -20,13 +15,14 @@
             </Frame>
             <Entry Text="{Binding Username}" Placeholder="Username" />
             <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True" />
-            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="Center" Command="{Binding ExecuteLogin}" />
+            <LayoutComponents:ButtonComponent Label="teste" />
+            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="Center" Command="{Binding ExecuteLogin}"/>
             <Label Text="Register" HorizontalOptions="Center" TextColor="Accent" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ExecuteRegistration}" />
                 </Label.GestureRecognizers>
             </Label>
-            <svg:SvgCachedImage Source="lock.svg" WidthRequest="50" HeightRequest="50"/>
+            <svg:SvgCachedImage Source="lock.svg" WidthRequest="50" HeightRequest="50" />
             <svg:SvgCachedImage Source="logout.svg" WidthRequest="50" HeightRequest="50" />
         </StackLayout>
     </ContentPage.Content>

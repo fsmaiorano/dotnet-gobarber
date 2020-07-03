@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.Domain", "..\..\ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.Service", "..\..\api\GoBarber.Service\GoBarber.Service.csproj", "{FDBD34FE-7D2B-4EC7-97A8-34473B286C3C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoBarber.DTO", "..\..\dto\GoBarber.DTO\GoBarber.DTO.csproj", "{79424982-13EC-45C4-9C52-259A1AEB0F25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,18 @@ Global
 		{FDBD34FE-7D2B-4EC7-97A8-34473B286C3C}.Release|iPhone.Build.0 = Release|Any CPU
 		{FDBD34FE-7D2B-4EC7-97A8-34473B286C3C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{FDBD34FE-7D2B-4EC7-97A8-34473B286C3C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|iPhone.Build.0 = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{79424982-13EC-45C4-9C52-259A1AEB0F25}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

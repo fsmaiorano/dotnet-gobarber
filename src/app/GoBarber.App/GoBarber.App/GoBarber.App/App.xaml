@@ -6,6 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="DefaultBackgroundColor">#28262e</Color>
+            <Color x:Key="PrimaryColor">#ff9000</Color>
+            <Color x:Key="SecondaryColor">#fff</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application> 

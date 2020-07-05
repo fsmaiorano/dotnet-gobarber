@@ -31,7 +31,7 @@ namespace GoBarber.Application
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
-            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQL")));
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(CrossSettings.DbConnection));
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 

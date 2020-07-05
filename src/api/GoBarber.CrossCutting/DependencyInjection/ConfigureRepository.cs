@@ -1,4 +1,5 @@
-﻿using GoBarber.Data.Context;
+﻿using GoBarber.CrossCutting.Configuration;
+using GoBarber.Data.Context;
 using GoBarber.Data.Repository;
 using GoBarber.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace GoBarber.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IAppointmentRepository), typeof(AppointmentRepository));
 
             serviceCollection.AddDbContext<MyContext>(
-                options => options.UseSqlServer("Server=localhost;user=sa;password=Password123;database=gobarber")
+                options => options.UseSqlServer(CrossSettings.DbConnection)
             );
         }
     }

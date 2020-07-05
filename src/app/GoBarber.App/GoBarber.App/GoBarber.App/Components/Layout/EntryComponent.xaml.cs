@@ -12,6 +12,11 @@ namespace GoBarber.App.Components.Layout
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EntryComponent : ContentView
     {
+        public EntryComponent()
+        {
+            InitializeComponent();
+        }
+
         public string Placeholder
         {
             get { return (string)GetValue(PlaceholderProperty); }
@@ -26,15 +31,30 @@ namespace GoBarber.App.Components.Layout
                                                          defaultBindingMode: BindingMode.TwoWay,
                                                          propertyChanged: SetPlaceholder);
 
+        public string PlaceholderColor
+        {
+            get { return (string)GetValue(PlaceholderColorProperty); }
+            set { SetValue(PlaceholderColorProperty, value); }
+        }
+
+        public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(
+                                                 propertyName: "PlaceholderColorProperty",
+                                                 returnType: typeof(string),
+                                                 declaringType: typeof(EntryComponent),
+                                                 defaultValue: "",
+                                                 defaultBindingMode: BindingMode.TwoWay,
+                                                 propertyChanged: SetPlaceholderColor);
+
         public static void SetPlaceholder(BindableObject bindable, object oldValue, object newValue)
         {
             var ui = (EntryComponent)bindable;
-            ui.Entry.Placeholder = newValue.ToString();
+            ui.CustomEntry.Placeholder = newValue.ToString();
         }
 
-        public EntryComponent()
+        public static void SetPlaceholderColor(BindableObject bindable, object oldColor, object newColor)
         {
-            InitializeComponent();
+            var ui = (EntryComponent)bindable;
+            ui.CustomEntry.PlaceholderColor = (Color)(Color)Application.Current.Resources["SecondaryColor"];
         }
     }
 }

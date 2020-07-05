@@ -14,7 +14,7 @@
     </ContentView.Resources>
     <ContentView.Content>
       <StackLayout>
-            <Entry x:Name="Entry" />
+            <Entry x:Name="CustomEntry"/>
         </StackLayout>
   </ContentView.Content>
 </ContentView>

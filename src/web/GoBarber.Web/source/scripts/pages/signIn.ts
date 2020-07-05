@@ -71,7 +71,8 @@ class SignIn {
         window.localStorage.setItem(
           "GoBarber.Web:Token",
           `Bearer ${response.user.token}`
-        );
+          );
+          document.location.href = "/home";
       }
     } catch (e) {
       const notyf = new Notyf();

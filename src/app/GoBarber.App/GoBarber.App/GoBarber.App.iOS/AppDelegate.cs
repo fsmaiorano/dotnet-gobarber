@@ -4,6 +4,7 @@ using System.Linq;
 using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace GoBarber.App.iOS
 {
@@ -26,6 +27,7 @@ namespace GoBarber.App.iOS
             CachedImageRenderer.InitImageSourceHandler();
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+            FormsMaterial.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -13,12 +13,14 @@
             <Frame>
                 <Label Text="Welcome to Xamarin.Forms Shell Login!!" HorizontalTextAlignment="Center" FontSize="Title" />
             </Frame>
-            <Entry Text="{Binding Username}" Placeholder="Username" />
-            <Entry Text="{Binding Password}" Placeholder="Password" />
-            <LayoutComponents:EntryComponent Placeholder="E-mail" PlaceholderColor="{StaticResource PrimaryColor}" IsPassword="False" />
-            <LayoutComponents:EntryComponent Placeholder="Password" PlaceholderColor="{StaticResource PrimaryColor}" IsPassword="True"/>
+            <!--<Entry Text="{Binding Username}" Placeholder="Username" />
+            <Entry Text="{Binding Password}" Placeholder="Password" />-->
+            <LayoutComponents:EntryComponent Placeholder="E-mail" PlaceholderColor="{StaticResource PrimaryColor}"
+                    EntryIsPassword="False" EntryText="{Binding Email}" />
+            <LayoutComponents:EntryComponent Placeholder="Password" PlaceholderColor="{StaticResource PrimaryColor}"
+                    EntryIsPassword="True" EntryText="{Binding Password}" />
             <LayoutComponents:ButtonComponent Label="teste" />
-            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="Center" Command="{Binding ExecuteLogin}"/>
+            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="Center" Command="{Binding ExecuteLogin}" />
             <Label Text="Register" HorizontalOptions="Center" TextColor="Accent" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ExecuteRegistration}" />

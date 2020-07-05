@@ -15,21 +15,32 @@ namespace GoBarber.App.Components.Layout
             //this.Entry_Unfocused(CustomEntry, null);
         }
 
-        public bool IsPassword
+        public bool EntryIsPassword
         {
             get { return (bool)GetValue(IsPasswordProperty); }
             set { SetValue(IsPasswordProperty, value); }
         }
 
         public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
-                                                      propertyName: "IsPasswordProperty",
+                                                      propertyName: "EntryIsPassword",
                                                       returnType: typeof(bool),
                                                       declaringType: typeof(EntryComponent),
                                                       defaultValue: false,
-                                                      defaultBindingMode: BindingMode.TwoWay,
-                                                      propertyChanged: SetIsPassword);
+                                                      defaultBindingMode: BindingMode.TwoWay);
 
+        public static readonly BindableProperty EntryTextProperty = BindableProperty.Create(
+         propertyName: "EntryText",
+         returnType: typeof(string),
+         declaringType: typeof(EntryComponent),
+         defaultValue: "",
+         defaultBindingMode: BindingMode.TwoWay
+         );
 
+        public string EntryText
+        {
+            get => (string)GetValue(EntryTextProperty);
+            set => SetValue(EntryTextProperty, value);
+        }
 
         public string Placeholder
         {
@@ -71,13 +82,7 @@ namespace GoBarber.App.Components.Layout
             var ui = (EntryComponent)bindable;
             ui.CustomEntry.PlaceholderColor = (Color)App.Current.Resources["PrimaryColor"];
         }
-
-        public static void SetIsPassword(BindableObject bindable, object oldValue, object newValue)
-        {
-            var ui = (EntryComponent)bindable;
-            ui.CustomEntry.IsPassword = (bool)newValue;
-        }
-
+  
         public async void Entry_Focused(object sender, FocusEventArgs e)
         {
             await Task.Delay(100);

@@ -19,7 +19,7 @@ namespace GoBarber.App.ViewModels
             ExecuteRegistration = new Command(() => Register());
         }
 
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
         public ICommand ExecuteLogin { get; set; }
         public ICommand ExecuteRegistration { get; set; }

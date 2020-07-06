@@ -106,7 +106,6 @@
   <ItemGroup>
     <AndroidAsset Include="Resources\drawable\logo.svg" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\chevronleft.svg" />
   </ItemGroup>

@@ -12,9 +12,10 @@
         <StackLayout Spacing="16" Margin="16,32">
             <svg:SvgCachedImage Source="logo.png" WidthRequest="150" HeightRequest="150" />
             <LayoutComponents:EntryComponent Placeholder="E-mail" PlaceholderColor="{StaticResource PrimaryColor}" />
-            <LayoutComponents:EntryComponent Placeholder="Password" PlaceholderColor="{StaticResource PrimaryColor}" />
-            <LayoutComponents:ButtonComponent Label="teste" />
-            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="Center" Command="{Binding ExecuteLogin}" />
+            <LayoutComponents:EntryComponent Placeholder="Password" PlaceholderColor="{StaticResource PrimaryColor}"
+                    IsPassword="True" />
+            <Button Margin="0,16,0,0" Text="Login" HorizontalOptions="CenterAndExpand" WidthRequest="320" Command="{Binding ExecuteLogin}"
+                    Style="{StaticResource PrimaryButton}" />
             <Label Text="Register" HorizontalOptions="Center" TextColor="Accent" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ExecuteRegistration}" />

@@ -1,6 +1,7 @@
 ﻿
 
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
@@ -28,6 +29,8 @@ namespace GoBarber.App.Droid.Components.Layout
             {
                 Control.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
                 Control.EditText.SetTextColor(Color.Rgb(255, 255, 255));
+                //Control.EditText.SetCursorVisible(false);
+                Control.BackgroundTintList = ColorStateList.ValueOf(e.NewElement.TextColor.ToAndroid());
             }
         }
 

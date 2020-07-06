@@ -7,5 +7,9 @@ namespace GoBarber.App.Components.Layout
 {
     public class EntryComponent: Entry
     {
+        public EntryComponent()
+        {
+            
+        }
     }
 }

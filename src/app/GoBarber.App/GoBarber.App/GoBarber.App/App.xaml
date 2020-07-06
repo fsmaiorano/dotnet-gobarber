@@ -8,6 +8,11 @@
             <Color x:Key="DefaultBackgroundColor">#28262e</Color>
             <Color x:Key="PrimaryColor">#ff9000</Color>
             <Color x:Key="SecondaryColor">#fff</Color>
+            
+            <Style TargetType="Button" x:Key="PrimaryButton">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application> 

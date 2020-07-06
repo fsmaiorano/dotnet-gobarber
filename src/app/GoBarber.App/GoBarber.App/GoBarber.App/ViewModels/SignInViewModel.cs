@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace GoBarber.App.ViewModels
 {
-    public class SignInViewModel: BaseViewModel
+    public class SignInViewModel : BaseViewModel
     {
         private IRoutingService _navigationService;
 
@@ -26,7 +26,16 @@ namespace GoBarber.App.ViewModels
 
         private void Login()
         {
-            // This is where you would probably check the login and only if valid do the navigation...
+            if (string.IsNullOrEmpty(Email))
+            {
+                //await Application.Current.MainPage.DisplayAlert("AA", "BB", "Ok");
+            }
+
+            if (string.IsNullOrEmpty(Password))
+            {
+
+            }
+
             _navigationService.NavigateTo("///main/home");
         }
 

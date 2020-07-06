@@ -18,6 +18,11 @@ namespace GoBarber.App.Views.Authentication
         {
             InitializeComponent();
             BindingContext = ViewModel;
+
+            MessagingCenter.Subscribe<SignIn>(this, "DisplayAlert", (message) =>
+            {
+                DisplayAlert("", message.ToString(), "Ok");
+            });
         }
 
         internal SignInViewModel ViewModel { get; set; } = Locator.Current.GetService<SignInViewModel>();

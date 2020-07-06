@@ -10,11 +10,7 @@
     <ContentPage.Resources></ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="16" Margin="16,32">
-            <Frame>
-                <Label Text="Welcome to Xamarin.Forms Shell Login!!" HorizontalTextAlignment="Center" FontSize="Title" />
-            </Frame>
-            <!--<Entry Text="{Binding Username}" Placeholder="Username" />
-            <Entry Text="{Binding Password}" Placeholder="Password" />-->
+            <svg:SvgCachedImage Source="logo.png" WidthRequest="150" HeightRequest="150" />
             <LayoutComponents:EntryComponent Placeholder="E-mail" PlaceholderColor="{StaticResource PrimaryColor}"
                     EntryIsPassword="False" EntryText="{Binding Email}" />
             <LayoutComponents:EntryComponent Placeholder="Password" PlaceholderColor="{StaticResource PrimaryColor}"
@@ -26,8 +22,8 @@
                     <TapGestureRecognizer Command="{Binding ExecuteRegistration}" />
                 </Label.GestureRecognizers>
             </Label>
-            <svg:SvgCachedImage Source="lock.svg" WidthRequest="50" HeightRequest="50" />
-            <svg:SvgCachedImage Source="logout.svg" WidthRequest="50" HeightRequest="50" />
+            <!--<svg:SvgCachedImage Source="lock.svg" WidthRequest="50" HeightRequest="50" />
+            <svg:SvgCachedImage Source="logout.svg" WidthRequest="50" HeightRequest="50" />-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

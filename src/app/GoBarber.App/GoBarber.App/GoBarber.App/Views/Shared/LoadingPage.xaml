@@ -8,13 +8,11 @@
              Shell.FlyoutBehavior="Disabled"
              Shell.TabBarIsVisible="False"
              Shell.PresentationMode="ModalAnimated"
-             x:Class="GoBarber.App.Views.Shared.LoadingPage">
+             x:Class="GoBarber.App.Views.Shared.LoadingPage" BackgroundColor="#28262e">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <ActivityIndicator Color="Accent" IsRunning="True" IsVisible="True" />
                 <Label Text="Loading ..." />
             </StackLayout>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
